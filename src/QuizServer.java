@@ -16,7 +16,7 @@ public class QuizServer {
 
     public static void main(String[] args) throws IOException {
 
-        int portNumber = 44444;
+        int portNumber = 55555;
 
         try (
                 ServerSocket serverSocket = new ServerSocket(portNumber);
