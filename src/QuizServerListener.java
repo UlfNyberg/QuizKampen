@@ -15,9 +15,16 @@ public class QuizServerListener {
         ServerSocket serverSocket = new ServerSocket(55555);
 
         while(true){
-            final Socket clientSocket = serverSocket.accept();
-            QuizHandler clientHandler = new QuizHandler(clientSocket);
-            clientHandler.start();
+            QuizGame quizGame = new QuizGame();
+
+            ServerQuizPlayer serverPlayerOne = new ServerQuizPlayer(serverSocket.accept(),quizGame);
+            ServerQuizPlayer serverPlayerTwo = new ServerQuizPlayer(serverSocket.accept(),quizGame);
+
+            serverPlayerOne.addOpponent(serverPlayerTwo);
+            serverPlayerTwo.addOpponent(serverPlayerOne);
+
+            serverPlayerOne.start();
+            serverPlayerTwo.start();
 
         }
 
