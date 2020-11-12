@@ -10,9 +10,6 @@ public class QuizProtocol {
     private static final int WAITING = 0;
     private static final int SENTRIDDLE = 1;
     private static final int SENTANSWER = 2;
-    //private static final int ANOTHER = 3;
-
-    private static final int NUMJOKES = 3;
 
     private int state = WAITING;
     private int currentRiddle = 0;
@@ -33,7 +30,7 @@ public class QuizProtocol {
             if (theInput.equalsIgnoreCase(answers[currentRiddle])) {
                 theOutput = "Rätt!";
             } else {
-                theOutput = "Fel!";;
+                theOutput = "Fel!";
             } state = SENTANSWER;
             currentRiddle++;
         }

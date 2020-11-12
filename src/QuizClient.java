@@ -14,16 +14,16 @@ import java.net.UnknownHostException;
  */
 public class QuizClient {
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
 
-        String hostName = "127.0.0.1"; //localhost
-        int portNumber = 55555;
+        String hostName = "192.168.1.45"; //localhost
+        int portNumber = 44444;
 
         try (
                 Socket kkSocket = new Socket(hostName, portNumber);
                 PrintWriter out = new PrintWriter(kkSocket.getOutputStream(), true);
                 BufferedReader in = new BufferedReader(
-                        new InputStreamReader(kkSocket.getInputStream()));
+                        new InputStreamReader(kkSocket.getInputStream()))
         ) {
 
             BufferedReader stdIn =
@@ -49,6 +49,7 @@ public class QuizClient {
         } catch (IOException e) {
             System.err.println("Couldn't get I/O for the connection to " +
                     hostName);
+            e.printStackTrace();
             System.exit(1);
         }
     }

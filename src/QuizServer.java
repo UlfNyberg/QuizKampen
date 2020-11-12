@@ -14,7 +14,7 @@ import java.net.Socket;
  */
 public class QuizServer {
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
 
         int portNumber = 44444;
 
@@ -24,7 +24,7 @@ public class QuizServer {
                 PrintWriter out =
                         new PrintWriter(clientSocket.getOutputStream(), true);
                 BufferedReader in = new BufferedReader(
-                        new InputStreamReader(clientSocket.getInputStream()));
+                        new InputStreamReader(clientSocket.getInputStream()))
         ) {
             String inputLine, outputLine;
 
