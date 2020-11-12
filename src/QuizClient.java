@@ -16,8 +16,8 @@ public class QuizClient {
 
     public static void main(String[] args) {
 
-        String hostName = "192.168.1.45"; //localhost
-        int portNumber = 44444;
+        String hostName = "127.0.0.1"; //localhost
+        int portNumber = 55555;
 
         try (
                 Socket kkSocket = new Socket(hostName, portNumber);
