@@ -1,5 +1,9 @@
 package QuestionsAndAnswers;
 
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by Elliot Åberg Fält
  * Date: 2020-11-12
@@ -7,22 +11,31 @@ package QuestionsAndAnswers;
  * Project: QuizKampen
  * Copyright: MIT
  */
-public class Question {
+public class Question implements Serializable {
     private String question;
-    Answer answer1;
-    Answer answer2;
-    Answer answer3;
-    Answer answer4;
+    List<Answer> answers;
 
-    public Question(String question, Answer answer1, Answer answer2, Answer answer3, Answer answer4) {
+    public Question() {}
+
+    public Question(String question) {
         this.question = question;
-        this.answer1 = answer1;
-        this.answer2 = answer2;
-        this.answer3 = answer3;
-        this.answer4 = answer4;
+        answers = new ArrayList<>();
     }
 
     public String getQuestion() {
+        return question;
+    }
+
+    public List<Answer> getAnswers() {
+        return answers;
+    }
+
+    public void addAnswer(Answer answer) {
+        answers.add(answer);
+    }
+
+    @Override
+    public String toString() {
         return question;
     }
 }

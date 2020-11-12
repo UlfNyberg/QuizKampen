@@ -1,5 +1,7 @@
 package QuestionsAndAnswers;
 
+import java.io.Serializable;
+
 /**
  * Created by Elliot Åberg Fält
  * Date: 2020-11-12
@@ -7,13 +9,13 @@ package QuestionsAndAnswers;
  * Project: QuizKampen
  * Copyright: MIT
  */
-public class Answer {
+public class Answer implements Serializable {
     String text;
     boolean correct;
 
-    public Answer(String text, boolean correct) {
+    public Answer(String text) {
         this.text = text;
-        this.correct = correct;
+        this.correct = false;
     }
 
     public String getText() {
@@ -24,4 +26,12 @@ public class Answer {
         return correct;
     }
 
+    public void setCorrect() {
+        this.correct = true;
+    }
+
+    @Override
+    public String toString() {
+        return text;
+    }
 }

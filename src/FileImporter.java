@@ -1,0 +1,78 @@
+import QuestionsAndAnswers.Answer;
+import QuestionsAndAnswers.Question;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.*;
+
+/**
+ * Created by Elliot Åberg Fält
+ * Date: 2020-11-12
+ * Time: 15:32
+ * Project: QuizKampen
+ * Copyright: MIT
+ */
+public class FileImporter {
+    private BufferedReader br;
+    private TreeMap<String, List<Question>> treeMap;
+
+    public FileImporter() {
+        treeMap = new TreeMap<>();
+    }
+
+    public void readFile() {
+        try {
+            br = new BufferedReader(new FileReader("QuestionsAndAnswers.txt"));
+            List<Question> list = new ArrayList<>();
+            String line;
+            String questionText = "";
+            Question question = new Question();
+            while ((line = br.readLine()) != null) {
+                String startOfLine = line.substring(2);
+                switch (line.charAt(0)) {
+                    case 'K':
+                        list = new ArrayList<>();
+                        treeMap.put(startOfLine, list);
+                        break;
+                    case 'Q':
+                        question = new Question(startOfLine);
+                        break;
+                    case 'A':
+                        String[] answers = startOfLine.split(", ");
+                        for (String answer : answers) {
+                            question.addAnswer(new Answer(answer));
+                        }
+                        list.add(question);
+                        break;
+                    case 'S':
+                        for (Question question1 : list) {
+                            for(Answer answer : question1.getAnswers()) {
+                                if (answer.getText().equalsIgnoreCase(startOfLine)) {
+                                    answer.setCorrect();
+                                }
+                            }
+                        }
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("Kan inte avläsa filen");
+            System.exit(1);
+        }
+    }
+    public void printMap() {
+        for (Map.Entry<String, List<Question>> entry : treeMap.entrySet()) {
+            System.out.println("Kategori: " + entry.getKey() + ". Frågor: ");
+            for (Question question : entry.getValue()) {
+                System.out.println(question + " Svar: ");
+                for (Answer answer : question.getAnswers()) {
+                    if (answer.isCorrect()) {
+                        System.out.println(answer + "(Rätt)");
+                    } else {
+                        System.out.println(answer);
+                    }
+                }
+            }
+        }
+    }
+}
