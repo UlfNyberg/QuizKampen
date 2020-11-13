@@ -13,7 +13,7 @@ import java.util.List;
  */
 public class Question implements Serializable {
     private String question;
-    List<Answer> answers;
+    private List<Answer> answers;
 
     public Question() {}
 
