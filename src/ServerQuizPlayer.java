@@ -42,8 +42,7 @@ public class ServerQuizPlayer extends Thread {
                 out.println(outputLine);
                 //if (outputLine.equals("Bye.")) break;
             }
-        } catch (
-                IOException e) {
+        } catch (IOException e) {
             System.out.println("Cannot connect I/O");
             System.out.println(e.getMessage());
 
