@@ -17,11 +17,11 @@ public class QuizGame extends Thread {
 
     public QuizGame(){
 
-        question = new Question("Vad heter jag?");
-        question.addAnswer(new Answer("Peter"));
-        question.addAnswer(new Answer("Elliot"));
-        question.addAnswer(new Answer("Ulf"));
-        question.addAnswer(new Answer("Lis"));
+        question = new Question("Vem är kungen i djungeln?");
+        question.addAnswer(new Answer("Jesus"));
+        question.addAnswer(new Answer("Mohammed"));
+        question.addAnswer(new Answer("Ghandi"));
+        question.addAnswer(new Answer("Buddah"));
         question.getAnswers().get(0).setCorrect();
 
     }
@@ -29,6 +29,8 @@ public class QuizGame extends Thread {
     public Object processInput(Object inputObject) {
 
         Object theOutput = null;
+        int questionIndex = 0;
+        int round = 0;
 
         //TODO: ordningen på states
 
@@ -37,13 +39,13 @@ public class QuizGame extends Thread {
             state = WAITINGFORANSWER;
 
         } else if(state == WAITINGFORANSWER) {
-            state = WAITINGFORCONTINUE;
             if (((Answer) inputObject).isCorrect()) {
                 //TODO:sätta listor med rätt/fel
                 theOutput = true;
             } else {
                 theOutput = false;
             }
+            state = WAITINGFORCONTINUE;
 
         }else if(state == WAITINGFORCONTINUE){
             //TODO: vänta på att användaren klickar på nästa
