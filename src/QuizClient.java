@@ -20,6 +20,7 @@ public class QuizClient {
 
         try (
                 Socket kkSocket = new Socket(hostName, portNumber);
+
                 PrintWriter out = new PrintWriter(kkSocket.getOutputStream(), true);
                 BufferedReader in = new BufferedReader(
                         new InputStreamReader(kkSocket.getInputStream()))
