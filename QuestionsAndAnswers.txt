@@ -1,0 +1,49 @@
+K Tv-Spel
+Q När släpptes spelet “Starcraft”?
+A 1996, 1997, 1998, 1999
+S 1998
+Q Vad är Mario och Luigis relation?
+A Bröder, Vänner, Ett par, Far och son
+S Bröder
+K Film
+Q Vilken karaktär har flest on-screen kills i Sagan om ringen trilogin?
+A Boromir, Legolas, Gimli, Frodo
+S Legolas
+Q Vilken skådespelare var erbjuden men tackade nej till rollen som Han Solo i Star Wars?
+A Sylvester Stallone, Al Pacino, Bruce Willis, Roger Moore
+S Al Pacino
+Q Vem har rekordet för flest nomineringar av titlen Sämsta skådespelare på Razzies-galan?
+A Arnold Schwarzenegger, Sylvester Stallone, Nicolas Cage, Kevin Costner
+S Sylvester Stallone
+Q Från vilket land ska Sacha Baron Cohen's karaktär 'Borat' komma ifrån?
+A Afghanistan, Azerbaijan, Kazakhstan, Uzbekistan
+S Kazakhstan
+Q Vad hette ön där King Kong upptäcktes i originalfilmen från 1933?
+A Ape Island, Borneo, Monster Island, Skull Island
+S Skull Island
+K Djur och natur
+Q Hur många muskler har elefanten i sin snabel?
+A Cirka 100 000 olika muskler, 50 000 olika muskler, Cirka 150 000 olika muskler, 200 000 olika muskler.
+S Cirka 150 000 olika muskler
+Q På 1200-talet utvecklades många redskap som förenklade jordbruket. Vilket av följande uppfanns då?
+A Traktor, Slåttermaskin, Plog, Skördetröska
+S Plog
+Q Vilket är världens största djur?
+A Blåval, Elefant, Gråval, vithaj
+S Blåval
+Q Vilken av följande raser kan inte skälla?
+A Pinscher, Basenji, Siberian husky, Amstaff
+S Basenji
+K Vetenskap
+Q 2019 godkändes ett nytt antidepressivt läkemedel. Vad har det använts vid tidigare?
+A Narkos, Kejsarsnitt, Benbrott, förmaksflimmer
+S Narkos
+Q Det periodiska systemet fyllde 150 år. Vem skapade det?
+A Albert Einstein, Sigmund Freud, Dmitrij Mendelejev, James Clerk Maxwell
+S Dmitrij Mendelejev
+Q  2019 var det 50 år sedan det första meddelandet skickades via internet. Vad stod det?
+A HELLO WORLD, YO, LO, FINALLY
+S LO
+Q Psykologiprofessorn Hans Eysencks forskningsfusk avslöjades. Vad hävdade han var en större riskfaktor för cancer än rökning?
+A Personlighet, Fetma, Låg intelligens, Synnedsättning
+S Personlighet
