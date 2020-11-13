@@ -34,3 +34,16 @@ S Blåval
 Q Vilken av följande raser kan inte skälla?
 A Pinscher, Basenji, Siberian husky, Amstaff
 S Basenji
+K Vetenskap
+Q 2019 godkändes ett nytt antidepressivt läkemedel. Vad har det använts vid tidigare?
+A Narkos, Kejsarsnitt, Benbrott, förmaksflimmer
+S Narkos
+Q Det periodiska systemet fyllde 150 år. Vem skapade det?
+A Albert Einstein, Sigmund Freud, Dmitrij Mendelejev, James Clerk Maxwell
+S Dmitrij Mendelejev
+Q  2019 var det 50 år sedan det första meddelandet skickades via internet. Vad stod det?
+A HELLO WORLD, YO, LO, FINALLY
+S LO
+Q Psykologiprofessorn Hans Eysencks forskningsfusk avslöjades. Vad hävdade han var en större riskfaktor för cancer än rökning?
+A Personlighet, Fetma, Låg intelligens, Synnedsättning
+S Personlighet
