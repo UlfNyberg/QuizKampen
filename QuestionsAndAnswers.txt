@@ -5,3 +5,23 @@ S 1998
 Q Vad är Mario och Luigis relation?
 A Bröder, Vänner, Ett par, Far och son
 S Bröder
+K Film
+Q Vilken karaktär har flest on-screen kills i Sagan om ringen trilogin?
+A Boromir, Legolas, Gimli, Frodo
+S Legolas
+K Film
+Q Vilken skådespelare var erbjuden men tackade nej till rollen som Han Solo i Star Wars?
+A Sylvester Stallone, Al Pacino, Bruce Willis, Roger Moore
+S Al Pacino
+K Film
+Q Vem har rekordet för flest nomineringar av titlen Sämsta skådespelare på Razzies-galan?
+A Arnold Schwarzenegger, Sylvester Stallone, Nicolas Cage, Kevin Costner
+S Sylvester Stallone
+K Film
+Q Från vilket land ska Sacha Baron Cohen's karaktär 'Borat' komma ifrån?
+A Afghanistan, Azerbaijan, Kazakhstan, Uzbekistan
+S Kazakhstan
+K Film
+Q Vad hette ön där King Kong upptäcktes i originalfilmen från 1933?
+A Ape Island, Borneo, Monster Island, Skull Island
+S Skull Island
