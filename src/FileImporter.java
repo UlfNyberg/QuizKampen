@@ -15,25 +15,26 @@ import java.util.*;
  */
 public class FileImporter {
     private BufferedReader br;
-    private TreeMap<String, List<Question>> treeMap;
+    private LinkedHashMap<String, List<Question>> categories;
+    private String fileName;
 
-    public FileImporter() {
-        treeMap = new TreeMap<>();
+    public FileImporter(String fileName) {
+        categories = new LinkedHashMap<>();
+        this.fileName = fileName;
     }
 
     public void readFile() {
         try {
-            br = new BufferedReader(new FileReader("QuestionsAndAnswers.txt"));
+            br = new BufferedReader(new FileReader(fileName));
             List<Question> list = new ArrayList<>();
             String line;
-            String questionText = "";
             Question question = new Question();
             while ((line = br.readLine()) != null) {
                 String startOfLine = line.substring(2);
                 switch (line.charAt(0)) {
                     case 'K':
                         list = new ArrayList<>();
-                        treeMap.put(startOfLine, list);
+                        categories.put(startOfLine, list);
                         break;
                     case 'Q':
                         question = new Question(startOfLine);
@@ -60,8 +61,11 @@ public class FileImporter {
             System.exit(1);
         }
     }
+
+    //For testing
+    //Prints the entire map, including the values inside of the lists
     public void printMap() {
-        for (Map.Entry<String, List<Question>> entry : treeMap.entrySet()) {
+        for (Map.Entry<String, List<Question>> entry : categories.entrySet()) {
             System.out.println("Kategori: " + entry.getKey() + ". Frågor: ");
             for (Question question : entry.getValue()) {
                 System.out.println(question + " Svar: ");
