@@ -27,6 +27,5 @@ public class QuizServerListener {
             serverPlayerTwo.start();
 
         }
-
-
-}}
+    }
+}
