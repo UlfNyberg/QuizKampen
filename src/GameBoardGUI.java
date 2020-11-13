@@ -26,6 +26,9 @@ public class GameBoardGUI extends JFrame {
     JPanel fråganPanel = new JPanel();
     JPanel poängPanel = new JPanel();
     JPanel bottenKnappPanel = new JPanel();
+    JPanel mellanrumsPanel = new JPanel();
+    JPanel mellanrumsPanel2 = new JPanel();
+    JPanel mellanrumsPanel3 = new JPanel();
 
     Font font1 = new Font("SansSerif", Font.BOLD, 20);
     Font font2 = new Font("Monospace", Font.BOLD, 30);
@@ -56,9 +59,15 @@ public class GameBoardGUI extends JFrame {
     JLabel kategori3Label = new JLabel("Djur & Natur");
     JLabel kategori4Label = new JLabel("Science");
 
-    JLabel fråganTestLabel = new JLabel("Fråga:\n" +" Vilken relation har Mario och Luigi...egentligen?");
+    JLabel frågaStatiskLabel =  new JLabel("Fråga:");
+    JLabel fråganTestLabel = new JLabel("Vilken relation har Mario och Luigi...egentligen?");
 
     JLabel SpelNamn = new JLabel("Quiz Game");
+
+    //JTextField scoreInputAnvändare1 = new JTextField();
+    //JTextField scoreInputAnvändare2 = new JTextField();
+    JPanel scoreInputAnvändare1 = new JPanel();
+    JPanel scoreInputAnvändare2 = new JPanel();
 
 
 
@@ -70,6 +79,7 @@ public class GameBoardGUI extends JFrame {
         fråganTestLabel.setFont(font3);
         poängSpelare1.setFont(font3);
         poängSpelare2.setFont(font3);
+        frågaStatiskLabel.setFont(font1);
         //setLayout(new FlowLayout());
         //setLayout(new GridLayout(4,2));
         grundPanel.setLayout(new BorderLayout());
@@ -84,9 +94,14 @@ public class GameBoardGUI extends JFrame {
         namnPåAnvändarePanel.add(användare1Label); //SwingConstants.LEFT
         namnPåAnvändarePanel.add(mellanrum);
         namnPåAnvändarePanel.add(användare2Label);  //SwingConstants.RIGHT
+        poängPanel.setLayout(new GridLayout(1,7));
+        poängPanel.add(mellanrumsPanel);
         poängPanel.add((poängSpelare1));
-        //namnPåAnvändarePanel.add(mellanrum);
+        poängPanel.add(scoreInputAnvändare1);
+        poängPanel.add(mellanrumsPanel2);
         poängPanel.add(poängSpelare2);
+        poängPanel.add(scoreInputAnvändare2);
+        poängPanel.add(mellanrumsPanel3);
 
 
         //panel3.add(button5, BorderLayout.SOUTH);
@@ -100,7 +115,9 @@ public class GameBoardGUI extends JFrame {
         kategoriPanel.add(kategoriLabel);
         kategoriPanel.add(katerogi1Label);
         centerPanel.add(fråganPanel, BorderLayout.CENTER, SwingConstants.CENTER );
-        fråganPanel.add(fråganTestLabel);
+        fråganPanel.setLayout(new GridLayout(2,1));
+        fråganPanel.add(frågaStatiskLabel, BorderLayout.NORTH);
+        fråganPanel.add(fråganTestLabel, BorderLayout.CENTER);
 
 
 
@@ -113,8 +130,15 @@ public class GameBoardGUI extends JFrame {
         svarsAlternativPanel.add(valAvSvar3);
         svarsAlternativPanel.add(valAvSvar4);
         sydPanel.add(bottenKnappPanel, BorderLayout.SOUTH);
+        bottenKnappPanel.setLayout(new FlowLayout());
+
         bottenKnappPanel.add(fortsättButton);
-        //panel6.setLocation(null);
+        fortsättButton.setPreferredSize(new Dimension(360,40));
+        valAvSvar1.setPreferredSize(new Dimension(180,100));
+        valAvSvar3.setPreferredSize(new Dimension(180,100));
+        valAvSvar2.setPreferredSize(new Dimension(180,100));
+        valAvSvar4.setPreferredSize(new Dimension(180,100));
+        fråganPanel.setPreferredSize(new Dimension(320,100)); ////
         kategoriPanel.setSize(1000,1000);
 
 
@@ -128,7 +152,9 @@ public class GameBoardGUI extends JFrame {
          */
 
         setTitle("Quiz Game");
-        setSize(400,600);
+        this.setSize(400,600);
+        //bottenKnappPanel.setPreferredSize(new Dimension(400, 200));
+
         grundPanel.setBackground( Color.PINK );
         centerPanel.setBackground( Color.PINK );
         sydPanel.setBackground( Color.PINK );
@@ -139,7 +165,12 @@ public class GameBoardGUI extends JFrame {
         bottenKnappPanel.setBackground( Color.PINK );
         titelPanel.setBackground( Color.PINK );
         poängPanel.setBackground( Color.PINK);
+        scoreInputAnvändare1.setBackground(Color.WHITE);
+        scoreInputAnvändare2.setBackground(Color.WHITE);
         namnPåAnvändarePanel.setBackground( Color.PINK );
+        mellanrumsPanel.setBackground( Color.PINK);
+        mellanrumsPanel2.setBackground( Color.PINK);
+        mellanrumsPanel3.setBackground( Color.PINK);
         fråganPanel.setBackground(Color.WHITE);
         fråganPanel.setBorder(BorderFactory.createLineBorder(Color.black));
         //pack();
