@@ -14,10 +14,18 @@ public class QuizServerListener {
     public static void main(String[] args) throws IOException {
         ServerSocket serverSocket = new ServerSocket(55555);
 
-        while (true) {
-            final Socket clientSocket = serverSocket.accept();
-            QuizHandler clientHandler = new QuizHandler(clientSocket);
-            clientHandler.start();
+        while(true){
+            QuizGame quizGame = new QuizGame();
+
+            ServerQuizPlayer serverPlayerOne = new ServerQuizPlayer(serverSocket.accept(),quizGame);
+            ServerQuizPlayer serverPlayerTwo = new ServerQuizPlayer(serverSocket.accept(),quizGame);
+
+            serverPlayerOne.addOpponent(serverPlayerTwo);
+            serverPlayerTwo.addOpponent(serverPlayerOne);
+
+            serverPlayerOne.start();
+            serverPlayerTwo.start();
+
         }
     }
 }
