@@ -23,10 +23,10 @@ A Ape Island, Borneo, Monster Island, Skull Island
 S Skull Island
 K Djur och natur
 Q Hur många muskler har elefanten i sin snabel?
-A Cirka 100 000 olika muskler, 50 000 olika muskler,Cirka 150 000 olika muskler,200 000 olika muskler.
+A Cirka 100 000 olika muskler, 50 000 olika muskler, Cirka 150 000 olika muskler, 200 000 olika muskler.
 S Cirka 150 000 olika muskler
 Q På 1200-talet utvecklades många redskap som förenklade jordbruket. Vilket av följande uppfanns då?
-A Traktor, Slåttermaskin,Plog,Skördetröska
+A Traktor, Slåttermaskin, Plog, Skördetröska
 S Plog
 Q Vilket är världens största djur?
 A Blåval, Elefant, Gråval, vithaj
