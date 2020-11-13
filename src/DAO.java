@@ -6,4 +6,5 @@
  * Copyright: MIT
  */
 public class DAO {
+
 }
