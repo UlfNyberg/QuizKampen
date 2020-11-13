@@ -47,11 +47,9 @@ public class FileImporter {
                         list.add(question);
                         break;
                     case 'S':
-                        for (Question question1 : list) {
-                            for(Answer answer : question1.getAnswers()) {
-                                if (answer.getText().equalsIgnoreCase(startOfLine)) {
-                                    answer.setCorrect();
-                                }
+                        for (Answer answer : question.getAnswers()) {
+                            if (answer.getText().equalsIgnoreCase(startOfLine)) {
+                                answer.setCorrect();
                             }
                         }
                 }
