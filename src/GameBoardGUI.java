@@ -187,7 +187,7 @@ public class GameBoardGUI extends JFrame implements Runnable {
 
     public void run() {
         String hostName = "127.0.0.1"; //localhost
-        int portNumber = 55555;
+        int portNumber = 11111;
         try (
                 Socket kkSocket = new Socket (hostName, portNumber);
                 ObjectInputStream in = new ObjectInputStream (

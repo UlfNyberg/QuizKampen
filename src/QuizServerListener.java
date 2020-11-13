@@ -12,7 +12,7 @@ import java.net.Socket;
 public class QuizServerListener {
 
     public static void main(String[] args) throws IOException {
-        ServerSocket serverSocket = new ServerSocket(55555);
+        ServerSocket serverSocket = new ServerSocket(11111);
 
         while(true){
             QuizGame quizGame = new QuizGame();
