@@ -194,11 +194,8 @@ public class GameBoardGUI extends JFrame implements Runnable {
                         kkSocket.getInputStream ())
         ) {
             out = new ObjectOutputStream (kkSocket.getOutputStream ());
-            BufferedReader stdIn =
-                    new BufferedReader (new InputStreamReader (System.in));
 
             Object fromServer;
-            String fromUser;
 
             while ((fromServer = in.readObject ()) != null) {
                 if(fromServer instanceof Question){

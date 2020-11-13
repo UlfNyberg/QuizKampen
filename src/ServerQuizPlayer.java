@@ -39,7 +39,6 @@ public class ServerQuizPlayer extends Thread {
         try (ObjectInputStream objectInputStream = new ObjectInputStream(socket.getInputStream())) {
 
             //TODO: kolla om initieringen blir i rätt ordning. vem börjar kommunikationen?
-            quizGame.processInput(null);
 
             while ((inputObject = objectInputStream.readObject()) != null) {
                 if (inputObject instanceof Answer) {

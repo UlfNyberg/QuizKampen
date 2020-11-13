@@ -23,9 +23,10 @@ public class QuizServerListener {
             serverPlayerOne.addOpponent(serverPlayerTwo);
             serverPlayerTwo.addOpponent(serverPlayerOne);
 
+
             serverPlayerOne.start();
             serverPlayerTwo.start();
-
+            quizGame.processInput(null);
         }
     }
 }
