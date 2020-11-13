@@ -13,7 +13,6 @@ import java.net.Socket;
  */
 public class ServerQuizPlayer extends Thread {
 
-
     private Socket socket;
     private PrintWriter out;
     private BufferedReader in;
@@ -33,12 +32,11 @@ public class ServerQuizPlayer extends Thread {
             String inputLine, outputLine;
 
             // Initiate conversation with client
-            QuizProtocol kkp = new QuizProtocol();
-            outputLine = kkp.processInput(null);
+            outputLine = quizGame.processInput(null);
             out.println(outputLine);
 
             while ((inputLine = in.readLine()) != null) {
-                outputLine = kkp.processInput(inputLine);
+                outputLine = quizGame.processInput(inputLine);
                 out.println(outputLine);
                 //if (outputLine.equals("Bye.")) break;
             }
