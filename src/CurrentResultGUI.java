@@ -12,7 +12,63 @@ public class CurrentResultGUI extends JFrame {
 
     //ImageIcon image = new ImageIcon("  ");
     JFrame frame = new JFrame("Quiz Game");
+
     JPanel panel3 = new JPanel();
+    JPanel panel4 = new JPanel();
+
+    JPanel firstPanel = new JPanel();
+    JPanel gameNamePanel = new JPanel();
+    JPanel playerScoreAndNamePanel = new JPanel();
+    JPanel firstRoundLongPanel = new JPanel();
+    JPanel secondRoundLongPanel = new JPanel();
+    JPanel thirdRoundLongPanel = new JPanel();
+    JPanel fourthRoundLongPanel = new JPanel();
+    JPanel bottomOfScreenPanel = new JPanel();
+    //JPanel firstPanel = new JPanel();
+    //JPanel firstPanel = new JPanel();
+    //JPanel firstPanel = new JPanel();
+
+    JPanel player1Round1Question1Panel = new JPanel();
+    JPanel player1Round1Question2Panel = new JPanel();
+    JPanel player1Round1Question3Panel = new JPanel();
+
+    JPanel player1Round2Question1Panel = new JPanel();
+    JPanel player1Round2Question2Panel = new JPanel();
+    JPanel player1Round2Question3Panel = new JPanel();
+
+    JPanel player1Round3Question1Panel = new JPanel();
+    JPanel player1Round3Question2Panel = new JPanel();
+    JPanel player1Round3Question3Panel = new JPanel();
+
+    JPanel player1Round4Question1Panel = new JPanel();
+    JPanel player1Round4Question2Panel = new JPanel();
+    JPanel player1Round4Question3Panel = new JPanel();
+
+    JPanel categoryAndRound1Panel = new JPanel();
+    JPanel categoryAndRound2Panel = new JPanel();
+    JPanel categoryAndRound3Panel = new JPanel();
+    JPanel categoryAndRound4Panel = new JPanel();
+
+    JPanel player2Round1Question1Panel = new JPanel();
+    JPanel player2Round1Question2Panel = new JPanel();
+    JPanel player2Round1Question3Panel = new JPanel();
+
+    JPanel player2Round2Question1Panel = new JPanel();
+    JPanel player2Round2Question2Panel = new JPanel();
+    JPanel player2Round2Question3Panel = new JPanel();
+
+    JPanel player2Round3Question1Panel = new JPanel();
+    JPanel player2Round3Question2Panel = new JPanel();
+    JPanel player2Round3Question3Panel = new JPanel();
+
+    JPanel player2Round4Question1Panel = new JPanel();
+    JPanel player2Round4Question2Panel = new JPanel();
+    JPanel player2Round4Question3Panel = new JPanel();
+
+
+
+
+
 
     JButton spelare1button1 = new JButton("neutral");
     JButton spelare1button2 = new JButton("neutral");
@@ -29,6 +85,8 @@ public class CurrentResultGUI extends JFrame {
     JButton spelare1button10 = new JButton("neutral");
     JButton spelare1button11 = new JButton("neutral");
     JButton spelare1button12 = new JButton("neutral");
+
+    JButton continue2Button = new JButton("Fortsätt");
 
     JLabel runda1Label = new JLabel("Runda 1");
     JLabel runda2Label = new JLabel("Runda 2");
@@ -53,9 +111,13 @@ public class CurrentResultGUI extends JFrame {
     JButton spelare2button11 = new JButton("neutral");
     JButton spelare2button12 = new JButton("neutral");
 
-    JLabel label1 = new JLabel("QUIZ GAME", SwingConstants.CENTER);
+    //////////////////////////////////
 
-    JPanel panel4 = new JPanel();
+    Font font1 = new Font("SansSerif", Font.BOLD, 20);
+    Font font2 = new Font("Monospace", Font.BOLD, 30);
+    Font font3 = new Font("SansSerif", Font.BOLD, 10);
+
+    JLabel label1 = new JLabel("QUIZ GAME", SwingConstants.CENTER);
 
     JLabel spelarNamnLabel = new JLabel("Ange ditt namn: ");
     JLabel portNrLabel = new JLabel("Ange ditt portnummer: ");
@@ -70,8 +132,26 @@ public class CurrentResultGUI extends JFrame {
     CurrentResultGUI(){
         //setLayout(new FlowLayout());
         //setLayout(new GridLayout(4,2));
-        panel3.setLayout(new BorderLayout());
-        add(panel3);
+        //  **** panel3.setLayout(new BorderLayout());
+        firstPanel.setLayout(new GridLayout(7,1));
+        //  **** add(panel3);
+        this.add(firstPanel);
+        firstPanel.add(gameNamePanel);
+        firstPanel.add(playerScoreAndNamePanel);
+        firstPanel.add(firstRoundLongPanel);
+        firstPanel.add(secondRoundLongPanel);
+        firstPanel.add(thirdRoundLongPanel);
+        firstPanel.add(fourthRoundLongPanel);
+        firstPanel.add(bottomOfScreenPanel);
+        gameNamePanel.setLayout(new GridLayout(1,1));
+        playerScoreAndNamePanel.setLayout(new GridLayout(1,3));
+        firstRoundLongPanel.setLayout(new GridLayout(1,5));
+        secondRoundLongPanel.setLayout(new GridLayout(1,5));
+        thirdRoundLongPanel.setLayout(new GridLayout(1,5));
+        fourthRoundLongPanel.setLayout(new GridLayout(1,5));
+        bottomOfScreenPanel.setLayout(new GridLayout(1,5));
+
+        /*
         //BorderLayout.NORTH(setLayout(new FlowLayout());
         panel3.add(label1, BorderLayout.NORTH);
         //panel3.add(button5, BorderLayout.SOUTH);
@@ -111,6 +191,17 @@ public class CurrentResultGUI extends JFrame {
         panel4.add(spelare2button11);
         panel4.add(spelare2button12);
 
+        spelare1button1.setPreferredSize(new Dimension(40,40));
+        spelare1button2.setPreferredSize(new Dimension(40,40));
+        spelare1button3.setPreferredSize(new Dimension(40,40));
+        spelare1button4.setPreferredSize(new Dimension(40,40));
+        spelare1button5.setPreferredSize(new Dimension(40,40));
+        spelare1button6.setPreferredSize(new Dimension(40,40));
+        spelare1button7.setPreferredSize(new Dimension(40,40));
+
+         */
+
+
         /*
         button1.addActionListener(this);
         button2.addActionListener(this);
@@ -118,10 +209,27 @@ public class CurrentResultGUI extends JFrame {
 
          */
 
+        runda1Label.setFont(font3);
+        runda2Label.setFont(font3);
+        runda3Label.setFont(font3);
+        runda4Label.setFont(font3);
         setTitle("Quiz Game");
         setSize(400,600);
         panel3.setBackground( Color.PINK );
         panel4.setBackground( Color.PINK );
+        gameNamePanel.setBackground( Color.PINK );
+        playerScoreAndNamePanel.setBackground( Color.PINK );
+        firstRoundLongPanel.setBackground(Color.LIGHT_GRAY);
+        firstRoundLongPanel.setBorder(BorderFactory.createLineBorder(Color.BLUE));
+        secondRoundLongPanel.setBackground(Color.WHITE);
+        secondRoundLongPanel.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
+        thirdRoundLongPanel.setBackground(Color.WHITE);
+        thirdRoundLongPanel.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
+        fourthRoundLongPanel.setBackground(Color.WHITE);
+        fourthRoundLongPanel.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
+        bottomOfScreenPanel.setBackground(Color.PINK);
+        bottomOfScreenPanel.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
+        continue2Button.setPreferredSize(new Dimension(360,40));
         //pack();
         setLocationRelativeTo(null);
         setVisible(true);
