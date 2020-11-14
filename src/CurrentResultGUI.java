@@ -18,7 +18,10 @@ public class CurrentResultGUI extends JFrame {
 
     JPanel firstPanel = new JPanel();
     JPanel gameNamePanel = new JPanel();
-    JPanel playerScoreAndNamePanel = new JPanel();
+    JPanel playerInfoLongPanel = new JPanel();
+    JPanel playerInfoSpaceFillerLongPanel = new JPanel();
+    JPanel playerScorePanel = new JPanel();
+    JPanel playerNamePanel = new JPanel();
     JPanel firstRoundLongPanel = new JPanel();
     JPanel secondRoundLongPanel = new JPanel();
     JPanel thirdRoundLongPanel = new JPanel();
@@ -64,6 +67,15 @@ public class CurrentResultGUI extends JFrame {
     JPanel player2Round4Question1Panel = new JPanel();
     JPanel player2Round4Question2Panel = new JPanel();
     JPanel player2Round4Question3Panel = new JPanel();
+
+
+    JPanel spacefiller1Panel = new JPanel();
+    JPanel spacefiller2Panel = new JPanel();
+    JPanel spacefiller3Panel = new JPanel();
+    JPanel spacefiller4Panel = new JPanel();
+    JPanel spacefiller5Panel = new JPanel();
+    JPanel spacefiller6Panel = new JPanel();
+    JPanel spacefiller7Panel = new JPanel();
 
 
 
@@ -117,19 +129,22 @@ public class CurrentResultGUI extends JFrame {
     Font font2 = new Font("Monospace", Font.BOLD, 30);
     Font font3 = new Font("SansSerif", Font.BOLD, 10);
 
-    JLabel label1 = new JLabel("QUIZ GAME", SwingConstants.CENTER);
+    JLabel gameNameLabel = new JLabel("QUIZ GAME", SwingConstants.CENTER);
+    JLabel player1NameLabel = new JLabel("Spelare1");
+    JLabel player2NameLabel = new JLabel("Spelare2");
+    JLabel currentPointsPlayer1label = new JLabel("PoängSpelare1");
+    JLabel currentPointsPlayer2label = new JLabel("PoängSpelare2");
 
     JLabel spelarNamnLabel = new JLabel("Ange ditt namn: ");
     JLabel portNrLabel = new JLabel("Ange ditt portnummer: ");
     JLabel IPadressLabel = new JLabel("Ange ditt IP-nummer:");
 
-    JTextField  spelarNamnTextField = new JTextField("Ex. Mr. Burns", 15);
-    JTextField  portNrTextField = new JTextField("Ex. 12345", 15);
-    JTextField  IPAdressTextField = new JTextField("Ex. 207.0.0.1", 15);
-
 
 
     CurrentResultGUI(){
+        gameNameLabel.setFont(font2);
+        player1NameLabel.setFont(font1);
+        player2NameLabel.setFont(font1);
         //setLayout(new FlowLayout());
         //setLayout(new GridLayout(4,2));
         //  **** panel3.setLayout(new BorderLayout());
@@ -137,19 +152,37 @@ public class CurrentResultGUI extends JFrame {
         //  **** add(panel3);
         this.add(firstPanel);
         firstPanel.add(gameNamePanel);
-        firstPanel.add(playerScoreAndNamePanel);
+        firstPanel.add(playerInfoLongPanel);
         firstPanel.add(firstRoundLongPanel);
         firstPanel.add(secondRoundLongPanel);
         firstPanel.add(thirdRoundLongPanel);
         firstPanel.add(fourthRoundLongPanel);
         firstPanel.add(bottomOfScreenPanel);
         gameNamePanel.setLayout(new GridLayout(1,1));
-        playerScoreAndNamePanel.setLayout(new GridLayout(1,3));
+        playerInfoLongPanel.setLayout(new BorderLayout());
+        playerInfoLongPanel.add(playerNamePanel, BorderLayout.NORTH, SwingConstants.CENTER);
+        playerNamePanel.setLayout(new GridLayout(1, 5));
+        playerInfoLongPanel.add(playerScorePanel, BorderLayout.CENTER, SwingConstants.CENTER);
+        playerScorePanel.setLayout(new GridLayout(1,5));
+        playerInfoLongPanel.add(playerInfoSpaceFillerLongPanel, BorderLayout.SOUTH, SwingConstants.CENTER);
         firstRoundLongPanel.setLayout(new GridLayout(1,5));
         secondRoundLongPanel.setLayout(new GridLayout(1,5));
         thirdRoundLongPanel.setLayout(new GridLayout(1,5));
         fourthRoundLongPanel.setLayout(new GridLayout(1,5));
-        bottomOfScreenPanel.setLayout(new GridLayout(1,5));
+        bottomOfScreenPanel.setLayout(new FlowLayout());
+        bottomOfScreenPanel.add(continue2Button);
+        gameNamePanel.add(gameNameLabel);
+        playerNamePanel.add(spacefiller1Panel);
+        playerNamePanel.add(player1NameLabel);
+        playerNamePanel.add(spacefiller2Panel);
+        playerNamePanel.add(player2NameLabel);
+        playerNamePanel.add(spacefiller3Panel);
+        playerScorePanel.add(spacefiller4Panel);
+        playerScorePanel.add(currentPointsPlayer1label);
+        playerScorePanel.add(spacefiller5Panel);
+        playerScorePanel.add(currentPointsPlayer2label);
+        playerScorePanel.add(spacefiller6Panel);
+
 
         /*
         //BorderLayout.NORTH(setLayout(new FlowLayout());
@@ -217,8 +250,17 @@ public class CurrentResultGUI extends JFrame {
         setSize(400,600);
         panel3.setBackground( Color.PINK );
         panel4.setBackground( Color.PINK );
+        spacefiller1Panel.setBackground( Color.PINK );
+        spacefiller2Panel.setBackground( Color.PINK );
+        spacefiller3Panel.setBackground( Color.PINK );
+        spacefiller4Panel.setBackground( Color.PINK );
+        spacefiller5Panel.setBackground( Color.PINK );
+        spacefiller6Panel.setBackground( Color.PINK );
         gameNamePanel.setBackground( Color.PINK );
-        playerScoreAndNamePanel.setBackground( Color.PINK );
+        playerNamePanel.setBackground( Color.PINK);
+        playerScorePanel.setBackground(Color.PINK);
+        playerInfoLongPanel.setBackground( Color.PINK );
+        playerInfoSpaceFillerLongPanel.setBackground(( Color.PINK));;
         firstRoundLongPanel.setBackground(Color.LIGHT_GRAY);
         firstRoundLongPanel.setBorder(BorderFactory.createLineBorder(Color.BLUE));
         secondRoundLongPanel.setBackground(Color.WHITE);
@@ -229,7 +271,8 @@ public class CurrentResultGUI extends JFrame {
         fourthRoundLongPanel.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
         bottomOfScreenPanel.setBackground(Color.PINK);
         bottomOfScreenPanel.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
-        continue2Button.setPreferredSize(new Dimension(360,40));
+        continue2Button.setPreferredSize(new Dimension(350,60));
+        bottomOfScreenPanel.setPreferredSize(new Dimension(400,80)); //resize funkar ej
         //pack();
         setLocationRelativeTo(null);
         setVisible(true);
