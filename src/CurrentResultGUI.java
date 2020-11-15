@@ -153,6 +153,8 @@ public class CurrentResultGUI extends JFrame implements ActionListener{
     JLabel questionMark3Label = new JLabel("?");
 
     Color lighterGray = new Color(238,235,235);
+    Color softerGreen = new Color (125,255,0);
+    Color softerRed = new Color(255,45,33);
 
 
 
@@ -338,17 +340,17 @@ public class CurrentResultGUI extends JFrame implements ActionListener{
         continue2Button.setPreferredSize(new Dimension(350,60));
         currentlyPlayingPanel.setPreferredSize(new Dimension(120,35));
         //bottomOfScreenPanel.setPreferredSize(new Dimension(400,80)); //resize funkar ej
-        player1Round1Question1Panel.setBackground(Color.RED);
+        player1Round1Question1Panel.setBackground(softerRed);
         player1Round1Question1Panel.setPreferredSize(new Dimension(35,35));
-        player1Round1Question2Panel.setBackground(Color.GREEN);
+        player1Round1Question2Panel.setBackground(softerGreen);
         player1Round1Question2Panel.setPreferredSize(new Dimension(35,35));
-        player1Round1Question3Panel.setBackground(Color.GREEN);
+        player1Round1Question3Panel.setBackground(softerGreen);
         player1Round1Question3Panel.setPreferredSize(new Dimension(35,35));
-        player2Round1Question1Panel.setBackground(Color.GREEN);
+        player2Round1Question1Panel.setBackground(softerGreen);
         player2Round1Question1Panel.setPreferredSize(new Dimension(35,35));
-        player2Round1Question2Panel.setBackground(Color.RED);
+        player2Round1Question2Panel.setBackground(softerRed);
         player2Round1Question2Panel.setPreferredSize(new Dimension(35,35));
-        player2Round1Question3Panel.setBackground(Color.RED);
+        player2Round1Question3Panel.setBackground(softerRed);
         player2Round1Question3Panel.setPreferredSize(new Dimension(35,35));
         spacefiller7Panel.setBackground(Color.WHITE);
         spacefiller8Panel.setBackground(Color.WHITE);
