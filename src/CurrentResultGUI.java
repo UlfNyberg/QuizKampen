@@ -2,6 +2,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by: Ulf Nyberg
@@ -10,7 +13,7 @@ import java.awt.event.ActionListener;
  * Project: QuizKampen
  * Copyright: MIT
  */
-public class CurrentResultGUI extends JFrame implements ActionListener {
+public class CurrentResultGUI extends JFrame implements ActionListener{
 
     //ImageIcon image = new ImageIcon("  ");
     JFrame frame = new JFrame("Quiz Game");
@@ -70,6 +73,7 @@ public class CurrentResultGUI extends JFrame implements ActionListener {
     JPanel player2Round4Question2Panel = new JPanel();
     JPanel player2Round4Question3Panel = new JPanel();
 
+    JPanel currentlyPlayingPanel = new JPanel();
 
     JPanel spacefiller1Panel = new JPanel();
     JPanel spacefiller2Panel = new JPanel();
@@ -79,6 +83,10 @@ public class CurrentResultGUI extends JFrame implements ActionListener {
     JPanel spacefiller6Panel = new JPanel();
     JPanel spacefiller7Panel = new JPanel();
     JPanel spacefiller8Panel = new JPanel();
+    JPanel spacefiller9Panel = new JPanel();
+    JPanel spacefiller10Panel = new JPanel();
+    JPanel spacefiller11Panel = new JPanel();
+    JPanel spacefiller12Panel = new JPanel();
 
 
 
@@ -133,12 +141,16 @@ public class CurrentResultGUI extends JFrame implements ActionListener {
     Font font3 = new Font("SansSerif", Font.BOLD, 15);
 
     JLabel gameNameLabel = new JLabel("QUIZ GAME", SwingConstants.CENTER);
+    JLabel currentlyPlayingLabel = new JLabel("SPELAR");
     JLabel player1NameLabel = new JLabel("Spelare1");
     JLabel player2NameLabel = new JLabel("Spelare2");
     JLabel currentPointsPlayer1label = new JLabel("PoängSpelare1");
     JLabel currentPointsPlayer2label = new JLabel("PoängSpelare2");
     JLabel versusLabel = new JLabel("vs.");
     JLabel betweenLabel = new JLabel("-");
+    JLabel questionMark1Label = new JLabel("?");
+    JLabel questionMark2Label = new JLabel("?");
+    JLabel questionMark3Label = new JLabel("?");
 
     Color lighterGray = new Color(238,235,235);
 
@@ -148,6 +160,13 @@ public class CurrentResultGUI extends JFrame implements ActionListener {
         gameNameLabel.setFont(font2);
         player1NameLabel.setFont(font1);
         player2NameLabel.setFont(font1);
+        questionMark1Label.setFont(font1);
+        questionMark2Label.setFont(font1);
+        questionMark3Label.setFont(font1);
+        round1Label.setFont(font3);
+        round2Label.setFont(font3);
+        round3Label.setFont(font3);
+        round4Label.setFont(font3);
         //setLayout(new FlowLayout());
         //setLayout(new GridLayout(4,2));
         //  **** panel3.setLayout(new BorderLayout());
@@ -172,8 +191,9 @@ public class CurrentResultGUI extends JFrame implements ActionListener {
         playerInfoLongPanel.add(playerInfoSpaceFillerLongPanel, BorderLayout.SOUTH, SwingConstants.CENTER);
         //firstRoundLongPanel.setLayout(new GridLayout(1,5));
         firstRoundLongPanel.setLayout(new FlowLayout(FlowLayout.CENTER,8,22));
+        secondRoundLongPanel.setLayout(new FlowLayout(FlowLayout.CENTER,8,22));
 
-        secondRoundLongPanel.setLayout(new GridLayout(1,5));
+        //secondRoundLongPanel.setLayout(new GridLayout(1,5));
         thirdRoundLongPanel.setLayout(new GridLayout(1,5));
         fourthRoundLongPanel.setLayout(new GridLayout(1,5));
         bottomOfScreenPanel.setLayout(new FlowLayout());
@@ -202,6 +222,37 @@ public class CurrentResultGUI extends JFrame implements ActionListener {
         firstRoundLongPanel.add(player2Round1Question1Panel);
         firstRoundLongPanel.add(player2Round1Question2Panel);
         firstRoundLongPanel.add(player2Round1Question3Panel);
+
+        secondRoundLongPanel.add(player1Round2Question1Panel);
+        player1Round2Question1Panel.add(questionMark1Label);
+        secondRoundLongPanel.add(player1Round2Question2Panel);
+        player1Round2Question2Panel.add(questionMark2Label);
+        secondRoundLongPanel.add(player1Round2Question3Panel);
+        player1Round2Question3Panel.add(questionMark3Label);
+        secondRoundLongPanel.add(spacefiller9Panel);
+        secondRoundLongPanel.add(round2Label);
+        secondRoundLongPanel.add(spacefiller10Panel);
+        secondRoundLongPanel.add(player2Round2Question1Panel);
+        secondRoundLongPanel.add(player2Round2Question2Panel);
+        secondRoundLongPanel.add(player2Round2Question3Panel);
+
+
+        final Runnable update = new Runnable() {
+            @Override
+            public void run() {
+                questionMark1Label.setVisible(!questionMark1Label.isVisible());
+                questionMark2Label.setVisible(!questionMark1Label.isVisible());
+                questionMark3Label.setVisible(questionMark1Label.isVisible());
+            }
+        };
+
+        ScheduledExecutorService executorService = Executors.newScheduledThreadPool(1);
+        executorService.scheduleAtFixedRate(new Runnable() {
+            @Override
+            public void run() {
+                SwingUtilities.invokeLater(update);
+            }
+        }, 1, 2, TimeUnit.SECONDS);
 
 
 
@@ -258,10 +309,6 @@ public class CurrentResultGUI extends JFrame implements ActionListener {
 
 
         continue2Button.addActionListener(this);
-        round1Label.setFont(font3);
-        round2Label.setFont(font3);
-        round3Label.setFont(font3);
-        round4Label.setFont(font3);
         setTitle("Quiz Game");
         setSize(400,600);
         panel3.setBackground( Color.PINK );
@@ -273,14 +320,15 @@ public class CurrentResultGUI extends JFrame implements ActionListener {
         spacefiller5Panel.setBackground( Color.PINK );
         spacefiller6Panel.setBackground( Color.PINK );
         gameNamePanel.setBackground( Color.PINK );
+        currentlyPlayingPanel.setBackground(Color.PINK);
         playerNamePanel.setBackground( Color.PINK);
         playerScorePanel.setBackground(Color.PINK);
         playerInfoLongPanel.setBackground( Color.PINK );
         playerInfoSpaceFillerLongPanel.setBackground(( Color.PINK));;
-        firstRoundLongPanel.setBackground(lighterGray);
-        firstRoundLongPanel.setBorder(BorderFactory.createLineBorder(Color.BLUE));
-        secondRoundLongPanel.setBackground(Color.WHITE);
-        secondRoundLongPanel.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
+        firstRoundLongPanel.setBackground(Color.WHITE);
+        firstRoundLongPanel.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
+        secondRoundLongPanel.setBackground(lighterGray);
+        secondRoundLongPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         thirdRoundLongPanel.setBackground(Color.WHITE);
         thirdRoundLongPanel.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
         fourthRoundLongPanel.setBackground(Color.WHITE);
@@ -288,6 +336,7 @@ public class CurrentResultGUI extends JFrame implements ActionListener {
         bottomOfScreenPanel.setBackground(Color.PINK);
         bottomOfScreenPanel.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
         continue2Button.setPreferredSize(new Dimension(350,60));
+        currentlyPlayingPanel.setPreferredSize(new Dimension(120,35));
         //bottomOfScreenPanel.setPreferredSize(new Dimension(400,80)); //resize funkar ej
         player1Round1Question1Panel.setBackground(Color.RED);
         player1Round1Question1Panel.setPreferredSize(new Dimension(35,35));
@@ -301,8 +350,22 @@ public class CurrentResultGUI extends JFrame implements ActionListener {
         player2Round1Question2Panel.setPreferredSize(new Dimension(35,35));
         player2Round1Question3Panel.setBackground(Color.RED);
         player2Round1Question3Panel.setPreferredSize(new Dimension(35,35));
-        spacefiller7Panel.setBackground(lighterGray);
-        spacefiller8Panel.setBackground(lighterGray);
+        spacefiller7Panel.setBackground(Color.WHITE);
+        spacefiller8Panel.setBackground(Color.WHITE);
+        spacefiller9Panel.setBackground(lighterGray);
+        spacefiller10Panel.setBackground(lighterGray);
+        player1Round2Question1Panel.setBackground(Color.WHITE);
+        player1Round2Question1Panel.setPreferredSize(new Dimension(35,35));
+        player1Round2Question2Panel.setBackground(Color.WHITE);
+        player1Round2Question2Panel.setPreferredSize(new Dimension(35,35));
+        player1Round2Question3Panel.setBackground(Color.WHITE);
+        player1Round2Question3Panel.setPreferredSize(new Dimension(35,35));
+        player2Round2Question1Panel.setBackground(lighterGray);
+        player2Round2Question1Panel.setPreferredSize(new Dimension(35,35));
+        player2Round2Question2Panel.setBackground(lighterGray);
+        player2Round2Question2Panel.setPreferredSize(new Dimension(35,35));
+        player2Round2Question3Panel.setBackground(lighterGray);
+        player2Round2Question3Panel.setPreferredSize(new Dimension(35,35));
 
         //pack();
         setLocationRelativeTo(null);
