@@ -1,5 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
  * Created by: Ulf Nyberg
@@ -8,7 +10,7 @@ import java.awt.*;
  * Project: QuizKampen
  * Copyright: MIT
  */
-public class CurrentResultGUI extends JFrame {
+public class CurrentResultGUI extends JFrame implements ActionListener {
 
     //ImageIcon image = new ImageIcon("  ");
     JFrame frame = new JFrame("Quiz Game");
@@ -76,6 +78,7 @@ public class CurrentResultGUI extends JFrame {
     JPanel spacefiller5Panel = new JPanel();
     JPanel spacefiller6Panel = new JPanel();
     JPanel spacefiller7Panel = new JPanel();
+    JPanel spacefiller8Panel = new JPanel();
 
 
 
@@ -100,10 +103,10 @@ public class CurrentResultGUI extends JFrame {
 
     JButton continue2Button = new JButton("Fortsätt");
 
-    JLabel runda1Label = new JLabel("Runda 1");
-    JLabel runda2Label = new JLabel("Runda 2");
-    JLabel runda3Label = new JLabel("Runda 3");
-    JLabel runda4Label = new JLabel("Runda 4");
+    JLabel round1Label = new JLabel("Runda 1");
+    JLabel round2Label = new JLabel("Runda 2");
+    JLabel round3Label = new JLabel("Runda 3");
+    JLabel round4Label = new JLabel("Runda 4");
 
     ///////////////////////////////
 
@@ -127,17 +130,17 @@ public class CurrentResultGUI extends JFrame {
 
     Font font1 = new Font("SansSerif", Font.BOLD, 20);
     Font font2 = new Font("Monospace", Font.BOLD, 30);
-    Font font3 = new Font("SansSerif", Font.BOLD, 10);
+    Font font3 = new Font("SansSerif", Font.BOLD, 15);
 
     JLabel gameNameLabel = new JLabel("QUIZ GAME", SwingConstants.CENTER);
     JLabel player1NameLabel = new JLabel("Spelare1");
     JLabel player2NameLabel = new JLabel("Spelare2");
     JLabel currentPointsPlayer1label = new JLabel("PoängSpelare1");
     JLabel currentPointsPlayer2label = new JLabel("PoängSpelare2");
+    JLabel versusLabel = new JLabel("vs.");
+    JLabel betweenLabel = new JLabel("-");
 
-    JLabel spelarNamnLabel = new JLabel("Ange ditt namn: ");
-    JLabel portNrLabel = new JLabel("Ange ditt portnummer: ");
-    JLabel IPadressLabel = new JLabel("Ange ditt IP-nummer:");
+    Color lighterGray = new Color(238,235,235);
 
 
 
@@ -161,11 +164,15 @@ public class CurrentResultGUI extends JFrame {
         gameNamePanel.setLayout(new GridLayout(1,1));
         playerInfoLongPanel.setLayout(new BorderLayout());
         playerInfoLongPanel.add(playerNamePanel, BorderLayout.NORTH, SwingConstants.CENTER);
-        playerNamePanel.setLayout(new GridLayout(1, 5));
+        //playerNamePanel.setLayout(new GridLayout(1, 5));
+        playerNamePanel.setLayout(new FlowLayout(FlowLayout.CENTER,8,8));
         playerInfoLongPanel.add(playerScorePanel, BorderLayout.CENTER, SwingConstants.CENTER);
-        playerScorePanel.setLayout(new GridLayout(1,5));
+        //playerScorePanel.setLayout(new GridLayout(1,5));
+        playerScorePanel.setLayout(new FlowLayout(FlowLayout.CENTER,8,8));
         playerInfoLongPanel.add(playerInfoSpaceFillerLongPanel, BorderLayout.SOUTH, SwingConstants.CENTER);
-        firstRoundLongPanel.setLayout(new GridLayout(1,5));
+        //firstRoundLongPanel.setLayout(new GridLayout(1,5));
+        firstRoundLongPanel.setLayout(new FlowLayout(FlowLayout.CENTER,8,22));
+
         secondRoundLongPanel.setLayout(new GridLayout(1,5));
         thirdRoundLongPanel.setLayout(new GridLayout(1,5));
         fourthRoundLongPanel.setLayout(new GridLayout(1,5));
@@ -175,13 +182,27 @@ public class CurrentResultGUI extends JFrame {
         playerNamePanel.add(spacefiller1Panel);
         playerNamePanel.add(player1NameLabel);
         playerNamePanel.add(spacefiller2Panel);
+        spacefiller2Panel.add(versusLabel);
         playerNamePanel.add(player2NameLabel);
         playerNamePanel.add(spacefiller3Panel);
         playerScorePanel.add(spacefiller4Panel);
         playerScorePanel.add(currentPointsPlayer1label);
         playerScorePanel.add(spacefiller5Panel);
+        spacefiller5Panel.add(betweenLabel);
         playerScorePanel.add(currentPointsPlayer2label);
         playerScorePanel.add(spacefiller6Panel);
+
+
+        firstRoundLongPanel.add(player1Round1Question1Panel);
+        firstRoundLongPanel.add(player1Round1Question2Panel);
+        firstRoundLongPanel.add(player1Round1Question3Panel);
+        firstRoundLongPanel.add(spacefiller7Panel);
+        firstRoundLongPanel.add(round1Label);
+        firstRoundLongPanel.add(spacefiller8Panel);
+        firstRoundLongPanel.add(player2Round1Question1Panel);
+        firstRoundLongPanel.add(player2Round1Question2Panel);
+        firstRoundLongPanel.add(player2Round1Question3Panel);
+
 
 
         /*
@@ -235,17 +256,12 @@ public class CurrentResultGUI extends JFrame {
          */
 
 
-        /*
-        button1.addActionListener(this);
-        button2.addActionListener(this);
-        button5.addActionListener(this);
 
-         */
-
-        runda1Label.setFont(font3);
-        runda2Label.setFont(font3);
-        runda3Label.setFont(font3);
-        runda4Label.setFont(font3);
+        continue2Button.addActionListener(this);
+        round1Label.setFont(font3);
+        round2Label.setFont(font3);
+        round3Label.setFont(font3);
+        round4Label.setFont(font3);
         setTitle("Quiz Game");
         setSize(400,600);
         panel3.setBackground( Color.PINK );
@@ -261,7 +277,7 @@ public class CurrentResultGUI extends JFrame {
         playerScorePanel.setBackground(Color.PINK);
         playerInfoLongPanel.setBackground( Color.PINK );
         playerInfoSpaceFillerLongPanel.setBackground(( Color.PINK));;
-        firstRoundLongPanel.setBackground(Color.LIGHT_GRAY);
+        firstRoundLongPanel.setBackground(lighterGray);
         firstRoundLongPanel.setBorder(BorderFactory.createLineBorder(Color.BLUE));
         secondRoundLongPanel.setBackground(Color.WHITE);
         secondRoundLongPanel.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
@@ -272,7 +288,22 @@ public class CurrentResultGUI extends JFrame {
         bottomOfScreenPanel.setBackground(Color.PINK);
         bottomOfScreenPanel.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
         continue2Button.setPreferredSize(new Dimension(350,60));
-        bottomOfScreenPanel.setPreferredSize(new Dimension(400,80)); //resize funkar ej
+        //bottomOfScreenPanel.setPreferredSize(new Dimension(400,80)); //resize funkar ej
+        player1Round1Question1Panel.setBackground(Color.RED);
+        player1Round1Question1Panel.setPreferredSize(new Dimension(35,35));
+        player1Round1Question2Panel.setBackground(Color.GREEN);
+        player1Round1Question2Panel.setPreferredSize(new Dimension(35,35));
+        player1Round1Question3Panel.setBackground(Color.GREEN);
+        player1Round1Question3Panel.setPreferredSize(new Dimension(35,35));
+        player2Round1Question1Panel.setBackground(Color.GREEN);
+        player2Round1Question1Panel.setPreferredSize(new Dimension(35,35));
+        player2Round1Question2Panel.setBackground(Color.RED);
+        player2Round1Question2Panel.setPreferredSize(new Dimension(35,35));
+        player2Round1Question3Panel.setBackground(Color.RED);
+        player2Round1Question3Panel.setPreferredSize(new Dimension(35,35));
+        spacefiller7Panel.setBackground(lighterGray);
+        spacefiller8Panel.setBackground(lighterGray);
+
         //pack();
         setLocationRelativeTo(null);
         setVisible(true);
@@ -280,23 +311,16 @@ public class CurrentResultGUI extends JFrame {
 
     }
 
-    /*
+
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (button1.getText().equalsIgnoreCase("Tryck här1")){
-            button1.setText("Yo! MTV Raps");
-        }
-        else if (button2.getText().equalsIgnoreCase("Tryck här2")){
-            button2.setText("Wad up?");
-        }
-        else{
-            label1.setText("YAAAAAY! SPELDAGS!");
-            button5.setText("NU BÖRJAR SPELET!");
-        }
+        if (continue2Button.getText().equalsIgnoreCase("Fortsätt")) {
+            continue2Button.setText("The Mario/Luigi Conspiracy");
 
+        }
     }
 
-     */
+
 
     public static void main(String[] args) {
 
