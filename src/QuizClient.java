@@ -22,6 +22,7 @@ public class QuizClient implements ActionListener {
     JPanel cardPane;
     CardLayout card;
 
+    JPanel scene;
     GameBoardGUI gameBoardGUI = new GameBoardGUI();
     CategoryGUI categoryGUI = new CategoryGUI();
     CurrentResultGUI currentResultGUI = new CurrentResultGUI();
@@ -34,18 +35,23 @@ public class QuizClient implements ActionListener {
         cardPane = new JPanel();
 
 
-        homeScreenGUI.button5.addActionListener(this);  //fel? Nullpointer
+        homeScreenGUI.initiateNewGameButton.addActionListener(this);  //fel? Nullpointer
 
         card = new CardLayout();
 
         cardPane.setLayout(card);
 
-        cardPane.add(homeScreenGUI, "First Panel");
-        cardPane.add(categoryGUI, "Second Panel");
-        cardPane.add(gameBoardGUI, "Third Panel");
-        cardPane.add(currentResultGUI, "Fourth Panel");
+
+        cardPane.add(homeScreenGUI, "Homescreen Panel");
+        cardPane.add(categoryGUI, "Category Panel");
+        cardPane.add(gameBoardGUI, "Gameboard Panel");
+        cardPane.add(currentResultGUI, "Result Panel");
+
+
+
 
         frame.add(cardPane);
+        //frame.add(scene);
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
@@ -53,9 +59,10 @@ public class QuizClient implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
 
-                if (homeScreenGUI.button5.isSelected()){
-                    //card.next(cardPane); //vilken blir rätt?
-                    card.equals(categoryGUI);
+                if (e.getSource() == homeScreenGUI.initiateNewGameButton){
+                    //card.next(cardPane);
+                    card.show(cardPane, "Result Panel");
+                    //card.equals(categoryGUI);
                 }
 
     }

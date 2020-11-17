@@ -57,17 +57,18 @@ public class HomescreenGUI extends JPanel implements ActionListener {
 
         imageButton1.addActionListener(this);
         imageButton2.addActionListener(this);
-        initiateNewGameButton.addActionListener(this);
+        //initiateNewGameButton.addActionListener(this);
 
-        frame.setTitle("Quiz Game");
+        //frame.setTitle("Quiz Game");
         setSize(400,600);
         panel2.setBackground( Color.PINK );
         panel.setBackground( Color.PINK );
         //pack();
-        frame.setLocationRelativeTo(null);
-        frame.setVisible(true);
-        frame.setDefaultCloseOperation(frame.EXIT_ON_CLOSE);
+        //frame.setLocationRelativeTo(null);
+        //frame.setVisible(true);
+        //frame.setDefaultCloseOperation(frame.EXIT_ON_CLOSE);
     }
+
 
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -83,6 +84,8 @@ public class HomescreenGUI extends JPanel implements ActionListener {
         }
 
     }
+
+
 
     public static void main(String[] args) {
 
