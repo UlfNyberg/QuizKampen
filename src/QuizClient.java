@@ -1,3 +1,7 @@
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -12,7 +16,61 @@ import java.net.UnknownHostException;
  * Project: QuizKampen
  * Copyright: MIT
  */
-public class QuizClient {
+public class QuizClient implements ActionListener {
+
+    JFrame frame;
+    JPanel cardPane;
+    CardLayout card;
+
+    GameBoardGUI gameBoardGUI;
+    CategoryGUI categoryGUI;
+    CurrentResultGUI currentResultGUI;
+    HomescreenGUI homeScreenGUI;
+
+    public QuizClient() {
+        frame = new JFrame("Quiz Client");
+        frame.setSize(400, 600);
+
+        cardPane = new JPanel();
+
+
+        homeScreenGUI.button5.addActionListener(this);  //fel? Nullpointer
+
+        card = new CardLayout();
+
+        cardPane.setLayout(card);
+
+        cardPane.add(homeScreenGUI, "First Panel");
+        cardPane.add(categoryGUI, "Second Panel");
+        cardPane.add(gameBoardGUI, "Third Panel");
+        cardPane.add(currentResultGUI, "Fourth Panel");
+
+        frame.add(cardPane);
+        frame.setVisible(true);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+
+                if (homeScreenGUI.button5.isSelected()){
+                    //card.next(cardPane); //vilken blir rätt?
+                    card.equals(categoryGUI);
+                }
+
+    }
+
+
+
+    public static void main(String args[]) {
+
+        QuizClient quizclient = new QuizClient();
+    }
+
+
+}
+
+    /*
     public static void main(String[] args) {
 
         String hostName = "127.0.0.1"; //localhost
@@ -52,4 +110,6 @@ public class QuizClient {
             System.exit(1);
         }
     }
-}
+
+     */
+
