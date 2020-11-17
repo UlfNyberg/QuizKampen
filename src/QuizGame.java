@@ -1,7 +1,10 @@
 import QuestionsAndAnswers.Answer;
 import QuestionsAndAnswers.Question;
 
+import java.util.List;
+
 public class QuizGame extends Thread {
+    private final DAO database;
 
     private ServerQuizPlayer playerOne;
     private ServerQuizPlayer playerTwo;
@@ -13,17 +16,11 @@ public class QuizGame extends Thread {
 
     private int state = START;
 
-    private Question question;
+    private List<Question> questionList;
 
     public QuizGame(){
-
-        question = new Question("Vem är kungen i djungeln?");
-        question.addAnswer(new Answer("Jesus"));
-        question.addAnswer(new Answer("Mohammed"));
-        question.addAnswer(new Answer("Ghandi"));
-        question.addAnswer(new Answer("Buddah"));
-        question.getAnswers().get(0).setCorrect();
-
+         database = new DAO("QuestionsAndAnswers.txt");
+         getQuestions("Film");
     }
 
     public Object processInput(Object inputObject) {
@@ -35,7 +32,7 @@ public class QuizGame extends Thread {
         //TODO: ordningen på states
 
         if (state == START) {
-            playerOne.sendQuestion(question);
+            playerOne.sendQuestion(questionList.get(0));
             state = WAITINGFORANSWER;
 
         } else if(state == WAITINGFORANSWER) {
@@ -62,5 +59,9 @@ public class QuizGame extends Thread {
         else
             throw new IllegalArgumentException();
 
+    }
+
+    public void getQuestions(String category) {
+        questionList = database.getRandomQuestions(category, 3);
     }
 }
