@@ -74,6 +74,7 @@ public class GameBoardGUI extends JPanel {
 
 
     GameBoardGUI(){
+        this.setLayout(new BorderLayout());
         categoryHeaderLabel.setFont(font1);
         user1Label.setFont(font1);
         user2Label.setFont(font1);
@@ -154,7 +155,6 @@ public class GameBoardGUI extends JPanel {
 
          */
 
-        //setTitle("Quiz Game");
         this.setSize(400,600);
         //bottenKnappPanel.setPreferredSize(new Dimension(400, 200));
 
@@ -185,9 +185,8 @@ public class GameBoardGUI extends JPanel {
         questionTextArea.setEditable(false);
         questionTextArea.setLineWrap(true);
         questionTextArea.setWrapStyleWord(true);
-        //setLocationRelativeTo(null);
         setVisible(true);
-        //setDefaultCloseOperation(EXIT_ON_CLOSE);
+
 
     }
 

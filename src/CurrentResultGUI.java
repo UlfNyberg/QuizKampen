@@ -314,7 +314,6 @@ public class CurrentResultGUI extends JPanel implements ActionListener{
 
 
         continue2Button.addActionListener(this);
-        //setTitle("Quiz Game");
         setSize(400,600);
         panel3.setBackground( Color.PINK );
         panel4.setBackground( Color.PINK );
@@ -373,9 +372,7 @@ public class CurrentResultGUI extends JPanel implements ActionListener{
         player2Round2Question3Panel.setPreferredSize(new Dimension(35,35));
 
         //pack();
-        //setLocationRelativeTo(null);
         setVisible(true);
-        //setDefaultCloseOperation(EXIT_ON_CLOSE);
 
     }
 

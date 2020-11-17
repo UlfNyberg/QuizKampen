@@ -69,6 +69,7 @@ public class CategoryGUI extends JPanel implements ActionListener {
 
 
     CategoryGUI() {
+        this.setLayout(new BorderLayout());
         chooseCategoryLabel.setFont(font2);
         timeToChooseLabel.setFont(font1);
         category1Button.setFont(font1);
@@ -102,7 +103,6 @@ public class CategoryGUI extends JPanel implements ActionListener {
         category2Panel.add(category2Button);
 
 
-        //setTitle("Quiz Game");
         setSize(400, 600);
         panel3.setBackground(Color.PINK);
         panel4.setBackground(Color.PINK);
@@ -138,9 +138,7 @@ public class CategoryGUI extends JPanel implements ActionListener {
         currentlyPlayingPanel.setPreferredSize(new Dimension(120, 35));
 
         //pack();
-        //setLocationRelativeTo(null);
         setVisible(true);
-        //setDefaultCloseOperation(EXIT_ON_CLOSE);
 
     }
 
