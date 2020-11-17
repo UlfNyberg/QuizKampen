@@ -4,19 +4,16 @@ import QuestionsAndAnswers.Question;
 import java.util.List;
 
 public class QuizGame extends Thread {
+    private static final int NUMBER_OF_QUESTIONS = 3;
     private final DAO database;
 
-    private ServerQuizPlayer playerOne;
-    private ServerQuizPlayer playerTwo;
+    //private ServerQuizPlayer playerOne;
+    //private ServerQuizPlayer playerTwo;
 
-    private static final int START = 0;
-    private static final int WAITINGFORANSWER = 1;
-    private static final int WAITINGFORCONTINUE = 2;
-
-
-    private int state = START;
+    private List<ServerQuizPlayer> playerList;
 
     private List<Question> questionList;
+    private List<Boolean> answerResult;
 
     public QuizGame(){
          database = new DAO("QuestionsAndAnswers.txt");
@@ -28,47 +25,48 @@ public class QuizGame extends Thread {
         int questionIndex = 0;
         int round = 0;
         Object inputObject = null;
+
         //TODO: ordningen på states
 
 
         while(true) {
             System.out.println("--spelare 1s tur--");
-
-            playerOne.sendObject(questionList.get(0));
-            playerTwo.sendObject("WAIT");
-
-            inputObject = playerOne.receiveAnswer();
-            if (((Answer) inputObject).isCorrect()) {
-                System.out.println("spelare 1 svarade rätt");
-            } else {
-                System.out.println("spelare 1 svarade fel");
-            }
+            playerList.get(1).sendObject("WAIT");
+            playOneSet(playerList.get(0));
 
             System.out.println("--spelare 2s tur--");
+            playerList.get(0).sendObject("WAIT");
+            playOneSet(playerList.get(1));
 
-            playerTwo.sendObject(questionList.get(0));
-            playerOne.sendObject("WAIT");
-
-            inputObject = playerTwo.receiveAnswer();
-            if (((Answer) inputObject).isCorrect()) {
-                System.out.println("spelare 2 svarade rätt");
-            } else {
-                System.out.println("spelare 2 svarade fel");
-            }
         }
     }
 
     public void addPlayer(ServerQuizPlayer player){
-        if(playerOne == null)
-            playerOne = player;
-        else if(playerTwo == null)
-            playerTwo = player;
+        if(playerList.size() < 2)
+            playerList.add(player);
         else
             throw new IllegalArgumentException();
-
     }
 
     public void getQuestions(String category) {
-        questionList = database.getRandomQuestions(category, 3);
+        questionList = database.getRandomQuestions(category, NUMBER_OF_QUESTIONS);
+    }
+
+    public void playOneSet(ServerQuizPlayer player){
+        Object inputObject;
+
+        for(int question = 0; question < NUMBER_OF_QUESTIONS; question++) {
+            player.sendObject(questionList.get(question));
+            inputObject = player.receiveAnswer();
+            if (((Answer) inputObject).isCorrect()) {
+                System.out.println("spelare " + player.getName() + " svarade rätt");
+                answerResult.add(question,true);
+            } else {
+                System.out.println("spelare 1 svarade fel");
+                answerResult.add(question,false);
+            }
+
+        }
+
     }
 }

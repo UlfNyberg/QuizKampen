@@ -21,6 +21,7 @@ public class ServerQuizPlayer extends Thread {
     private Object inputObject;
     private ObjectOutputStream objectOutputStream;
     private ObjectInputStream objectInputStream;
+    private String userName;
 
     public ServerQuizPlayer(Socket socket, QuizGame quizGame) {
         this.socket = socket;
@@ -70,5 +71,11 @@ public class ServerQuizPlayer extends Thread {
 
     public void addOpponent(ServerQuizPlayer opponent) {
         this.opponent = opponent;
+    }
+    public void setUserName(String userName){
+        this.userName = userName;
+    }
+    public String getUserName(){
+        return userName;
     }
 }
