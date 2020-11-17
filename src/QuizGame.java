@@ -1,6 +1,7 @@
 import QuestionsAndAnswers.Answer;
 import QuestionsAndAnswers.Question;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class QuizGame extends Thread {
@@ -10,10 +11,11 @@ public class QuizGame extends Thread {
     //private ServerQuizPlayer playerOne;
     //private ServerQuizPlayer playerTwo;
 
-    private List<ServerQuizPlayer> playerList;
 
     private List<Question> questionList;
-    private List<Boolean> answerResult;
+
+    private List<ServerQuizPlayer> playerList = new ArrayList<>();
+    private List<Boolean> answerResult = new ArrayList<>();
 
     public QuizGame(){
          database = new DAO("QuestionsAndAnswers.txt");

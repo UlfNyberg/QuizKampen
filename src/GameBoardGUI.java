@@ -212,7 +212,7 @@ public class GameBoardGUI extends JFrame implements Runnable, ActionListener {
 
         socket = null;
         try {
-            socket = new Socket("localhost", 11111);
+            socket = new Socket("localhost", 22222);
             out = new ObjectOutputStream (socket.getOutputStream ());
         } catch (IOException e) {
             e.printStackTrace();
