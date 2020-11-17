@@ -15,24 +15,24 @@ public class HomescreenGUI extends JFrame implements ActionListener {
     //ImageIcon image = new ImageIcon("  ");
     JFrame frame = new JFrame("Quiz Game");
     JPanel panel = new JPanel();
-    JButton button1 = new JButton("Tryck här1");
+    JButton imageButton1 = new JButton("Tryck här1");
     //Icon icon = new ImageIcon("/Users/UlfNyberg/Desktop/OOP och JAVA/QuizGUI/src/PicsArt_11-12-09.12.46.jpg");
     //JButton button1 = new JButton(icon);
     //Icon icon2 = new ImageIcon("/Users/UlfNyberg/Desktop/OOP och JAVA/QuizGUI/src/PicsArt_11-12-09.13.16.jpg");
     //JButton button2 = new JButton(icon2);
-    JButton button2 = new JButton("Tryck här2");
+    JButton imageButton2 = new JButton("Tryck här2");
 
-    JLabel label1 = new JLabel("VÄLKOMMEN!", SwingConstants.CENTER);
-    JButton button5 = new JButton(" \n" + "Starta nytt spel!" + "\n ");
+    JLabel welcomeLabel = new JLabel("VÄLKOMMEN!", SwingConstants.CENTER);
+    JButton initiateNewGameButton = new JButton(" \n" + "Starta nytt spel!" + "\n ");
     JPanel panel2 = new JPanel();
 
-    JLabel spelarNamnLabel = new JLabel("Ange ditt namn: ");
+    JLabel nameOfPlayerLabel = new JLabel("Ange ditt namn: ");
     JLabel portNrLabel = new JLabel("Ange ditt portnummer: ");
-    JLabel IPadressLabel = new JLabel("Ange ditt IP-nummer:");
+    JLabel IPaddressLabel = new JLabel("Ange ditt IP-nummer:");
 
-    JTextField  spelarNamnTextField = new JTextField("Ex. Mr. Burns", 15);
+    JTextField  nameOfPlayerTextField = new JTextField("Ex. Mr. Burns", 15);
     JTextField  portNrTextField = new JTextField("Ex. 12345", 15);
-    JTextField  IPAdressTextField = new JTextField("Ex. 207.0.0.1", 15);
+    JTextField  IPAddressTextField = new JTextField("Ex. 207.0.0.1", 15);
 
 
 
@@ -42,21 +42,21 @@ public class HomescreenGUI extends JFrame implements ActionListener {
         panel.setLayout(new BorderLayout());
         add(panel);
         //BorderLayout.NORTH(setLayout(new FlowLayout());
-        panel.add(label1, BorderLayout.NORTH);
-        panel.add(button5, BorderLayout.SOUTH);
-        panel.add(button1, BorderLayout.WEST);
-        panel.add(button2, BorderLayout.EAST);
+        panel.add(welcomeLabel, BorderLayout.NORTH);
+        panel.add(initiateNewGameButton, BorderLayout.SOUTH);
+        panel.add(imageButton1, BorderLayout.WEST);
+        panel.add(imageButton2, BorderLayout.EAST);
         panel.add(panel2, BorderLayout.CENTER);
-        panel2.add(spelarNamnLabel);
-        panel2.add(spelarNamnTextField);
-        panel2.add(IPadressLabel);
-        panel2.add(IPAdressTextField);
+        panel2.add(nameOfPlayerLabel);
+        panel2.add(nameOfPlayerTextField);
+        panel2.add(IPaddressLabel);
+        panel2.add(IPAddressTextField);
         panel2.add(portNrLabel);
         panel2.add(portNrTextField);
 
-        button1.addActionListener(this);
-        button2.addActionListener(this);
-        button5.addActionListener(this);
+        imageButton1.addActionListener(this);
+        imageButton2.addActionListener(this);
+        initiateNewGameButton.addActionListener(this);
 
         setTitle("Quiz Game");
         setSize(400,600);
@@ -72,15 +72,15 @@ public class HomescreenGUI extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (button1.getText().equalsIgnoreCase("Tryck här1")){
-            button1.setText("Yo! MTV Raps");
+        if (imageButton1.getText().equalsIgnoreCase("Tryck här1")){
+            imageButton1.setText("Yo! MTV Raps");
         }
-        else if (button2.getText().equalsIgnoreCase("Tryck här2")){
-            button2.setText("Wad up?");
+        else if (imageButton2.getText().equalsIgnoreCase("Tryck här2")){
+            imageButton2.setText("Wad up?");
         }
         else{
-            label1.setText("YAAAAAY! SPELDAGS!");
-            button5.setText("NU BÖRJAR SPELET!");
+            welcomeLabel.setText("YAAAAAY! SPELDAGS!");
+            initiateNewGameButton.setText("NU BÖRJAR SPELET!");
         }
 
     }
