@@ -183,6 +183,8 @@ public class GameBoardGUI extends JFrame {
         questionPanel.setBorder(BorderFactory.createLineBorder(Color.black));
         //pack();
         questionTextArea.setEditable(false);
+        questionTextArea.setLineWrap(true);
+        questionTextArea.setWrapStyleWord(true);
         setLocationRelativeTo(null);
         setVisible(true);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
