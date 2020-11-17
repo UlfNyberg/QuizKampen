@@ -1,7 +1,10 @@
+import QuestionsAndAnswers.Answer;
 import QuestionsAndAnswers.Question;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.*;
 import java.net.Socket;
 import java.net.UnknownHostException;
@@ -13,9 +16,15 @@ import java.net.UnknownHostException;
  * Project: QuizKampen
  * Copyright: MIT
  */
-public class GameBoardGUI extends JFrame implements Runnable {
-    private ObjectOutputStream out;
+public class GameBoardGUI extends JFrame implements Runnable, ActionListener {
 
+    private ObjectOutputStream out;
+    private Socket socket;
+
+    private Answer answer1;
+    private Answer answer2;
+    private Answer answer3;
+    private Answer answer4;
 
     //ImageIcon image = new ImageIcon("  ");
     //Dimension d = new Dimension(200,200);
@@ -77,7 +86,6 @@ public class GameBoardGUI extends JFrame implements Runnable {
     //JTextField scoreInputAnvändare2 = new JTextField();
     JPanel scoreInputUser1 = new JPanel();
     JPanel scoreInputUser2 = new JPanel();
-
 
 
     GameBoardGUI(){
@@ -196,37 +204,65 @@ public class GameBoardGUI extends JFrame implements Runnable {
         setVisible(true);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
+
+        alternative1.addActionListener(this);
+        alternative2.addActionListener(this);
+        alternative3.addActionListener(this);
+        alternative4.addActionListener(this);
+
+        socket = null;
+        try {
+            socket = new Socket("localhost", 11111);
+            out = new ObjectOutputStream (socket.getOutputStream ());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
     public void run() {
-        String hostName = "127.0.0.1"; //localhost
-        int portNumber = 11111;
-        try (
-                Socket kkSocket = new Socket (hostName, portNumber);
-                ObjectInputStream in = new ObjectInputStream (
-                        kkSocket.getInputStream ())
-        ) {
-            out = new ObjectOutputStream (kkSocket.getOutputStream ());
+
+        try (ObjectInputStream in = new ObjectInputStream (socket.getInputStream ())) {
 
             Object fromServer;
 
             while ((fromServer = in.readObject ()) != null) {
                 if(fromServer instanceof Question){
+
+                    answer1 = ((Question) fromServer).getAnswers().get(0);
+                    answer2 = ((Question) fromServer).getAnswers().get(1);
+                    answer3 = ((Question) fromServer).getAnswers().get(2);
+                    answer4 = ((Question) fromServer).getAnswers().get(3);
+
                     questionTextArea.setText (((Question) fromServer).getQuestion ());
-                alternative1.setText(((Question) fromServer).getAnswers().get(0).getText ());
-                alternative2.setText(((Question) fromServer).getAnswers().get(1).getText ());
-                alternative3.setText(((Question) fromServer).getAnswers().get(2).getText ());
-                alternative4.setText(((Question) fromServer).getAnswers().get(3).getText ());
+                    alternative1.setText(((Question) fromServer).getAnswers().get(0).getText ());
+                    alternative2.setText(((Question) fromServer).getAnswers().get(1).getText ());
+                    alternative3.setText(((Question) fromServer).getAnswers().get(2).getText ());
+                    alternative4.setText(((Question) fromServer).getAnswers().get(3).getText ());
+                }
+                else if(fromServer instanceof String){
+
+                    if(((String) fromServer).equalsIgnoreCase("WAIT")){
+                        questionTextArea.setText ("Waiting");
+                        alternative1.setText("wait");
+                        alternative2.setText("wait");
+                        alternative3.setText("wait");
+                        alternative4.setText("wait");
+                        //answer1 = null;
+                        //answer2 = null;
+                        //answer3 = null;
+                        //answer4 = null;
+
+                    }
                 }
 
             }
 
         } catch (UnknownHostException e) {
-            System.err.println ("Don't know about host " + hostName);
+            System.err.println ("Don't know about host ");
             System.exit (1);
         } catch (IOException e) {
-            System.err.println ("Couldn't get I/O for the connection to " +
-                    hostName);
+            System.err.println ("Couldn't get I/O for the connection to ");
             e.printStackTrace ();
             System.exit (1);
         } catch (ClassNotFoundException e) {
@@ -234,10 +270,27 @@ public class GameBoardGUI extends JFrame implements Runnable {
         }
     }
 
+    private void sendData(Object object) {
+        try {
+            out.writeObject(object);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     public static void main(String[] args) {
         Thread t1 = new Thread(new GameBoardGUI ());
         t1.start();
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+
+        if(e.getSource() == alternative1){
+            System.out.println("alternativ 1");
+            sendData(answer1);
+        }
+
     }
 }
 

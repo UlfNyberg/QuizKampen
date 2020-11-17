@@ -23,32 +23,39 @@ public class QuizGame extends Thread {
          getQuestions("Film");
     }
 
-    public Object processInput(Object inputObject) {
+    public void run() {
 
-        Object theOutput = null;
         int questionIndex = 0;
         int round = 0;
-
+        Object inputObject = null;
         //TODO: ordningen på states
 
-        if (state == START) {
-            playerOne.sendQuestion(questionList.get(0));
-            state = WAITINGFORANSWER;
 
-        } else if(state == WAITINGFORANSWER) {
+        while(true) {
+            System.out.println("--spelare 1s tur--");
+
+            playerOne.sendObject(questionList.get(0));
+            playerTwo.sendObject("WAIT");
+
+            inputObject = playerOne.receiveAnswer();
             if (((Answer) inputObject).isCorrect()) {
-                //TODO:sätta listor med rätt/fel
-                theOutput = true;
+                System.out.println("spelare 1 svarade rätt");
             } else {
-                theOutput = false;
+                System.out.println("spelare 1 svarade fel");
             }
-            state = WAITINGFORCONTINUE;
 
-        }else if(state == WAITINGFORCONTINUE){
-            //TODO: vänta på att användaren klickar på nästa
+            System.out.println("--spelare 2s tur--");
+
+            playerTwo.sendObject(questionList.get(0));
+            playerOne.sendObject("WAIT");
+
+            inputObject = playerTwo.receiveAnswer();
+            if (((Answer) inputObject).isCorrect()) {
+                System.out.println("spelare 2 svarade rätt");
+            } else {
+                System.out.println("spelare 2 svarade fel");
+            }
         }
-
-        return theOutput;
     }
 
     public void addPlayer(ServerQuizPlayer player){

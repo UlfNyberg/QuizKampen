@@ -20,6 +20,7 @@ public class ServerQuizPlayer extends Thread {
     private ServerQuizPlayer opponent;
     private Object inputObject;
     private ObjectOutputStream objectOutputStream;
+    private ObjectInputStream objectInputStream;
 
     public ServerQuizPlayer(Socket socket, QuizGame quizGame) {
         this.socket = socket;
@@ -28,6 +29,7 @@ public class ServerQuizPlayer extends Thread {
 
         try {
             objectOutputStream = new ObjectOutputStream(socket.getOutputStream());
+            objectInputStream = new ObjectInputStream(socket.getInputStream());
         } catch (IOException e) {
             System.out.println("failed to create outputstream");
             e.printStackTrace();
@@ -36,37 +38,34 @@ public class ServerQuizPlayer extends Thread {
     }
 
     public void run() {
-        try (ObjectInputStream objectInputStream = new ObjectInputStream(socket.getInputStream())) {
 
-            //TODO: kolla om initieringen blir i rätt ordning. vem börjar kommunikationen?
+    }
 
-            while ((inputObject = objectInputStream.readObject()) != null) {
-                if (inputObject instanceof Answer) {
-                    quizGame.processInput(inputObject);
-                }
-            }
+    public void sendObject(Object object) {
+        try {
+            objectOutputStream.writeObject(object);
+        } catch (IOException e) {
+            System.out.println("Failed to send question");
+            e.printStackTrace();
+        }
+    }
+
+    public Object receiveAnswer() {
+
+        try {
+            inputObject = objectInputStream.readObject();
+            return inputObject;
+
         } catch (IOException e) {
             System.out.println("Cannot connect I/O");
             System.out.println(e.getMessage());
 
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
-        } finally {
-            try {
-                socket.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
         }
-    }
 
-    public void sendQuestion(Question question){
-        try {
-            objectOutputStream.writeObject(question);
-        } catch (IOException e) {
-            System.out.println("Failed to send question");
-            e.printStackTrace();
-        }
+        System.out.println(this.toString() + " failed to receive answer");
+        return null;
     }
 
     public void addOpponent(ServerQuizPlayer opponent) {

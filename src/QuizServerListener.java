@@ -18,15 +18,14 @@ public class QuizServerListener {
             QuizGame quizGame = new QuizGame();
 
             ServerQuizPlayer serverPlayerOne = new ServerQuizPlayer(serverSocket.accept(),quizGame);
+            System.out.println("player1 connected");
             ServerQuizPlayer serverPlayerTwo = new ServerQuizPlayer(serverSocket.accept(),quizGame);
+            System.out.println("player2 connected");
 
             serverPlayerOne.addOpponent(serverPlayerTwo);
             serverPlayerTwo.addOpponent(serverPlayerOne);
 
-
-            serverPlayerOne.start();
-            serverPlayerTwo.start();
-            quizGame.processInput(null);
+            quizGame.start();
         }
     }
 }
