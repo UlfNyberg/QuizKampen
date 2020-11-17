@@ -190,6 +190,8 @@ public class GameBoardGUI extends JFrame implements Runnable {
         questionPanel.setBorder(BorderFactory.createLineBorder(Color.black));
         //pack();
         questionTextArea.setEditable(false);
+        questionTextArea.setLineWrap(true);
+        questionTextArea.setWrapStyleWord(true);
         setLocationRelativeTo(null);
         setVisible(true);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -210,11 +212,11 @@ public class GameBoardGUI extends JFrame implements Runnable {
 
             while ((fromServer = in.readObject ()) != null) {
                 if(fromServer instanceof Question){
-                    fråganTestLabel.setText (((Question) fromServer).getQuestion ());
-                valAvSvar1.setText(((Question) fromServer).getAnswers().get(0).getText ());
-                valAvSvar2.setText(((Question) fromServer).getAnswers().get(1).getText ());
-                valAvSvar3.setText(((Question) fromServer).getAnswers().get(2).getText ());
-                valAvSvar4.setText(((Question) fromServer).getAnswers().get(3).getText ());
+                    questionTextArea.setText (((Question) fromServer).getQuestion ());
+                alternative1.setText(((Question) fromServer).getAnswers().get(0).getText ());
+                alternative2.setText(((Question) fromServer).getAnswers().get(1).getText ());
+                alternative3.setText(((Question) fromServer).getAnswers().get(2).getText ());
+                alternative4.setText(((Question) fromServer).getAnswers().get(3).getText ());
                 }
 
             }
