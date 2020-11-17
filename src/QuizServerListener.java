@@ -12,6 +12,8 @@ import java.net.Socket;
 public class QuizServerListener {
 
     public static void main(String[] args) throws IOException {
+
+        GameRules gameRules = new GameRules();
         ServerSocket serverSocket = new ServerSocket(22222);
 
         while(true){

@@ -5,9 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class QuizGame extends Thread {
-    private static final int NUMBER_OF_QUESTIONS = 3;
     private final DAO database;
-
     //private ServerQuizPlayer playerOne;
     //private ServerQuizPlayer playerTwo;
 
@@ -51,13 +49,13 @@ public class QuizGame extends Thread {
     }
 
     public void getQuestions(String category) {
-        questionList = database.getRandomQuestions(category, NUMBER_OF_QUESTIONS);
+        questionList = database.getRandomQuestions(category, GameRules.numberOfQuestions);
     }
 
     public void playOneSet(ServerQuizPlayer player){
         Object inputObject;
 
-        for(int question = 0; question < NUMBER_OF_QUESTIONS; question++) {
+        for(int question = 0; question < GameRules.numberOfQuestions; question++) {
             player.sendObject(questionList.get(question));
             inputObject = player.receiveAnswer();
             if (((Answer) inputObject).isCorrect()) {
