@@ -21,15 +21,16 @@ public class QuizGame extends Thread {
 
     public QuizGame() {
         database = new DAO("QuestionsAndAnswers.txt");
-        getQuestions("Film");
+
     }
 
     public void run() {
 
         int round = 1;
+        String category = "Film";
 
         while (round <= GameRules.numberOfRounds) {
-
+            getQuestions(category);
             if (round % 2 != 0) {
                 playSubset("--spelare 1s tur--", 1, 0, playerOneTotalAnswers);
                 playSubset("--spelare 2s tur--", 0, 1, playerTwoTotalAnswers);
