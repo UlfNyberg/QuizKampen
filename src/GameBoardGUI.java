@@ -289,6 +289,15 @@ public class GameBoardGUI extends JFrame implements Runnable, ActionListener {
         if(e.getSource() == alternative1){
             System.out.println("alternativ 1");
             sendData(answer1);
+        }else if(e.getSource() == alternative2){
+            System.out.println("alternativ 2");
+            sendData(answer2);
+        }else if(e.getSource() == alternative3){
+            System.out.println("alternativ 3");
+            sendData(answer3);
+        }else if(e.getSource() == alternative4){
+            System.out.println("alternativ 4");
+            sendData(answer4);
         }
 
     }
