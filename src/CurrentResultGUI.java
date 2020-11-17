@@ -13,7 +13,7 @@ import java.util.concurrent.TimeUnit;
  * Project: QuizKampen
  * Copyright: MIT
  */
-public class CurrentResultGUI extends JFrame implements ActionListener{
+public class CurrentResultGUI extends JPanel implements ActionListener{
 
     //ImageIcon image = new ImageIcon("  ");
     JFrame frame = new JFrame("Quiz Game");
@@ -314,7 +314,7 @@ public class CurrentResultGUI extends JFrame implements ActionListener{
 
 
         continue2Button.addActionListener(this);
-        setTitle("Quiz Game");
+        //setTitle("Quiz Game");
         setSize(400,600);
         panel3.setBackground( Color.PINK );
         panel4.setBackground( Color.PINK );
@@ -373,9 +373,9 @@ public class CurrentResultGUI extends JFrame implements ActionListener{
         player2Round2Question3Panel.setPreferredSize(new Dimension(35,35));
 
         //pack();
-        setLocationRelativeTo(null);
+        //setLocationRelativeTo(null);
         setVisible(true);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        //setDefaultCloseOperation(EXIT_ON_CLOSE);
 
     }
 

@@ -8,7 +8,7 @@ import java.awt.*;
  * Project: QuizKampen
  * Copyright: MIT
  */
-public class GameBoardGUI extends JFrame {
+public class GameBoardGUI extends JPanel {
 
     //ImageIcon image = new ImageIcon("  ");
     //Dimension d = new Dimension(200,200);
@@ -154,7 +154,7 @@ public class GameBoardGUI extends JFrame {
 
          */
 
-        setTitle("Quiz Game");
+        //setTitle("Quiz Game");
         this.setSize(400,600);
         //bottenKnappPanel.setPreferredSize(new Dimension(400, 200));
 
@@ -185,9 +185,9 @@ public class GameBoardGUI extends JFrame {
         questionTextArea.setEditable(false);
         questionTextArea.setLineWrap(true);
         questionTextArea.setWrapStyleWord(true);
-        setLocationRelativeTo(null);
+        //setLocationRelativeTo(null);
         setVisible(true);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        //setDefaultCloseOperation(EXIT_ON_CLOSE);
 
     }
 

@@ -22,10 +22,10 @@ public class QuizClient implements ActionListener {
     JPanel cardPane;
     CardLayout card;
 
-    GameBoardGUI gameBoardGUI;
-    CategoryGUI categoryGUI;
-    CurrentResultGUI currentResultGUI;
-    HomescreenGUI homeScreenGUI;
+    GameBoardGUI gameBoardGUI = new GameBoardGUI();
+    CategoryGUI categoryGUI = new CategoryGUI();
+    CurrentResultGUI currentResultGUI = new CurrentResultGUI();
+    HomescreenGUI homeScreenGUI = new HomescreenGUI();
 
     public QuizClient() {
         frame = new JFrame("Quiz Client");

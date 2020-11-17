@@ -10,7 +10,7 @@ import java.awt.event.ActionListener;
  * Project: QuizKampen
  * Copyright: MIT
  */
-public class CategoryGUI extends JFrame implements ActionListener {
+public class CategoryGUI extends JPanel implements ActionListener {
 
     //ImageIcon image = new ImageIcon("  ");
     JFrame frame = new JFrame("Quiz Game");
@@ -102,7 +102,7 @@ public class CategoryGUI extends JFrame implements ActionListener {
         category2Panel.add(category2Button);
 
 
-        setTitle("Quiz Game");
+        //setTitle("Quiz Game");
         setSize(400, 600);
         panel3.setBackground(Color.PINK);
         panel4.setBackground(Color.PINK);
@@ -138,9 +138,9 @@ public class CategoryGUI extends JFrame implements ActionListener {
         currentlyPlayingPanel.setPreferredSize(new Dimension(120, 35));
 
         //pack();
-        setLocationRelativeTo(null);
+        //setLocationRelativeTo(null);
         setVisible(true);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        //setDefaultCloseOperation(EXIT_ON_CLOSE);
 
     }
 

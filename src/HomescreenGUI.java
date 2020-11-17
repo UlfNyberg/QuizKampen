@@ -10,7 +10,7 @@ import java.awt.event.ActionListener;
  * Project: QuizKampen
  * Copyright: MIT
  */
-public class HomescreenGUI extends JFrame implements ActionListener {
+public class HomescreenGUI extends JPanel implements ActionListener {
 
     //ImageIcon image = new ImageIcon("  ");
     JFrame frame = new JFrame("Quiz Game");
@@ -21,6 +21,7 @@ public class HomescreenGUI extends JFrame implements ActionListener {
     //Icon icon2 = new ImageIcon("/Users/UlfNyberg/Desktop/OOP och JAVA/QuizGUI/src/PicsArt_11-12-09.13.16.jpg");
     //JButton button2 = new JButton(icon2);
     JButton button2 = new JButton("Tryck här2");
+
 
     JLabel label1 = new JLabel("VÄLKOMMEN!", SwingConstants.CENTER);
     JButton button5 = new JButton(" \n" + "Starta nytt spel!" + "\n ");
@@ -37,6 +38,9 @@ public class HomescreenGUI extends JFrame implements ActionListener {
 
 
     HomescreenGUI(){
+        frame.add(this);
+        frame.setVisible(true);
+        this.setLayout(new BorderLayout());  //tänk på denna
         //setLayout(new FlowLayout());
         //setLayout(new GridLayout(4,2));
         panel.setLayout(new BorderLayout());
@@ -58,14 +62,14 @@ public class HomescreenGUI extends JFrame implements ActionListener {
         button2.addActionListener(this);
         button5.addActionListener(this);
 
-        setTitle("Quiz Game");
-        setSize(400,600);
+        //setTitle("Quiz Game");
+        frame.setSize(400,600);
         panel2.setBackground( Color.PINK );
         panel.setBackground( Color.PINK );
         //pack();
-        setLocationRelativeTo(null);
+        //setLocationRelativeTo(null);
         setVisible(true);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        //setDefaultCloseOperation(EXIT_ON_CLOSE);
 
 
     }
