@@ -239,6 +239,7 @@ public class CurrentResultGUI extends JFrame implements ActionListener{
         secondRoundLongPanel.add(player2Round2Question3Panel);
 
 
+        /*
         final Runnable update = new Runnable() {
             @Override
             public void run() {
@@ -255,6 +256,8 @@ public class CurrentResultGUI extends JFrame implements ActionListener{
                 SwingUtilities.invokeLater(update);
             }
         }, 1, 2, TimeUnit.SECONDS);
+
+         */
 
 
 

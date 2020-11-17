@@ -61,6 +61,8 @@ public class GameBoardGUI extends JFrame {
 
     JLabel questionStaticLabel =  new JLabel("Fråga:");
     JLabel questionTestLabel = new JLabel("Vilken relation har Mario och Luigi...egentligen?");
+    JTextArea questionTextArea = new JTextArea(4,5);
+
 
     JLabel gameNameLabel = new JLabel("Quiz Game");
 
@@ -117,7 +119,8 @@ public class GameBoardGUI extends JFrame {
         centerPanel.add(questionPanel, BorderLayout.CENTER, SwingConstants.CENTER );
         questionPanel.setLayout(new GridLayout(2,1));
         questionPanel.add(questionStaticLabel, BorderLayout.NORTH);
-        questionPanel.add(questionTestLabel, BorderLayout.CENTER);
+        //questionPanel.add(questionTestLabel, BorderLayout.CENTER);
+        questionPanel.add(questionTextArea, BorderLayout.CENTER);
 
 
 
@@ -172,8 +175,14 @@ public class GameBoardGUI extends JFrame {
         spacePanel2.setBackground( Color.PINK);
         spacePanel3.setBackground( Color.PINK);
         questionPanel.setBackground(Color.WHITE);
+        alternative1.setBackground(Color.WHITE);
+        alternative2.setBackground(Color.WHITE);
+        alternative3.setBackground(Color.WHITE);
+        alternative4.setBackground(Color.WHITE);
+        continueButton.setBackground(Color.WHITE);
         questionPanel.setBorder(BorderFactory.createLineBorder(Color.black));
         //pack();
+        questionTextArea.setEditable(false);
         setLocationRelativeTo(null);
         setVisible(true);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
