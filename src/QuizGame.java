@@ -59,10 +59,10 @@ public class QuizGame extends Thread {
             player.sendObject(questionList.get(question));
             inputObject = player.receiveAnswer();
             if (((Answer) inputObject).isCorrect()) {
-                System.out.println("spelare " + player.getName() + " svarade rätt");
+                System.out.println("spelare " + player.getUserName() + " svarade rätt");
                 answerResult.add(question,true);
             } else {
-                System.out.println("spelare 1 svarade fel");
+                System.out.println("spelare " + player.getUserName() + " svarade fel");
                 answerResult.add(question,false);
             }
 
