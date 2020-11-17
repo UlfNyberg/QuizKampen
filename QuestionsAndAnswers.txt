@@ -6,8 +6,8 @@ Q Vad är Mario och Luigis relation?
 A Bröder, Vänner, Ett par, Far och son
 S Bröder
 K Film
-Q Vilken karaktär har flest on-screen kills i Sagan om ringen trilogin?
-A Boromir, Legolas, Gimli, Frodo
+Q Vilken karaktär har flest on-screen kills i Sagan om Ringen trilogin?
+A Legolas, Boromir, Gimli, Frodo
 S Legolas
 Q Vilken skådespelare var erbjuden men tackade nej till rollen som Han Solo i Star Wars?
 A Sylvester Stallone, Al Pacino, Bruce Willis, Roger Moore
