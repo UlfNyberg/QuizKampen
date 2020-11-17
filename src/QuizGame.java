@@ -13,36 +13,55 @@ public class QuizGame extends Thread {
     private List<Question> questionList;
 
     private List<ServerQuizPlayer> playerList = new ArrayList<>();
+
     private List<Boolean> answerResult = new ArrayList<>();
 
-    public QuizGame(){
-         database = new DAO("QuestionsAndAnswers.txt");
-         getQuestions("Film");
+    private List<List<Boolean>> playerOneTotalAnswers = new ArrayList<>();
+    private List<List<Boolean>> playerTwoTotalAnswers = new ArrayList<>();
+
+    public QuizGame() {
+        database = new DAO("QuestionsAndAnswers.txt");
+        getQuestions("Film");
     }
 
     public void run() {
 
-        int questionIndex = 0;
-        int round = 0;
-        Object inputObject = null;
+        int round = 1;
 
-        //TODO: ordningen på states
+        while (round <= GameRules.numberOfRounds) {
 
+            if (round % 2 != 0) {
+                playSubset("--spelare 1s tur--", 1, 0, playerOneTotalAnswers);
+                playSubset("--spelare 2s tur--", 0, 1, playerTwoTotalAnswers);
+            } else {
+                playSubset("--spelare 2s tur--", 0, 1, playerTwoTotalAnswers);
+                playSubset("--spelare 1s tur--", 1, 0, playerOneTotalAnswers);
+            }
+            round++;
+        }
 
-        while(true) {
-            System.out.println("--spelare 1s tur--");
-            playerList.get(1).sendObject("WAIT");
-            playOneSet(playerList.get(0));
+        System.out.println("--checking score p1--");
+        printPlayerAnswers(playerOneTotalAnswers);
+        System.out.println("--checking score p1--");
+        printPlayerAnswers(playerTwoTotalAnswers);
+    }
 
-            System.out.println("--spelare 2s tur--");
-            playerList.get(0).sendObject("WAIT");
-            playOneSet(playerList.get(1));
-
+    private void printPlayerAnswers(List<List<Boolean>> playerTotalAnswers) {
+        for (List<Boolean> list : playerTotalAnswers) {
+            System.out.println(list);
         }
     }
 
-    public void addPlayer(ServerQuizPlayer player){
-        if(playerList.size() < 2)
+
+    private void playSubset(String serverMessage, int otherPlayer, int initialPlayer, List<List<Boolean>> initialPlayerAnswers) {
+        System.out.println(serverMessage);
+        playerList.get(otherPlayer).sendObject("WAIT");
+        answerResult = playOneSet(playerList.get(initialPlayer));
+        initialPlayerAnswers.add(List.copyOf(answerResult));
+    }
+
+    public void addPlayer(ServerQuizPlayer player) {
+        if (playerList.size() < 2)
             playerList.add(player);
         else
             throw new IllegalArgumentException();
@@ -52,21 +71,22 @@ public class QuizGame extends Thread {
         questionList = database.getRandomQuestions(category, GameRules.numberOfQuestions);
     }
 
-    public void playOneSet(ServerQuizPlayer player){
+    public List<Boolean> playOneSet(ServerQuizPlayer player) {
         Object inputObject;
+        List<Boolean> answers = new ArrayList<>();
 
-        for(int question = 0; question < GameRules.numberOfQuestions; question++) {
+        for (int question = 0; question < GameRules.numberOfQuestions; question++) {
             player.sendObject(questionList.get(question));
             inputObject = player.receiveAnswer();
             if (((Answer) inputObject).isCorrect()) {
                 System.out.println("spelare " + player.getUserName() + " svarade rätt");
-                answerResult.add(question,true);
+                answers.add(question, true);
             } else {
                 System.out.println("spelare " + player.getUserName() + " svarade fel");
-                answerResult.add(question,false);
+                answers.add(question, false);
             }
 
         }
-
+        return answers;
     }
 }
