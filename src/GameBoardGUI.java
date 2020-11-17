@@ -1,5 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
  * Created by: Ulf Nyberg
@@ -8,10 +10,12 @@ import java.awt.*;
  * Project: QuizKampen
  * Copyright: MIT
  */
-public class GameBoardGUI extends JFrame {
+public class GameBoardGUI extends JFrame implements ActionListener {
 
     //ImageIcon image = new ImageIcon("  ");
     //Dimension d = new Dimension(200,200);
+
+    Boolean correctAnswer;
 
     JFrame frame = new JFrame("Quiz Game");
 
@@ -191,9 +195,20 @@ public class GameBoardGUI extends JFrame {
 
     }
 
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (correctAnswer = true){
+            alternative1.setBackground(Color.GREEN);
+        }
+
+
+    }
+
     public static void main(String[] args) {
 
         GameBoardGUI gameBoardGUI = new GameBoardGUI();
     }
+
+
 }
 
