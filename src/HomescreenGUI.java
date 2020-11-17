@@ -10,7 +10,7 @@ import java.awt.event.ActionListener;
  * Project: QuizKampen
  * Copyright: MIT
  */
-public class HomescreenGUI extends JFrame implements ActionListener {
+public class HomescreenGUI extends JPanel implements ActionListener {
 
     //ImageIcon image = new ImageIcon("  ");
     JFrame frame = new JFrame("Quiz Game");
@@ -37,6 +37,7 @@ public class HomescreenGUI extends JFrame implements ActionListener {
 
 
     HomescreenGUI(){
+        this.setLayout(new BorderLayout());
         //setLayout(new FlowLayout());
         //setLayout(new GridLayout(4,2));
         panel.setLayout(new BorderLayout());
@@ -58,16 +59,14 @@ public class HomescreenGUI extends JFrame implements ActionListener {
         imageButton2.addActionListener(this);
         initiateNewGameButton.addActionListener(this);
 
-        setTitle("Quiz Game");
+        frame.setTitle("Quiz Game");
         setSize(400,600);
         panel2.setBackground( Color.PINK );
         panel.setBackground( Color.PINK );
         //pack();
-        setLocationRelativeTo(null);
-        setVisible(true);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
-
-
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
+        frame.setDefaultCloseOperation(frame.EXIT_ON_CLOSE);
     }
 
     @Override
