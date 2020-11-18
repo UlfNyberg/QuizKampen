@@ -13,7 +13,7 @@ import java.util.concurrent.TimeUnit;
  * Project: QuizKampen
  * Copyright: MIT
  */
-public class CurrentResultGUI extends JPanel implements ActionListener{
+public class CurrentResultGUI extends JPanel{
 
     //ImageIcon image = new ImageIcon("  ");
     JFrame frame = new JFrame("Quiz Game");
@@ -32,9 +32,6 @@ public class CurrentResultGUI extends JPanel implements ActionListener{
     JPanel thirdRoundLongPanel = new JPanel();
     JPanel fourthRoundLongPanel = new JPanel();
     JPanel bottomOfScreenPanel = new JPanel();
-    //JPanel firstPanel = new JPanel();
-    //JPanel firstPanel = new JPanel();
-    //JPanel firstPanel = new JPanel();
 
     JPanel player1Round1Question1Panel = new JPanel();
     JPanel player1Round1Question2Panel = new JPanel();
@@ -89,52 +86,12 @@ public class CurrentResultGUI extends JPanel implements ActionListener{
     JPanel spacefiller12Panel = new JPanel();
 
 
-
-
-
-
-    JButton spelare1button1 = new JButton("neutral");
-    JButton spelare1button2 = new JButton("neutral");
-    JButton spelare1button3 = new JButton("neutral");
-
-    JButton spelare1button4 = new JButton("neutral");
-    JButton spelare1button5 = new JButton("neutral");
-    JButton spelare1button6 = new JButton("neutral");
-
-    JButton spelare1button7 = new JButton("neutral");
-    JButton spelare1button8 = new JButton("neutral");
-    JButton spelare1button9 = new JButton("neutral");
-
-    JButton spelare1button10 = new JButton("neutral");
-    JButton spelare1button11 = new JButton("neutral");
-    JButton spelare1button12 = new JButton("neutral");
-
     JButton continue2Button = new JButton("Fortsätt");
 
     JLabel round1Label = new JLabel("Runda 1");
     JLabel round2Label = new JLabel("Runda 2");
     JLabel round3Label = new JLabel("Runda 3");
     JLabel round4Label = new JLabel("Runda 4");
-
-    ///////////////////////////////
-
-    JButton spelare2button1 = new JButton("neutral");
-    JButton spelare2button2 = new JButton("neutral");
-    JButton spelare2button3 = new JButton("neutral");
-
-    JButton spelare2button4 = new JButton("neutral");
-    JButton spelare2button5 = new JButton("neutral");
-    JButton spelare2button6 = new JButton("neutral");
-
-    JButton spelare2button7 = new JButton("neutral");
-    JButton spelare2button8 = new JButton("neutral");
-    JButton spelare2button9 = new JButton("neutral");
-
-    JButton spelare2button10 = new JButton("neutral");
-    JButton spelare2button11 = new JButton("neutral");
-    JButton spelare2button12 = new JButton("neutral");
-
-    //////////////////////////////////
 
     Font font1 = new Font("SansSerif", Font.BOLD, 20);
     Font font2 = new Font("Monospace", Font.BOLD, 30);
@@ -169,11 +126,7 @@ public class CurrentResultGUI extends JPanel implements ActionListener{
         round2Label.setFont(font3);
         round3Label.setFont(font3);
         round4Label.setFont(font3);
-        //setLayout(new FlowLayout());
-        //setLayout(new GridLayout(4,2));
-        //  **** panel3.setLayout(new BorderLayout());
         firstPanel.setLayout(new GridLayout(7,1));
-        //  **** add(panel3);
         this.add(firstPanel);
         firstPanel.add(gameNamePanel);
         firstPanel.add(playerInfoLongPanel);
@@ -185,17 +138,13 @@ public class CurrentResultGUI extends JPanel implements ActionListener{
         gameNamePanel.setLayout(new GridLayout(1,1));
         playerInfoLongPanel.setLayout(new BorderLayout());
         playerInfoLongPanel.add(playerNamePanel, BorderLayout.NORTH, SwingConstants.CENTER);
-        //playerNamePanel.setLayout(new GridLayout(1, 5));
         playerNamePanel.setLayout(new FlowLayout(FlowLayout.CENTER,8,8));
         playerInfoLongPanel.add(playerScorePanel, BorderLayout.CENTER, SwingConstants.CENTER);
-        //playerScorePanel.setLayout(new GridLayout(1,5));
         playerScorePanel.setLayout(new FlowLayout(FlowLayout.CENTER,8,8));
         playerInfoLongPanel.add(playerInfoSpaceFillerLongPanel, BorderLayout.SOUTH, SwingConstants.CENTER);
-        //firstRoundLongPanel.setLayout(new GridLayout(1,5));
         firstRoundLongPanel.setLayout(new FlowLayout(FlowLayout.CENTER,8,22));
         secondRoundLongPanel.setLayout(new FlowLayout(FlowLayout.CENTER,8,22));
 
-        //secondRoundLongPanel.setLayout(new GridLayout(1,5));
         thirdRoundLongPanel.setLayout(new GridLayout(1,5));
         fourthRoundLongPanel.setLayout(new GridLayout(1,5));
         bottomOfScreenPanel.setLayout(new FlowLayout());
@@ -238,82 +187,7 @@ public class CurrentResultGUI extends JPanel implements ActionListener{
         secondRoundLongPanel.add(player2Round2Question2Panel);
         secondRoundLongPanel.add(player2Round2Question3Panel);
 
-
-        /*
-        final Runnable update = new Runnable() {
-            @Override
-            public void run() {
-                questionMark1Label.setVisible(!questionMark1Label.isVisible());
-                questionMark2Label.setVisible(!questionMark1Label.isVisible());
-                questionMark3Label.setVisible(questionMark1Label.isVisible());
-            }
-        };
-
-        ScheduledExecutorService executorService = Executors.newScheduledThreadPool(1);
-        executorService.scheduleAtFixedRate(new Runnable() {
-            @Override
-            public void run() {
-                SwingUtilities.invokeLater(update);
-            }
-        }, 1, 2, TimeUnit.SECONDS);
-
-         */
-
-
-
-        /*
-        //BorderLayout.NORTH(setLayout(new FlowLayout());
-        panel3.add(label1, BorderLayout.NORTH);
-        //panel3.add(button5, BorderLayout.SOUTH);
-        //panel3.add(button1, BorderLayout.WEST);
-        //panel3.add(button2, BorderLayout.EAST);
-        panel3.add(panel4, BorderLayout.CENTER);
-        panel4.setLayout(new GridLayout(4,7));
-        panel4.add(spelare1button1);
-        panel4.add(spelare1button2);
-        panel4.add(spelare1button3);
-        panel4.add(runda1Label);
-        panel4.add(spelare2button1);
-        panel4.add(spelare2button2);
-        panel4.add(spelare2button3);
-
-        panel4.add(spelare1button4);
-        panel4.add(spelare1button5);
-        panel4.add(spelare1button6);
-        panel4.add(runda2Label);
-        panel4.add(spelare2button4);
-        panel4.add(spelare2button5);
-        panel4.add(spelare2button6);
-
-        panel4.add(spelare1button7);
-        panel4.add(spelare1button8);
-        panel4.add(spelare1button9);
-        panel4.add(runda3Label);
-        panel4.add(spelare2button7);
-        panel4.add(spelare2button8);
-        panel4.add(spelare2button9);
-
-        panel4.add(spelare1button10);
-        panel4.add(spelare1button11);
-        panel4.add(spelare1button12);
-        panel4.add(runda4Label);
-        panel4.add(spelare2button10);
-        panel4.add(spelare2button11);
-        panel4.add(spelare2button12);
-
-        spelare1button1.setPreferredSize(new Dimension(40,40));
-        spelare1button2.setPreferredSize(new Dimension(40,40));
-        spelare1button3.setPreferredSize(new Dimension(40,40));
-        spelare1button4.setPreferredSize(new Dimension(40,40));
-        spelare1button5.setPreferredSize(new Dimension(40,40));
-        spelare1button6.setPreferredSize(new Dimension(40,40));
-        spelare1button7.setPreferredSize(new Dimension(40,40));
-
-         */
-
-
-
-        continue2Button.addActionListener(this);
+        continue2Button.addActionListener(al);
         setSize(400,600);
         panel3.setBackground( Color.PINK );
         panel4.setBackground( Color.PINK );
@@ -375,15 +249,5 @@ public class CurrentResultGUI extends JPanel implements ActionListener{
         setVisible(true);
 
     }
-
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        if (continue2Button.getText().equalsIgnoreCase("Fortsätt")) {
-            continue2Button.setText("The Mario/Luigi Conspiracy");
-
-        }
-    }
-
 }
 

@@ -18,12 +18,6 @@ import java.net.UnknownHostException;
  */
 public class GameBoardGUI extends JPanel  {
 
-
-
-    //ImageIcon image = new ImageIcon("  ");
-    //Dimension d = new Dimension(200,200);
-
-
     JPanel backgroundPanel = new JPanel();
     JPanel northPanel = new JPanel();
     JPanel centerPanel = new JPanel();
@@ -74,8 +68,6 @@ public class GameBoardGUI extends JPanel  {
 
     JLabel gameNameLabel = new JLabel("Quiz Game");
 
-    //JTextField scoreInputAnvändare1 = new JTextField();
-    //JTextField scoreInputAnvändare2 = new JTextField();
     JPanel scoreInputUser1 = new JPanel();
     JPanel scoreInputUser2 = new JPanel();
 
@@ -91,11 +83,8 @@ public class GameBoardGUI extends JPanel  {
         pointsForUserLabel1.setFont(font3);
         pointsForUserLabel2.setFont(font3);
         questionStaticLabel.setFont(font1);
-        //setLayout(new FlowLayout());
-        //setLayout(new GridLayout(4,2));
         backgroundPanel.setLayout(new BorderLayout());
         this.add(backgroundPanel);
-        //BorderLayout.NORTH(setLayout(new FlowLayout());
         backgroundPanel.add(northPanel, BorderLayout.NORTH, SwingConstants.CENTER);
         northPanel.setLayout(new BorderLayout());
         northPanel.add(titlePanel, BorderLayout.NORTH, SwingConstants.CENTER);
@@ -114,12 +103,7 @@ public class GameBoardGUI extends JPanel  {
         pointsPanel.add(scoreInputUser2);
         pointsPanel.add(spacePanel3);
 
-
-        //panel3.add(button5, BorderLayout.SOUTH);
-        //panel3.add(button1, BorderLayout.WEST);
-        //panel3.add(button2, BorderLayout.EAST);
         backgroundPanel.add(centerPanel, BorderLayout.CENTER);
-        //panel4.add(kategoriLabel);
 
         centerPanel.setLayout(new BorderLayout());
         centerPanel.add(categoryPanel, BorderLayout.NORTH, SwingConstants.CENTER);   //
@@ -128,7 +112,6 @@ public class GameBoardGUI extends JPanel  {
         centerPanel.add(questionPanel, BorderLayout.CENTER, SwingConstants.CENTER );
         questionPanel.setLayout(new GridLayout(2,1));
         questionPanel.add(questionStaticLabel, BorderLayout.NORTH);
-        //questionPanel.add(questionTestLabel, BorderLayout.CENTER);
         questionPanel.add(questionTextArea, BorderLayout.CENTER);
 
 
@@ -150,6 +133,11 @@ public class GameBoardGUI extends JPanel  {
         alternative3.setPreferredSize(new Dimension(180,100));
         alternative2.setPreferredSize(new Dimension(180,100));
         alternative4.setPreferredSize(new Dimension(180,100));
+        continueButton.addActionListener(al);
+        alternative1.addActionListener(al);
+        alternative2.addActionListener(al);
+        alternative3.addActionListener(al);
+        alternative4.addActionListener(al);
         questionPanel.setPreferredSize(new Dimension(320,100)); ////
         categoryPanel.setSize(1000,1000);
 
@@ -158,8 +146,6 @@ public class GameBoardGUI extends JPanel  {
 
 
         this.setSize(400,600);
-        //bottenKnappPanel.setPreferredSize(new Dimension(400, 200));
-
         backgroundPanel.setBackground( Color.PINK );
         centerPanel.setBackground( Color.PINK );
         southPanel.setBackground( Color.PINK );
@@ -183,13 +169,10 @@ public class GameBoardGUI extends JPanel  {
         alternative4.setBackground(Color.WHITE);
         continueButton.setBackground(Color.WHITE);
         questionPanel.setBorder(BorderFactory.createLineBorder(Color.black));
-        //pack();
         questionTextArea.setEditable(false);
         questionTextArea.setLineWrap(true);
         questionTextArea.setWrapStyleWord(true);
         setVisible(true);
-
-        alternative1.addActionListener(al);
 
 
     }

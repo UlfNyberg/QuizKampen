@@ -10,10 +10,7 @@ import java.awt.event.ActionListener;
  * Project: QuizKampen
  * Copyright: MIT
  */
-public class CategoryGUI extends JPanel implements ActionListener {
-
-    //ImageIcon image = new ImageIcon("  ");
-    JFrame frame = new JFrame("Quiz Game");
+public class CategoryGUI extends JPanel {
 
     JPanel panel3 = new JPanel();
     JPanel panel4 = new JPanel();
@@ -132,23 +129,12 @@ public class CategoryGUI extends JPanel implements ActionListener {
         category2Button.setPreferredSize(new Dimension(350,60));
         category1Button.setBackground(Color.WHITE);
         category2Button.setBackground(Color.WHITE);
-        category1Button.addActionListener(this);
-        category2Button.addActionListener(this);
+        category1Button.addActionListener(al);
+        category2Button.addActionListener(al);
 
         currentlyPlayingPanel.setPreferredSize(new Dimension(120, 35));
 
-        //pack();
         setVisible(true);
 
     }
-
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        if (category1Button.getText().equalsIgnoreCase("Science")) {
-            category1Button.setText("Bra val!");
-
-        }
-    }
-
 }
