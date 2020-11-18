@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 import java.io.*;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.util.List;
 
 /**
  * Created by: Ulf Nyberg
@@ -75,28 +76,27 @@ public class QuizClient implements Runnable, ActionListener {
             Object fromServer;
 
             while ((fromServer = in.readObject()) != null) {
+                if (fromServer instanceof Init) {
+                    currentResultGUI.gameRules = (Init)fromServer;
+                }
                 if (fromServer instanceof Question) {
-
-                    gameBoardGUI.questionTextArea.setText (((Question) fromServer).getQuestion ());
-                    gameBoardGUI.alternative1.setText(((Question) fromServer).getAnswers().get(0).getText ());
-                    gameBoardGUI.alternative2.setText(((Question) fromServer).getAnswers().get(1).getText ());
-                    gameBoardGUI.alternative3.setText(((Question) fromServer).getAnswers().get(2).getText ());
-                    gameBoardGUI.alternative4.setText(((Question) fromServer).getAnswers().get(3).getText ());
+                    card.show(cardPane, "Gameboard Panel");
+                    gameBoardGUI.questionTextArea.setText(((Question) fromServer).getQuestion());
+                    gameBoardGUI.alternative1.setText(((Question) fromServer).getAnswers().get(0).getText());
+                    gameBoardGUI.alternative2.setText(((Question) fromServer).getAnswers().get(1).getText());
+                    gameBoardGUI.alternative3.setText(((Question) fromServer).getAnswers().get(2).getText());
+                    gameBoardGUI.alternative4.setText(((Question) fromServer).getAnswers().get(3).getText());
                     answer1 = ((Question) fromServer).getAnswers().get(0);
                     answer2 = ((Question) fromServer).getAnswers().get(1);
                     answer3 = ((Question) fromServer).getAnswers().get(2);
                     answer4 = ((Question) fromServer).getAnswers().get(3);
 
-                } else if (fromServer instanceof String) {
-
-                    if (((String) fromServer).equalsIgnoreCase("WAIT")) {
-                        gameBoardGUI.questionTextArea.setText ("Waiting");
-                        gameBoardGUI.alternative1.setText("wait");
-                        gameBoardGUI.alternative2.setText("wait");
-                        gameBoardGUI.alternative3.setText("wait");
-                        gameBoardGUI.alternative4.setText("wait");
-
-                    }
+                } else if (fromServer instanceof Wait) {
+                    card.show(cardPane, "Result Panel");
+                } else if (fromServer  instanceof Result) {
+                    List<List<Boolean>> currentPlayer = ((Result) fromServer).currentPlayerAnswers;
+                    List<List<Boolean>> otherPlayer = ((Result) fromServer).otherPlayerAnswers;
+                    card.show(cardPane, "Result Panel");
                 }
 
             }
@@ -112,17 +112,17 @@ public class QuizClient implements Runnable, ActionListener {
             e.printStackTrace();
         }
     }
+
     @Override
     public void actionPerformed(ActionEvent ae) {
 
-        if (ae.getSource() == homeScreenGUI.initiateNewGameButton){
+        if (ae.getSource() == homeScreenGUI.initiateNewGameButton) {
             socket = null;
             try {
                 socket = new Socket(homeScreenGUI.IPAddressTextField.getText(),
                         Integer.parseInt(homeScreenGUI.portNrTextField.getText()));
-                out = new ObjectOutputStream(socket.getOutputStream ());
+                out = new ObjectOutputStream(socket.getOutputStream());
                 gameStarted = true;
-                card.show(cardPane, "Gameboard Panel");
             } catch (IOException e) {
                 e.printStackTrace();
                 System.out.println("Kunde inte ansluta. Försök igen.");

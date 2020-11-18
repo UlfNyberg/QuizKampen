@@ -25,7 +25,6 @@ public class QuizGame extends Thread {
     }
 
     public void run() {
-
         int round = 1;
         String category = "Film";
 
@@ -38,6 +37,8 @@ public class QuizGame extends Thread {
                 playSubset("--spelare 2s tur--", 0, 1, playerTwoTotalAnswers);
                 playSubset("--spelare 1s tur--", 1, 0, playerOneTotalAnswers);
             }
+            playerList.get(0).sendObject(new Result(playerOneTotalAnswers, playerTwoTotalAnswers));
+            playerList.get(1).sendObject(new Result(playerTwoTotalAnswers, playerOneTotalAnswers));
             round++;
         }
 
@@ -56,7 +57,7 @@ public class QuizGame extends Thread {
 
     private void playSubset(String serverMessage, int otherPlayer, int initialPlayer, List<List<Boolean>> initialPlayerAnswers) {
         System.out.println(serverMessage);
-        playerList.get(otherPlayer).sendObject("WAIT");
+        playerList.get(otherPlayer).sendObject(new Wait());
         answerResult = playOneSet(playerList.get(initialPlayer));
         initialPlayerAnswers.add(List.copyOf(answerResult));
     }

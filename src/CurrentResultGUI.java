@@ -1,10 +1,8 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by: Ulf Nyberg
@@ -14,9 +12,6 @@ import java.util.concurrent.TimeUnit;
  * Copyright: MIT
  */
 public class CurrentResultGUI extends JPanel{
-
-    //ImageIcon image = new ImageIcon("  ");
-    JFrame frame = new JFrame("Quiz Game");
 
     JPanel panel3 = new JPanel();
     JPanel panel4 = new JPanel();
@@ -33,6 +28,7 @@ public class CurrentResultGUI extends JPanel{
     JPanel fourthRoundLongPanel = new JPanel();
     JPanel bottomOfScreenPanel = new JPanel();
 
+    List<JPanel> playerOneQuestions = new ArrayList<>();
     JPanel player1Round1Question1Panel = new JPanel();
     JPanel player1Round1Question2Panel = new JPanel();
     JPanel player1Round1Question3Panel = new JPanel();
@@ -54,6 +50,7 @@ public class CurrentResultGUI extends JPanel{
     JPanel categoryAndRound3Panel = new JPanel();
     JPanel categoryAndRound4Panel = new JPanel();
 
+    List<JPanel> playerTwoQuestions = new ArrayList<>();
     JPanel player2Round1Question1Panel = new JPanel();
     JPanel player2Round1Question2Panel = new JPanel();
     JPanel player2Round1Question3Panel = new JPanel();
@@ -72,6 +69,7 @@ public class CurrentResultGUI extends JPanel{
 
     JPanel currentlyPlayingPanel = new JPanel();
 
+    List<JPanel> spaceFillerList = new ArrayList<>();
     JPanel spacefiller1Panel = new JPanel();
     JPanel spacefiller2Panel = new JPanel();
     JPanel spacefiller3Panel = new JPanel();
@@ -113,7 +111,7 @@ public class CurrentResultGUI extends JPanel{
     Color softerGreen = new Color (125,255,0);
     Color softerRed = new Color(255,45,33);
 
-
+    Init gameRules;
 
     CurrentResultGUI(ActionListener al){
         gameNameLabel.setFont(font2);
@@ -162,6 +160,25 @@ public class CurrentResultGUI extends JPanel{
         spacefiller5Panel.add(betweenLabel);
         playerScorePanel.add(currentPointsPlayer2label);
         playerScorePanel.add(spacefiller6Panel);
+
+        for (int i = 0; i <= gameRules.numberOfRounds; i++) {
+            JPanel thisRound = new JPanel();
+            for (int j = 0; j < gameRules.numberOfQuestions; j++) {
+                JPanel thisQuestion = new JPanel();
+                thisQuestion.setPreferredSize(new Dimension(35, 35));
+                thisRound.add(thisQuestion);
+            }
+            playerOneQuestions.add(thisRound);
+        }
+        for (int i = 0; i <= gameRules.numberOfRounds; i++) {
+            JPanel thisRound = new JPanel();
+            for (int j = 0; j < gameRules.numberOfQuestions; j++) {
+                JPanel thisQuestion = new JPanel();
+                thisQuestion.setPreferredSize(new Dimension(35, 35));
+                thisRound.add(new JPanel());
+            }
+            playerTwoQuestions.add(thisRound);
+        }
 
 
         firstRoundLongPanel.add(player1Round1Question1Panel);
@@ -215,7 +232,6 @@ public class CurrentResultGUI extends JPanel{
         bottomOfScreenPanel.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
         continue2Button.setPreferredSize(new Dimension(350,60));
         currentlyPlayingPanel.setPreferredSize(new Dimension(120,35));
-        //bottomOfScreenPanel.setPreferredSize(new Dimension(400,80)); //resize funkar ej
         player1Round1Question1Panel.setBackground(softerRed);
         player1Round1Question1Panel.setPreferredSize(new Dimension(35,35));
         player1Round1Question2Panel.setBackground(softerGreen);
@@ -245,8 +261,11 @@ public class CurrentResultGUI extends JPanel{
         player2Round2Question3Panel.setBackground(lighterGray);
         player2Round2Question3Panel.setPreferredSize(new Dimension(35,35));
 
-        //pack();
         setVisible(true);
+
+    }
+
+    public void showResult(List<List<Boolean>> currentPlayerAnswers, List<List<Boolean>> otherPlayerAnswers) {
 
     }
 }
