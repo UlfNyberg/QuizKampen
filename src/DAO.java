@@ -18,9 +18,10 @@ public class DAO {
         this.categories = fileImporter.readFile();
     }
 
-    public List<Question> getCategoryData(String s) {
+    public List<Question> getCategoryData(String s, int amount) {
         for (Map.Entry<String, List<Question>> entry : categories.entrySet()) {
             if (s.equalsIgnoreCase(entry.getKey())) {
+                if (entry.getValue().size() >= amount)
                 return entry.getValue();
             }
         }
@@ -28,7 +29,7 @@ public class DAO {
     }
 
     public List<Question> getRandomQuestions (String s, int amount) {
-        List<Question> questions = getCategoryData(s);
+        List<Question> questions = new ArrayList<>(List.copyOf(getCategoryData(s, amount)));
         Random random = new Random();
         List<Question> randomQuestions = new ArrayList<>();
         for (int i = 0; i < amount; i++) {
@@ -39,10 +40,12 @@ public class DAO {
         return randomQuestions;
     }
 
-    public List<String> getCategories () {
+    public List<String> getCategories (int amount) {
         List<String> categoriesList = new ArrayList<>();
         for (Map.Entry<String, List<Question>> entry : categories.entrySet()) {
-            categoriesList.add(entry.getKey());
+            if (entry.getValue().size() >= amount) {
+                categoriesList.add(entry.getKey());
+            }
         }
         return categoriesList;
     }
