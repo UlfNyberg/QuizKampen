@@ -1,11 +1,10 @@
+import QuestionsAndAnswers.Question;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
+import java.io.*;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
@@ -16,17 +15,21 @@ import java.net.UnknownHostException;
  * Project: QuizKampen
  * Copyright: MIT
  */
-public class QuizClient implements ActionListener {
+public class QuizClient {
 
     JFrame frame;
     JPanel cardPane;
     CardLayout card;
+
+    private ObjectOutputStream out;
+    private Socket socket;
 
     JPanel scene;
     GameBoardGUI gameBoardGUI = new GameBoardGUI();
     CategoryGUI categoryGUI = new CategoryGUI();
     CurrentResultGUI currentResultGUI = new CurrentResultGUI();
     HomescreenGUI homeScreenGUI = new HomescreenGUI();
+    QuizClientPlayer clientListener;
 
     public QuizClient() {
         frame = new JFrame("Quiz Client");
@@ -35,7 +38,7 @@ public class QuizClient implements ActionListener {
         cardPane = new JPanel();
 
 
-        homeScreenGUI.initiateNewGameButton.addActionListener(this);  //fel? Nullpointer
+
 
         card = new CardLayout();
 
@@ -56,16 +59,14 @@ public class QuizClient implements ActionListener {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
 
-                if (e.getSource() == homeScreenGUI.initiateNewGameButton){
-                    //card.next(cardPane);
-                    card.show(cardPane, "Result Panel");
-                    //card.equals(categoryGUI);
-                }
 
-    }
+
+
+
+
+
+
 
 
 
