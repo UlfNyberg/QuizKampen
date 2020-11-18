@@ -232,7 +232,7 @@ public class CurrentResultGUI extends JPanel {
         }
         if (GameRules.numberOfRounds >= 5) {
             List<JPanel> fifthRound = copyList(playerOneQuestions);
-            for (JPanel panel : playerOneQuestions) {
+            for (JPanel panel : fifthRound) {
                 fifthRoundLongPanel.add(panel);
             }
             fifthRoundLongPanel.add(spacefiller15Panel);
