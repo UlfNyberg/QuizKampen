@@ -81,7 +81,7 @@ public class GameBoardGUI extends JPanel  {
 
 
 
-    GameBoardGUI(){
+    GameBoardGUI(ActionListener al){
         this.setLayout(new BorderLayout());
         categoryHeaderLabel.setFont(font1);
         user1Label.setFont(font1);
@@ -189,7 +189,7 @@ public class GameBoardGUI extends JPanel  {
         questionTextArea.setWrapStyleWord(true);
         setVisible(true);
 
-
+        alternative1.addActionListener(al);
 
 
     }

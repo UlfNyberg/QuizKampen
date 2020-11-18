@@ -68,7 +68,7 @@ public class CategoryGUI extends JPanel implements ActionListener {
     Color softerRed = new Color(255, 45, 33);
 
 
-    CategoryGUI() {
+    CategoryGUI(ActionListener al) {
         this.setLayout(new BorderLayout());
         chooseCategoryLabel.setFont(font2);
         timeToChooseLabel.setFont(font1);
@@ -149,12 +149,6 @@ public class CategoryGUI extends JPanel implements ActionListener {
             category1Button.setText("Bra val!");
 
         }
-    }
-
-
-    public static void main(String[] args) {
-
-        CategoryGUI categoryGUI = new CategoryGUI();
     }
 
 }

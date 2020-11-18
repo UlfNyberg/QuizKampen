@@ -15,7 +15,7 @@ import java.net.UnknownHostException;
  * Project: QuizKampen
  * Copyright: MIT
  */
-public class QuizClient {
+public class QuizClient implements ActionListener {
 
     JFrame frame;
     JPanel cardPane;
@@ -25,50 +25,58 @@ public class QuizClient {
     private Socket socket;
 
     JPanel scene;
-    GameBoardGUI gameBoardGUI = new GameBoardGUI();
-    CategoryGUI categoryGUI = new CategoryGUI();
-    CurrentResultGUI currentResultGUI = new CurrentResultGUI();
-    HomescreenGUI homeScreenGUI = new HomescreenGUI();
+    GameBoardGUI gameBoardGUI;
+    CategoryGUI categoryGUI;
+    CurrentResultGUI currentResultGUI;
+    HomescreenGUI homeScreenGUI;
     QuizClientPlayer clientListener;
 
     public QuizClient() {
+
+        gameBoardGUI = new GameBoardGUI(this::actionPerformed);
+        categoryGUI = new CategoryGUI(this::actionPerformed);
+        currentResultGUI = new CurrentResultGUI(this::actionPerformed);
+        homeScreenGUI = new HomescreenGUI(this::actionPerformed);
+
         frame = new JFrame("Quiz Client");
         frame.setSize(400, 600);
 
         cardPane = new JPanel();
-
-
-
-
         card = new CardLayout();
-
         cardPane.setLayout(card);
-
 
         cardPane.add(homeScreenGUI, "Homescreen Panel");
         cardPane.add(categoryGUI, "Category Panel");
         cardPane.add(gameBoardGUI, "Gameboard Panel");
         cardPane.add(currentResultGUI, "Result Panel");
 
-
-
-
         frame.add(cardPane);
         //frame.add(scene);
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+
     }
 
+    @Override
+    public void actionPerformed(ActionEvent ae) {
+
+        if (ae.getSource() == homeScreenGUI.initiateNewGameButton){
+            socket = null;
+            try {
+                socket = new Socket(homeScreenGUI.IPAddressTextField.getText(),
+                        Integer.parseInt(homeScreenGUI.portNrTextField.getText()));
+                out = new ObjectOutputStream(socket.getOutputStream ());
+                clientListener = new QuizClientPlayer(socket);
+                card.show(cardPane, "Result Panel");
+            } catch (IOException e) {
+                e.printStackTrace();
+                System.out.println("Kunde inte ansluta. Försök igen.");
+            }
+        }
 
 
-
-
-
-
-
-
-
-
+    }
 
     public static void main(String args[]) {
 
@@ -77,47 +85,3 @@ public class QuizClient {
 
 
 }
-
-    /*
-    public static void main(String[] args) {
-
-        String hostName = "127.0.0.1"; //localhost
-        int portNumber = 55555;
-
-        try (
-                Socket kkSocket = new Socket(hostName, portNumber);
-                PrintWriter out = new PrintWriter(kkSocket.getOutputStream(), true);
-                BufferedReader in = new BufferedReader(
-                        new InputStreamReader(kkSocket.getInputStream()))
-        ) {
-
-            BufferedReader stdIn =
-                    new BufferedReader(new InputStreamReader(System.in));
-
-            String fromServer;
-            String fromUser;
-
-            while ((fromServer = in.readLine()) != null) {
-                System.out.println("Server: " + fromServer);
-                if (fromServer.equals("Bye."))
-                    break;
-
-                fromUser = stdIn.readLine();
-                if (fromUser != null) {
-                    System.out.println("Client: " + fromUser);
-                    out.println(fromUser);
-                }
-            }
-        } catch (UnknownHostException e) {
-            System.err.println("Don't know about host " + hostName);
-            System.exit(1);
-        } catch (IOException e) {
-            System.err.println("Couldn't get I/O for the connection to " +
-                    hostName);
-            e.printStackTrace();
-            System.exit(1);
-        }
-    }
-
-     */
-

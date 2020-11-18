@@ -158,7 +158,7 @@ public class CurrentResultGUI extends JPanel implements ActionListener{
 
 
 
-    CurrentResultGUI(){
+    CurrentResultGUI(ActionListener al){
         gameNameLabel.setFont(font2);
         player1NameLabel.setFont(font1);
         player2NameLabel.setFont(font1);
@@ -385,11 +385,5 @@ public class CurrentResultGUI extends JPanel implements ActionListener{
         }
     }
 
-
-
-    public static void main(String[] args) {
-
-        CurrentResultGUI currentResultGUI = new CurrentResultGUI();
-    }
 }
 

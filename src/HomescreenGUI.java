@@ -36,7 +36,7 @@ public class HomescreenGUI extends JPanel implements ActionListener {
 
 
 
-    HomescreenGUI(){
+    HomescreenGUI(ActionListener al){
         this.setLayout(new BorderLayout());
         //setLayout(new FlowLayout());
         //setLayout(new GridLayout(4,2));
@@ -85,10 +85,4 @@ public class HomescreenGUI extends JPanel implements ActionListener {
 
     }
 
-
-
-    public static void main(String[] args) {
-
-        HomescreenGUI homeScreenGUI = new HomescreenGUI();
-    }
 }
