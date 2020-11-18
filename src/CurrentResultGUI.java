@@ -243,6 +243,7 @@ public class CurrentResultGUI extends JPanel {
                 fifthRoundLongPanel.add(panel);
             }
         }
+        //TODO: ändra storlek beroende på antal frågor och rundor
         setSize(400, 600);
         panel3.setBackground(Color.PINK);
         panel4.setBackground(Color.PINK);

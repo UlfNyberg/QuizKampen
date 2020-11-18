@@ -76,8 +76,6 @@ public class QuizClient implements Runnable, ActionListener {
             Object fromServer;
 
             while ((fromServer = in.readObject()) != null) {
-                if (fromServer instanceof Init) {
-                }
                 if (fromServer instanceof Question) {
                     card.show(cardPane, "Gameboard Panel");
                     gameBoardGUI.questionTextArea.setText(((Question) fromServer).getQuestion());
