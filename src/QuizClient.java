@@ -1,3 +1,4 @@
+import QuestionsAndAnswers.Answer;
 import QuestionsAndAnswers.Question;
 
 import javax.swing.*;
@@ -15,7 +16,7 @@ import java.net.UnknownHostException;
  * Project: QuizKampen
  * Copyright: MIT
  */
-public class QuizClient implements ActionListener {
+public class QuizClient implements Runnable, ActionListener {
 
     JFrame frame;
     JPanel cardPane;
@@ -24,19 +25,22 @@ public class QuizClient implements ActionListener {
     private ObjectOutputStream out;
     private Socket socket;
 
-    JPanel scene;
     GameBoardGUI gameBoardGUI;
     CategoryGUI categoryGUI;
     CurrentResultGUI currentResultGUI;
     HomescreenGUI homeScreenGUI;
-    QuizClientPlayer clientListener;
+    boolean gameStarted = false;
+    Answer answer1;
+    Answer answer2;
+    Answer answer3;
+    Answer answer4;
 
     public QuizClient() {
 
-        gameBoardGUI = new GameBoardGUI(this::actionPerformed);
-        categoryGUI = new CategoryGUI(this::actionPerformed);
-        currentResultGUI = new CurrentResultGUI(this::actionPerformed);
-        homeScreenGUI = new HomescreenGUI(this::actionPerformed);
+        gameBoardGUI = new GameBoardGUI(this);
+        categoryGUI = new CategoryGUI(this);
+        currentResultGUI = new CurrentResultGUI(this);
+        homeScreenGUI = new HomescreenGUI(this);
 
         frame = new JFrame("Quiz Client");
         frame.setSize(400, 600);
@@ -51,13 +55,63 @@ public class QuizClient implements ActionListener {
         cardPane.add(currentResultGUI, "Result Panel");
 
         frame.add(cardPane);
-        //frame.add(scene);
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 
     }
 
+    public void run() {
+
+        while (!gameStarted) {
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        try (ObjectInputStream in = new ObjectInputStream(socket.getInputStream())) {
+
+            Object fromServer;
+
+            while ((fromServer = in.readObject()) != null) {
+                if (fromServer instanceof Question) {
+
+                    gameBoardGUI.questionTextArea.setText (((Question) fromServer).getQuestion ());
+                    gameBoardGUI.alternative1.setText(((Question) fromServer).getAnswers().get(0).getText ());
+                    gameBoardGUI.alternative2.setText(((Question) fromServer).getAnswers().get(1).getText ());
+                    gameBoardGUI.alternative3.setText(((Question) fromServer).getAnswers().get(2).getText ());
+                    gameBoardGUI.alternative4.setText(((Question) fromServer).getAnswers().get(3).getText ());
+                    answer1 = ((Question) fromServer).getAnswers().get(0);
+                    answer2 = ((Question) fromServer).getAnswers().get(1);
+                    answer3 = ((Question) fromServer).getAnswers().get(2);
+                    answer4 = ((Question) fromServer).getAnswers().get(3);
+
+                } else if (fromServer instanceof String) {
+
+                    if (((String) fromServer).equalsIgnoreCase("WAIT")) {
+                        gameBoardGUI.questionTextArea.setText ("Waiting");
+                        gameBoardGUI.alternative1.setText("wait");
+                        gameBoardGUI.alternative2.setText("wait");
+                        gameBoardGUI.alternative3.setText("wait");
+                        gameBoardGUI.alternative4.setText("wait");
+
+                    }
+                }
+
+            }
+
+        } catch (UnknownHostException e) {
+            System.err.println("Don't know about host ");
+            System.exit(1);
+        } catch (IOException e) {
+            System.err.println("Couldn't get I/O for the connection to ");
+            e.printStackTrace();
+            System.exit(1);
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
     @Override
     public void actionPerformed(ActionEvent ae) {
 
@@ -67,19 +121,45 @@ public class QuizClient implements ActionListener {
                 socket = new Socket(homeScreenGUI.IPAddressTextField.getText(),
                         Integer.parseInt(homeScreenGUI.portNrTextField.getText()));
                 out = new ObjectOutputStream(socket.getOutputStream ());
-                //clientListener = new QuizClientPlayer(socket);
+                gameStarted = true;
                 card.show(cardPane, "Gameboard Panel");
             } catch (IOException e) {
                 e.printStackTrace();
                 System.out.println("Kunde inte ansluta. Försök igen.");
             }
+        } else if (ae.getSource() == gameBoardGUI.alternative1) {
+            try {
+                out.writeObject(answer1);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        } else if (ae.getSource() == gameBoardGUI.alternative2) {
+            try {
+                out.writeObject(answer2);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        } else if (ae.getSource() == gameBoardGUI.alternative3) {
+            try {
+                out.writeObject(answer3);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        } else if (ae.getSource() == gameBoardGUI.alternative4) {
+            try {
+                out.writeObject(answer4);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
-
-
     }
 
     public static void main(String[] args) {
-        QuizClient quizclient = new QuizClient();
+        Thread t = new Thread(new QuizClient());
+        t.start();
     }
 
 
