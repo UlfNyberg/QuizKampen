@@ -23,7 +23,7 @@ public class FileImporter {
         this.fileName = fileName;
     }
 
-    public void readFile() {
+    public LinkedHashMap<String, List<Question>> readFile() {
         try {
             br = new BufferedReader(new FileReader(fileName));
             List<Question> list = new ArrayList<>();
@@ -47,19 +47,19 @@ public class FileImporter {
                         list.add(question);
                         break;
                     case 'S':
-                        for (Question question1 : list) {
-                            for(Answer answer : question1.getAnswers()) {
-                                if (answer.getText().equalsIgnoreCase(startOfLine)) {
-                                    answer.setCorrect();
-                                }
+                        for (Answer answer : question.getAnswers()) {
+                            if (answer.getText().equalsIgnoreCase(startOfLine)) {
+                                answer.setCorrect();
                             }
                         }
                 }
             }
+
         } catch (IOException e) {
             System.out.println("Kan inte avläsa filen");
             System.exit(1);
         }
+        return categories;
     }
 
     //For testing

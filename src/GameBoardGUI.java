@@ -1,5 +1,13 @@
+import QuestionsAndAnswers.Answer;
+import QuestionsAndAnswers.Question;
+
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.*;
+import java.net.Socket;
+import java.net.UnknownHostException;
 
 /**
  * Created by: Ulf Nyberg
@@ -8,12 +16,20 @@ import java.awt.*;
  * Project: QuizKampen
  * Copyright: MIT
  */
-public class GameBoardGUI extends JPanel {
+public class GameBoardGUI extends JPanel  {
+
+    private ObjectOutputStream out;
+    private Socket socket;
+
+    private Answer answer1;
+    private Answer answer2;
+    private Answer answer3;
+    private Answer answer4;
 
     //ImageIcon image = new ImageIcon("  ");
     //Dimension d = new Dimension(200,200);
 
-    JFrame frame = new JFrame("Quiz Game");
+    JFrame frame = new JFrame ("Quiz Game");
 
     JPanel backgroundPanel = new JPanel();
     JPanel northPanel = new JPanel();
@@ -30,9 +46,9 @@ public class GameBoardGUI extends JPanel {
     JPanel spacePanel2 = new JPanel();
     JPanel spacePanel3 = new JPanel();
 
-    Font font1 = new Font("SansSerif", Font.BOLD, 20);
-    Font font2 = new Font("Monospace", Font.BOLD, 30);
-    Font font3 = new Font("SansSerif", Font.BOLD, 14);
+    Font font1 = new Font ("SansSerif", Font.BOLD, 20);
+    Font font2 = new Font ("Monospace", Font.BOLD, 30);
+    Font font3 = new Font ("SansSerif", Font.BOLD, 14);
 
 
     JButton alternative1 = new JButton("Alternativ 1");
@@ -44,7 +60,7 @@ public class GameBoardGUI extends JPanel {
     //valAvSvar1.setPreferredSize(d);  //vidareundersök knappstorlek
 
 
-    JLabel quizGameLabel = new JLabel("QUIZ GAME", SwingConstants.CENTER);
+    JLabel quizGameLabel = new JLabel ("QUIZ GAME", SwingConstants.CENTER);
 
     JLabel user1Label = new JLabel("Användare1");
     JLabel user2Label = new JLabel("Användare2");
@@ -188,11 +204,102 @@ public class GameBoardGUI extends JPanel {
         setVisible(true);
 
 
+
+        alternative1.addActionListener(this);
+        alternative2.addActionListener(this);
+        alternative3.addActionListener(this);
+        alternative4.addActionListener(this);
+
+        socket = null;
+        try {
+            socket = new Socket("localhost", 22222);
+            out = new ObjectOutputStream (socket.getOutputStream ());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public void run() {
+
+        try (ObjectInputStream in = new ObjectInputStream (socket.getInputStream ())) {
+
+            Object fromServer;
+
+            while ((fromServer = in.readObject ()) != null) {
+                if(fromServer instanceof Question){
+
+                    answer1 = ((Question) fromServer).getAnswers().get(0);
+                    answer2 = ((Question) fromServer).getAnswers().get(1);
+                    answer3 = ((Question) fromServer).getAnswers().get(2);
+                    answer4 = ((Question) fromServer).getAnswers().get(3);
+
+                    questionTextArea.setText (((Question) fromServer).getQuestion ());
+                    alternative1.setText(((Question) fromServer).getAnswers().get(0).getText ());
+                    alternative2.setText(((Question) fromServer).getAnswers().get(1).getText ());
+                    alternative3.setText(((Question) fromServer).getAnswers().get(2).getText ());
+                    alternative4.setText(((Question) fromServer).getAnswers().get(3).getText ());
+                }
+                else if(fromServer instanceof String){
+
+                    if(((String) fromServer).equalsIgnoreCase("WAIT")){
+                        questionTextArea.setText ("Waiting");
+                        alternative1.setText("wait");
+                        alternative2.setText("wait");
+                        alternative3.setText("wait");
+                        alternative4.setText("wait");
+                        //answer1 = null;
+                        //answer2 = null;
+                        //answer3 = null;
+                        //answer4 = null;
+
+                    }
+                }
+
+            }
+
+        } catch (UnknownHostException e) {
+            System.err.println ("Don't know about host ");
+            System.exit (1);
+        } catch (IOException e) {
+            System.err.println ("Couldn't get I/O for the connection to ");
+            e.printStackTrace ();
+            System.exit (1);
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace ();
+        }
+    }
+
+    private void sendData(Object object) {
+        try {
+            out.writeObject(object);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public static void main(String[] args) {
+        Thread t1 = new Thread(new GameBoardGUI ());
+        t1.start();
+    }
 
-        GameBoardGUI gameBoardGUI = new GameBoardGUI();
+    @Override
+    public void actionPerformed(ActionEvent e) {
+
+        if(e.getSource() == alternative1){
+            System.out.println("alternativ 1");
+            sendData(answer1);
+        }else if(e.getSource() == alternative2){
+            System.out.println("alternativ 2");
+            sendData(answer2);
+        }else if(e.getSource() == alternative3){
+            System.out.println("alternativ 3");
+            sendData(answer3);
+        }else if(e.getSource() == alternative4){
+            System.out.println("alternativ 4");
+            sendData(answer4);
+        }
+
     }
 }
 

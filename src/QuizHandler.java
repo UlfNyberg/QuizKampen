@@ -14,17 +14,13 @@ import java.net.Socket;
  */
 public class QuizHandler extends Thread{
 
-
     private Socket socket;
     private PrintWriter out;
     private BufferedReader in;
 
     public QuizHandler (Socket socket) {
         this.socket = socket;
-
     }
-
-
 
     public void run (){
     try {
@@ -58,10 +54,6 @@ public class QuizHandler extends Thread{
             e.printStackTrace();
         }
     }
-
-
-
-
 
     }
 }
