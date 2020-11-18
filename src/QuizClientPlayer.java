@@ -12,11 +12,11 @@ import java.net.UnknownHostException;
  * Project: QuizKampen
  * Copyright: MIT
  */
-public class QuizClientPlayer implements  Runnable{
+public class QuizClientPlayer implements Runnable {
 
     private Socket socket;
 
-    public QuizClientPlayer (Socket socket){
+    public QuizClientPlayer(Socket socket) {
         this.socket = socket;
 
     }
@@ -24,12 +24,12 @@ public class QuizClientPlayer implements  Runnable{
 
     public void run() {
 
-        try (ObjectInputStream in = new ObjectInputStream (socket.getInputStream ())) {
+        try (ObjectInputStream in = new ObjectInputStream(socket.getInputStream())) {
 
             Object fromServer;
 
-            while ((fromServer = in.readObject ()) != null) {
-                if(fromServer instanceof Question){
+            while ((fromServer = in.readObject()) != null) {
+                if (fromServer instanceof Question) {
                     /*
                     questionTextArea.setText (((Question) fromServer).getQuestion ());
                     alternative1.setText(((Question) fromServer).getAnswers().get(0).getText ());
@@ -38,10 +38,9 @@ public class QuizClientPlayer implements  Runnable{
                     alternative4.setText(((Question) fromServer).getAnswers().get(3).getText ());
 
                      */
-                }
-                else if(fromServer instanceof String){
+                } else if (fromServer instanceof String) {
 
-                    if(((String) fromServer).equalsIgnoreCase("WAIT")){
+                    if (((String) fromServer).equalsIgnoreCase("WAIT")) {
                         /*
                         questionTextArea.setText ("Waiting");
                         alternative1.setText("wait");
@@ -61,14 +60,15 @@ public class QuizClientPlayer implements  Runnable{
             }
 
         } catch (UnknownHostException e) {
-            System.err.println ("Don't know about host ");
-            System.exit (1);
+            System.err.println("Don't know about host ");
+            System.exit(1);
         } catch (IOException e) {
-            System.err.println ("Couldn't get I/O for the connection to ");
-            e.printStackTrace ();
-            System.exit (1);
+            System.err.println("Couldn't get I/O for the connection to ");
+            e.printStackTrace();
+            System.exit(1);
         } catch (ClassNotFoundException e) {
-            e.printStackTrace ();
+            e.printStackTrace();
         }
     }
 }
+

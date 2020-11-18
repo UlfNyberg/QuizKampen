@@ -67,8 +67,8 @@ public class QuizClient implements ActionListener {
                 socket = new Socket(homeScreenGUI.IPAddressTextField.getText(),
                         Integer.parseInt(homeScreenGUI.portNrTextField.getText()));
                 out = new ObjectOutputStream(socket.getOutputStream ());
-                clientListener = new QuizClientPlayer(socket);
-                card.show(cardPane, "Result Panel");
+                //clientListener = new QuizClientPlayer(socket);
+                card.show(cardPane, "Gameboard Panel");
             } catch (IOException e) {
                 e.printStackTrace();
                 System.out.println("Kunde inte ansluta. Försök igen.");
@@ -78,8 +78,7 @@ public class QuizClient implements ActionListener {
 
     }
 
-    public static void main(String args[]) {
-
+    public static void main(String[] args) {
         QuizClient quizclient = new QuizClient();
     }
 
