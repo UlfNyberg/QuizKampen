@@ -37,10 +37,10 @@ public class QuizClient implements Runnable, ActionListener {
     Answer answer4;
 
     public QuizClient() {
-
+        GameRules gameRules = new GameRules();
         gameBoardGUI = new GameBoardGUI(this);
         categoryGUI = new CategoryGUI(this);
-        currentResultGUI = new CurrentResultGUI(this);
+        currentResultGUI = new CurrentResultGUI();
         homeScreenGUI = new HomescreenGUI(this);
 
         frame = new JFrame("Quiz Client");
@@ -77,7 +77,6 @@ public class QuizClient implements Runnable, ActionListener {
 
             while ((fromServer = in.readObject()) != null) {
                 if (fromServer instanceof Init) {
-                    currentResultGUI.gameRules = (Init)fromServer;
                 }
                 if (fromServer instanceof Question) {
                     card.show(cardPane, "Gameboard Panel");
