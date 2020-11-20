@@ -91,8 +91,11 @@ public class QuizClient implements Runnable, ActionListener {
                 } else if (fromServer instanceof Wait) {
                     card.show(cardPane, "Result Panel");
                 } else if (fromServer  instanceof Result) {
-                    List<List<Boolean>> currentPlayer = ((Result) fromServer).currentPlayerAnswers;
-                    List<List<Boolean>> otherPlayer = ((Result) fromServer).otherPlayerAnswers;
+                    List<Boolean> currentPlayer = ((Result) fromServer).currentPlayerAnswers;
+                    List<Boolean> otherPlayer = ((Result) fromServer).otherPlayerAnswers;
+                    currentResultGUI.showResult(currentPlayer, otherPlayer);
+                    frame.repaint();
+                    frame.revalidate();
                     card.show(cardPane, "Result Panel");
                 }
 

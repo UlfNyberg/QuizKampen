@@ -9,10 +9,10 @@ import java.util.List;
  * Copyright: MIT
  */
 public class Result implements Serializable {
-    List<List<Boolean>> currentPlayerAnswers;
-    List<List<Boolean>> otherPlayerAnswers;
+    List<Boolean> currentPlayerAnswers;
+    List<Boolean> otherPlayerAnswers;
 
-    public Result(List<List<Boolean>> currentPlayerAnswers, List<List<Boolean>> otherPlayerAnswers) {
+    public Result(List<Boolean> currentPlayerAnswers, List<Boolean> otherPlayerAnswers) {
         this.currentPlayerAnswers = currentPlayerAnswers;
         this.otherPlayerAnswers = otherPlayerAnswers;
     }
