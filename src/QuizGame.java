@@ -37,8 +37,8 @@ public class QuizGame extends Thread {
                 playSubset("--spelare 2s tur--", 0, 1, playerTwoTotalAnswers);
                 playSubset("--spelare 1s tur--", 1, 0, playerOneTotalAnswers);
             }
-            playerList.get(0).sendObject(new Result(playerOneTotalAnswers.get(round-1), playerTwoTotalAnswers.get(round-1)));
-            playerList.get(1).sendObject(new Result(playerTwoTotalAnswers.get(round-1), playerOneTotalAnswers.get(round-1)));
+            playerList.get(0).sendObject(new Result(playerOneTotalAnswers.get(round-1), playerTwoTotalAnswers.get(round-1), round));
+            playerList.get(1).sendObject(new Result(playerTwoTotalAnswers.get(round-1), playerOneTotalAnswers.get(round-1), round));
             System.out.println("--checking score p1--");
             printPlayerAnswers(playerOneTotalAnswers);
             System.out.println("--checking score p2--");

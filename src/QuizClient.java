@@ -93,9 +93,9 @@ public class QuizClient implements Runnable, ActionListener {
                 } else if (fromServer  instanceof Result) {
                     List<Boolean> currentPlayer = ((Result) fromServer).currentPlayerAnswers;
                     List<Boolean> otherPlayer = ((Result) fromServer).otherPlayerAnswers;
-                    currentResultGUI.showResult(currentPlayer, otherPlayer);
-                    frame.repaint();
-                    frame.revalidate();
+                    int round = ((Result) fromServer).round;
+                    SwingUtilities.invokeLater(() -> currentResultGUI.showResult(currentPlayer, otherPlayer, round));
+
                     card.show(cardPane, "Result Panel");
                 }
 

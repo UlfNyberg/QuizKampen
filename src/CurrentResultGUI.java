@@ -141,13 +141,7 @@ public class CurrentResultGUI extends JPanel {
 
         if (GameRules.numberOfRounds >= 1) {
             List<JPanel> firstRound = copyList(currentPlayerQuestions);
-            JButton button;
             for (JPanel panel : firstRound) {
-                button = new JButton();
-                button.setBackground(lighterGray);
-                button.setEnabled(false);
-                button.setPreferredSize(new Dimension(35,35));
-                panel.add(button);
                 firstRoundLongPanel.add(panel);
             }
             firstRoundLongPanel.add(spacefiller7Panel);
@@ -155,24 +149,13 @@ public class CurrentResultGUI extends JPanel {
             firstRoundLongPanel.add(spacefiller8Panel);
             firstRound = copyList(otherPlayerQuestions);
             for (JPanel panel : firstRound) {
-                button = new JButton();
-                button.setBackground(lighterGray);
-                button.setEnabled(false);
-                button.setPreferredSize(new Dimension(35,35));
-                panel.add(button);
                 firstRoundLongPanel.add(panel);
             }
         }
 
         if (GameRules.numberOfRounds >= 2) {
             List<JPanel> secondRound = copyList(currentPlayerQuestions);
-            JButton button;
             for (JPanel panel : secondRound) {
-                button = new JButton();
-                button.setBackground(lighterGray);
-                button.setEnabled(false);
-                button.setPreferredSize(new Dimension(35,35));
-                panel.add(button);
                 secondRoundLongPanel.add(panel);
             }
             secondRoundLongPanel.add(spacefiller9Panel);
@@ -180,11 +163,6 @@ public class CurrentResultGUI extends JPanel {
             secondRoundLongPanel.add(spacefiller10Panel);
             secondRound = copyList(otherPlayerQuestions);
             for (JPanel panel : secondRound) {
-                button = new JButton();
-                button.setBackground(lighterGray);
-                button.setEnabled(false);
-                button.setPreferredSize(new Dimension(35,35));
-                panel.add(button);
                 secondRoundLongPanel.add(panel);
             }
         }
@@ -281,18 +259,80 @@ public class CurrentResultGUI extends JPanel {
         return copy;
     }
 
-    public void showResult(List<Boolean> currentPlayerAnswers, List<Boolean> otherPlayerAnswers) {
-        changeBackgroundColor(currentPlayerAnswers, currentPlayerQuestions);
-        changeBackgroundColor(otherPlayerAnswers, otherPlayerQuestions);
-    }
+    public void showResult(List<Boolean> currentPlayerAnswers, List<Boolean> otherPlayerAnswers, int round) {
+        switch (round) {
+            case 1:
+                for (int i = 0; i < currentPlayerAnswers.size(); i++) {
+                    if (currentPlayerAnswers.get(i)) {
+                        firstRoundLongPanel.getComponent(i).setBackground(correctAnswerColor);
+                    } else {
+                        firstRoundLongPanel.getComponent(i).setBackground(incorrectAnswerColor);
+                    }
+                    if (otherPlayerAnswers.get(i)) {
+                        firstRoundLongPanel.getComponent(currentPlayerAnswers.size() + 3 + i).setBackground(correctAnswerColor);
+                    } else {
+                        firstRoundLongPanel.getComponent(currentPlayerAnswers.size() + 3 + i).setBackground(incorrectAnswerColor);
+                    }
 
-    private void changeBackgroundColor(List<Boolean> playerAnswers, List<JPanel> player) {
-        for (int i = 0; i < playerAnswers.size(); i++) {
-            if (playerAnswers.get(i)) {
-                player.get(i).getComponent(i).setBackground(correctAnswerColor);
-            } else {
-                player.get(i).getComponent(i).setBackground(incorrectAnswerColor);
-            }
+                }
+                break;
+            case 2:
+                for (int i = 0; i < currentPlayerAnswers.size(); i++) {
+                    if (currentPlayerAnswers.get(i)) {
+                        secondRoundLongPanel.getComponent(i).setBackground(correctAnswerColor);
+                    } else {
+                        secondRoundLongPanel.getComponent(i).setBackground(incorrectAnswerColor);
+                    }
+                    if (otherPlayerAnswers.get(i)) {
+                        secondRoundLongPanel.getComponent(currentPlayerAnswers.size() + 3 + i).setBackground(correctAnswerColor);
+                    } else {
+                        secondRoundLongPanel.getComponent(currentPlayerAnswers.size() + 3 + i).setBackground(incorrectAnswerColor);
+                    }
+                }
+                break;
+            case 3:
+                for (int i = 0; i < currentPlayerAnswers.size(); i++) {
+                    if (currentPlayerAnswers.get(i)) {
+                        thirdRoundLongPanel.getComponent(i).setBackground(correctAnswerColor);
+                    } else {
+                        thirdRoundLongPanel.getComponent(i).setBackground(incorrectAnswerColor);
+                    }
+                    if (otherPlayerAnswers.get(i)) {
+                        thirdRoundLongPanel.getComponent(currentPlayerAnswers.size() + 3 + i).setBackground(correctAnswerColor);
+                    } else {
+                        thirdRoundLongPanel.getComponent(currentPlayerAnswers.size() + 3 + i).setBackground(incorrectAnswerColor);
+                    }
+                }
+                break;
+            case 4:
+                for (int i = 0; i < currentPlayerAnswers.size(); i++) {
+                    if (currentPlayerAnswers.get(i)) {
+                        fourthRoundLongPanel.getComponent(i).setBackground(correctAnswerColor);
+                    } else {
+                        fourthRoundLongPanel.getComponent(i).setBackground(incorrectAnswerColor);
+                    }
+                    if (otherPlayerAnswers.get(i)) {
+                        fourthRoundLongPanel.getComponent(currentPlayerAnswers.size() + 3 + i).setBackground(correctAnswerColor);
+                    } else {
+                        fourthRoundLongPanel.getComponent(currentPlayerAnswers.size() + 3 + i).setBackground(incorrectAnswerColor);
+                    }
+                }
+                break;
+            case 5:
+                for (int i = 0; i < currentPlayerAnswers.size(); i++) {
+                    if (currentPlayerAnswers.get(i)) {
+                        fifthRoundLongPanel.getComponent(i).setBackground(correctAnswerColor);
+                    } else {
+                        fifthRoundLongPanel.getComponent(i).setBackground(incorrectAnswerColor);
+                    }
+                    if (otherPlayerAnswers.get(i)) {
+                        fifthRoundLongPanel.getComponent(currentPlayerAnswers.size() + 3 + i).setBackground(correctAnswerColor);
+                    } else {
+                        fifthRoundLongPanel.getComponent(currentPlayerAnswers.size() + 3 + i).setBackground(incorrectAnswerColor);
+                    }
+                }
+                break;
         }
+
     }
 }

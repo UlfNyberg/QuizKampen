@@ -11,9 +11,11 @@ import java.util.List;
 public class Result implements Serializable {
     List<Boolean> currentPlayerAnswers;
     List<Boolean> otherPlayerAnswers;
+    int round;
 
-    public Result(List<Boolean> currentPlayerAnswers, List<Boolean> otherPlayerAnswers) {
+    public Result(List<Boolean> currentPlayerAnswers, List<Boolean> otherPlayerAnswers, int round) {
         this.currentPlayerAnswers = currentPlayerAnswers;
         this.otherPlayerAnswers = otherPlayerAnswers;
+        this.round = round;
     }
 }
