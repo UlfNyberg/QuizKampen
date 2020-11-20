@@ -98,8 +98,8 @@ public class QuizClient implements Runnable, ActionListener {
                     gameBoardGUI.currentPointsPlayer1Label.setText(String.valueOf(currentPlayerResult));
                     currentResultGUI.currentPointsPlayer1Label.setText(String.valueOf(currentPlayerResult));
                     int otherPlayerResult = ((Result) fromServer).otherPlayerScore;
-                    gameBoardGUI.currentPointsPlayer2Label.setText(String.valueOf(currentPlayerResult));
-                    currentResultGUI.currentPointsPlayer2Label.setText(String.valueOf(currentPlayerResult));
+                    gameBoardGUI.currentPointsPlayer2Label.setText(String.valueOf(otherPlayerResult));
+                    currentResultGUI.currentPointsPlayer2Label.setText(String.valueOf(otherPlayerResult));
                     SwingUtilities.invokeLater(() -> currentResultGUI.showResult(currentPlayer, otherPlayer, round));
 
                     card.show(cardPane, "Result Panel");
