@@ -30,13 +30,15 @@ public class QuizGame extends Thread {
         String category = "Film";
 
         while (round <= GameRules.numberOfRounds) {
-            getQuestions(category);
             if (round % 2 != 0) {
-                playSubset("--spelare 1s tur--", 1, 0, playerOneTotalAnswers);
-                playSubset("--spelare 2s tur--", 0, 1, playerTwoTotalAnswers);
+                selectCategory("--Spelare 1 väljer kategori--",1,0);
+                playSubset("--spelare 1s tur--",  0, playerOneTotalAnswers);
+                //TODO: Ska wait vara här eller ska vi köra wait i subset och selectcategory?
+                playSubset("--spelare 2s tur--",  1, playerTwoTotalAnswers);
             } else {
-                playSubset("--spelare 2s tur--", 0, 1, playerTwoTotalAnswers);
-                playSubset("--spelare 1s tur--", 1, 0, playerOneTotalAnswers);
+                selectCategory("--Spelare 2 väljer kategori--",0,1);
+                playSubset("--spelare 2s tur--",  1, playerTwoTotalAnswers);
+                playSubset("--spelare 1s tur--",  0, playerOneTotalAnswers);
             }
             int playerOneScore = calculateScore(playerOneTotalAnswers);
             int playerTwoScore = calculateScore(playerTwoTotalAnswers);
@@ -59,11 +61,21 @@ public class QuizGame extends Thread {
     }
 
 
-    private void playSubset(String serverMessage, int otherPlayer, int initialPlayer, List<List<Boolean>> initialPlayerAnswers) {
+    private void selectCategory(String serverMessage, int otherPlayer, int initialPlayer){
         System.out.println(serverMessage);
         playerList.get(otherPlayer).sendObject(new Wait());
+        List<String> categories = database.getCategories(2);
+        playerList.get(initialPlayer).sendObject(new Category(categories.get(0),categories.get(1)));
+        Object fromPlayer = playerList.get(initialPlayer).receiveAnswer();
+        String category = ((Category) fromPlayer).selectedCategory;
+        getQuestions(category);
+    }
+
+    private void playSubset(String serverMessage,int initialPlayer, List<List<Boolean>> initialPlayerAnswers) {
+        System.out.println(serverMessage);
         answerResult = playOneSet(playerList.get(initialPlayer));
         initialPlayerAnswers.add(List.copyOf(answerResult));
+        playerList.get(initialPlayer).sendObject(new Wait());
     }
 
     public void addPlayer(ServerQuizPlayer player) {

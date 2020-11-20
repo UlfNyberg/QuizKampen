@@ -137,4 +137,5 @@ public class CategoryGUI extends JPanel {
         setVisible(true);
 
     }
+
 }
