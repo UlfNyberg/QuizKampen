@@ -10,6 +10,7 @@ public class QuizGame extends Thread {
     //private ServerQuizPlayer playerTwo;
 
 
+
     private List<Question> questionList;
 
     private List<ServerQuizPlayer> playerList = new ArrayList<>();
@@ -37,8 +38,12 @@ public class QuizGame extends Thread {
                 playSubset("--spelare 2s tur--", 0, 1, playerTwoTotalAnswers);
                 playSubset("--spelare 1s tur--", 1, 0, playerOneTotalAnswers);
             }
-            playerList.get(0).sendObject(new Result(playerOneTotalAnswers.get(round-1), playerTwoTotalAnswers.get(round-1), round));
-            playerList.get(1).sendObject(new Result(playerTwoTotalAnswers.get(round-1), playerOneTotalAnswers.get(round-1), round));
+            int playerOneScore = calculateScore(playerOneTotalAnswers);
+            int playerTwoScore = calculateScore(playerTwoTotalAnswers);
+            playerList.get(0).sendObject(new Result(playerOneTotalAnswers.get(round-1),
+                    playerTwoTotalAnswers.get(round-1), round, playerOneScore, playerTwoScore));
+            playerList.get(1).sendObject(new Result(playerTwoTotalAnswers.get(round-1),
+                    playerOneTotalAnswers.get(round-1), round, playerTwoScore, playerOneScore));
             System.out.println("--checking score p1--");
             printPlayerAnswers(playerOneTotalAnswers);
             System.out.println("--checking score p2--");
@@ -90,4 +95,19 @@ public class QuizGame extends Thread {
         }
         return answers;
     }
+
+
+    public int calculateScore(List<List<Boolean>> playerAnswers){
+        int playerScore = 0;
+        for (List <Boolean> list : playerAnswers){
+            for(Boolean answer : list){
+                if (answer)
+                    playerScore++;
+            }
+        }return playerScore;
+    }
+
+
+
+
 }

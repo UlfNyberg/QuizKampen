@@ -1,13 +1,6 @@
-import QuestionsAndAnswers.Answer;
-import QuestionsAndAnswers.Question;
-
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.*;
-import java.net.Socket;
-import java.net.UnknownHostException;
 
 /**
  * Created by: Ulf Nyberg
@@ -68,8 +61,9 @@ public class GameBoardGUI extends JPanel  {
 
     JLabel gameNameLabel = new JLabel("Quiz Game");
 
-    JPanel scoreInputUser1 = new JPanel();
-    JPanel scoreInputUser2 = new JPanel();
+    JLabel currentPointsPlayer1Label = new JLabel("0");
+    JLabel currentPointsPlayer2Label = new JLabel("0");
+
 
 
 
@@ -97,10 +91,10 @@ public class GameBoardGUI extends JPanel  {
         pointsPanel.setLayout(new GridLayout(1,7));
         pointsPanel.add(spacePanel);
         pointsPanel.add((pointsForUserLabel1));
-        pointsPanel.add(scoreInputUser1);
+        pointsPanel.add(currentPointsPlayer1Label);
         pointsPanel.add(spacePanel2);
         pointsPanel.add(pointsForUserLabel2);
-        pointsPanel.add(scoreInputUser2);
+        pointsPanel.add(currentPointsPlayer2Label);
         pointsPanel.add(spacePanel3);
 
         backgroundPanel.add(centerPanel, BorderLayout.CENTER);
@@ -156,8 +150,8 @@ public class GameBoardGUI extends JPanel  {
         bottomButtonPanel.setBackground( Color.PINK );
         titlePanel.setBackground( Color.PINK );
         pointsPanel.setBackground( Color.PINK);
-        scoreInputUser1.setBackground(Color.WHITE);
-        scoreInputUser2.setBackground(Color.WHITE);
+        currentPointsPlayer1Label.setBackground(Color.WHITE);
+        currentPointsPlayer2Label.setBackground(Color.WHITE);
         usernamePanel.setBackground( Color.PINK );
         spacePanel.setBackground( Color.PINK);
         spacePanel2.setBackground( Color.PINK);

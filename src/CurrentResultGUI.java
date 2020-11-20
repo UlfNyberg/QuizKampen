@@ -65,8 +65,8 @@ public class CurrentResultGUI extends JPanel {
     JLabel currentlyPlayingLabel = new JLabel("SPELAR");
     JLabel player1NameLabel = new JLabel("Spelare1");
     JLabel player2NameLabel = new JLabel("Spelare2");
-    JLabel currentPointsPlayer1label = new JLabel("PoängSpelare1");
-    JLabel currentPointsPlayer2label = new JLabel("PoängSpelare2");
+    JLabel currentPointsPlayer1Label = new JLabel("0");
+    JLabel currentPointsPlayer2Label = new JLabel("0");
     JLabel versusLabel = new JLabel("vs.");
     JLabel betweenLabel = new JLabel("-");
     JLabel questionMark1Label = new JLabel("?");
@@ -119,10 +119,10 @@ public class CurrentResultGUI extends JPanel {
         playerNamePanel.add(player2NameLabel);
         playerNamePanel.add(spacefiller3Panel);
         playerScorePanel.add(spacefiller4Panel);
-        playerScorePanel.add(currentPointsPlayer1label);
+        playerScorePanel.add(currentPointsPlayer1Label);
         playerScorePanel.add(spacefiller5Panel);
         spacefiller5Panel.add(betweenLabel);
-        playerScorePanel.add(currentPointsPlayer2label);
+        playerScorePanel.add(currentPointsPlayer2Label);
         playerScorePanel.add(spacefiller6Panel);
 
         for (int j = 0; j < GameRules.numberOfQuestions; j++) {

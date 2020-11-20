@@ -94,6 +94,12 @@ public class QuizClient implements Runnable, ActionListener {
                     List<Boolean> currentPlayer = ((Result) fromServer).currentPlayerAnswers;
                     List<Boolean> otherPlayer = ((Result) fromServer).otherPlayerAnswers;
                     int round = ((Result) fromServer).round;
+                    int currentPlayerResult = ((Result) fromServer).currentPlayerScore;
+                    gameBoardGUI.currentPointsPlayer1Label.setText(String.valueOf(currentPlayerResult));
+                    currentResultGUI.currentPointsPlayer1Label.setText(String.valueOf(currentPlayerResult));
+                    int otherPlayerResult = ((Result) fromServer).otherPlayerScore;
+                    gameBoardGUI.currentPointsPlayer2Label.setText(String.valueOf(currentPlayerResult));
+                    currentResultGUI.currentPointsPlayer2Label.setText(String.valueOf(currentPlayerResult));
                     SwingUtilities.invokeLater(() -> currentResultGUI.showResult(currentPlayer, otherPlayer, round));
 
                     card.show(cardPane, "Result Panel");
