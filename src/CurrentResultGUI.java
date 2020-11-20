@@ -1,10 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by: Ulf Nyberg
@@ -13,10 +10,7 @@ import java.util.concurrent.TimeUnit;
  * Project: QuizKampen
  * Copyright: MIT
  */
-public class CurrentResultGUI extends JFrame implements ActionListener{
-
-    //ImageIcon image = new ImageIcon("  ");
-    JFrame frame = new JFrame("Quiz Game");
+public class CurrentResultGUI extends JPanel {
 
     JPanel panel3 = new JPanel();
     JPanel panel4 = new JPanel();
@@ -31,50 +25,15 @@ public class CurrentResultGUI extends JFrame implements ActionListener{
     JPanel secondRoundLongPanel = new JPanel();
     JPanel thirdRoundLongPanel = new JPanel();
     JPanel fourthRoundLongPanel = new JPanel();
-    JPanel bottomOfScreenPanel = new JPanel();
-    //JPanel firstPanel = new JPanel();
-    //JPanel firstPanel = new JPanel();
-    //JPanel firstPanel = new JPanel();
+    JPanel fifthRoundLongPanel = new JPanel();
 
-    JPanel player1Round1Question1Panel = new JPanel();
-    JPanel player1Round1Question2Panel = new JPanel();
-    JPanel player1Round1Question3Panel = new JPanel();
-
-    JPanel player1Round2Question1Panel = new JPanel();
-    JPanel player1Round2Question2Panel = new JPanel();
-    JPanel player1Round2Question3Panel = new JPanel();
-
-    JPanel player1Round3Question1Panel = new JPanel();
-    JPanel player1Round3Question2Panel = new JPanel();
-    JPanel player1Round3Question3Panel = new JPanel();
-
-    JPanel player1Round4Question1Panel = new JPanel();
-    JPanel player1Round4Question2Panel = new JPanel();
-    JPanel player1Round4Question3Panel = new JPanel();
-
-    JPanel categoryAndRound1Panel = new JPanel();
-    JPanel categoryAndRound2Panel = new JPanel();
-    JPanel categoryAndRound3Panel = new JPanel();
-    JPanel categoryAndRound4Panel = new JPanel();
-
-    JPanel player2Round1Question1Panel = new JPanel();
-    JPanel player2Round1Question2Panel = new JPanel();
-    JPanel player2Round1Question3Panel = new JPanel();
-
-    JPanel player2Round2Question1Panel = new JPanel();
-    JPanel player2Round2Question2Panel = new JPanel();
-    JPanel player2Round2Question3Panel = new JPanel();
-
-    JPanel player2Round3Question1Panel = new JPanel();
-    JPanel player2Round3Question2Panel = new JPanel();
-    JPanel player2Round3Question3Panel = new JPanel();
-
-    JPanel player2Round4Question1Panel = new JPanel();
-    JPanel player2Round4Question2Panel = new JPanel();
-    JPanel player2Round4Question3Panel = new JPanel();
+    List<JPanel> currentPlayerQuestions = new ArrayList<>();
+    List<JPanel> otherPlayerQuestions = new ArrayList<>();
 
     JPanel currentlyPlayingPanel = new JPanel();
 
+    //TODO: ändra alla spacefiller till spaceFiller listan
+    List<JPanel> spaceFillerList = new ArrayList<>();
     JPanel spacefiller1Panel = new JPanel();
     JPanel spacefiller2Panel = new JPanel();
     JPanel spacefiller3Panel = new JPanel();
@@ -87,54 +46,16 @@ public class CurrentResultGUI extends JFrame implements ActionListener{
     JPanel spacefiller10Panel = new JPanel();
     JPanel spacefiller11Panel = new JPanel();
     JPanel spacefiller12Panel = new JPanel();
-
-
-
-
-
-
-    JButton spelare1button1 = new JButton("neutral");
-    JButton spelare1button2 = new JButton("neutral");
-    JButton spelare1button3 = new JButton("neutral");
-
-    JButton spelare1button4 = new JButton("neutral");
-    JButton spelare1button5 = new JButton("neutral");
-    JButton spelare1button6 = new JButton("neutral");
-
-    JButton spelare1button7 = new JButton("neutral");
-    JButton spelare1button8 = new JButton("neutral");
-    JButton spelare1button9 = new JButton("neutral");
-
-    JButton spelare1button10 = new JButton("neutral");
-    JButton spelare1button11 = new JButton("neutral");
-    JButton spelare1button12 = new JButton("neutral");
-
-    JButton continue2Button = new JButton("Fortsätt");
+    JPanel spacefiller13Panel = new JPanel();
+    JPanel spacefiller14Panel = new JPanel();
+    JPanel spacefiller15Panel = new JPanel();
+    JPanel spacefiller16Panel = new JPanel();
 
     JLabel round1Label = new JLabel("Runda 1");
     JLabel round2Label = new JLabel("Runda 2");
     JLabel round3Label = new JLabel("Runda 3");
     JLabel round4Label = new JLabel("Runda 4");
-
-    ///////////////////////////////
-
-    JButton spelare2button1 = new JButton("neutral");
-    JButton spelare2button2 = new JButton("neutral");
-    JButton spelare2button3 = new JButton("neutral");
-
-    JButton spelare2button4 = new JButton("neutral");
-    JButton spelare2button5 = new JButton("neutral");
-    JButton spelare2button6 = new JButton("neutral");
-
-    JButton spelare2button7 = new JButton("neutral");
-    JButton spelare2button8 = new JButton("neutral");
-    JButton spelare2button9 = new JButton("neutral");
-
-    JButton spelare2button10 = new JButton("neutral");
-    JButton spelare2button11 = new JButton("neutral");
-    JButton spelare2button12 = new JButton("neutral");
-
-    //////////////////////////////////
+    JLabel round5Label = new JLabel("Runda 5");
 
     Font font1 = new Font("SansSerif", Font.BOLD, 20);
     Font font2 = new Font("Monospace", Font.BOLD, 30);
@@ -152,13 +73,11 @@ public class CurrentResultGUI extends JFrame implements ActionListener{
     JLabel questionMark2Label = new JLabel("?");
     JLabel questionMark3Label = new JLabel("?");
 
-    Color lighterGray = new Color(238,235,235);
-    Color softerGreen = new Color (125,255,0);
-    Color softerRed = new Color(255,45,33);
+    Color lighterGray = new Color(238, 235, 235);
+    Color correctAnswerColor = new Color(125, 255, 0);
+    Color incorrectAnswerColor = new Color(255, 45, 33);
 
-
-
-    CurrentResultGUI(){
+    CurrentResultGUI() {
         gameNameLabel.setFont(font2);
         player1NameLabel.setFont(font1);
         player2NameLabel.setFont(font1);
@@ -169,11 +88,8 @@ public class CurrentResultGUI extends JFrame implements ActionListener{
         round2Label.setFont(font3);
         round3Label.setFont(font3);
         round4Label.setFont(font3);
-        //setLayout(new FlowLayout());
-        //setLayout(new GridLayout(4,2));
-        //  **** panel3.setLayout(new BorderLayout());
-        firstPanel.setLayout(new GridLayout(7,1));
-        //  **** add(panel3);
+        round5Label.setFont(font3);
+        firstPanel.setLayout(new GridLayout(7, 1));
         this.add(firstPanel);
         firstPanel.add(gameNamePanel);
         firstPanel.add(playerInfoLongPanel);
@@ -181,25 +97,20 @@ public class CurrentResultGUI extends JFrame implements ActionListener{
         firstPanel.add(secondRoundLongPanel);
         firstPanel.add(thirdRoundLongPanel);
         firstPanel.add(fourthRoundLongPanel);
-        firstPanel.add(bottomOfScreenPanel);
-        gameNamePanel.setLayout(new GridLayout(1,1));
+        firstPanel.add(fifthRoundLongPanel);
+        gameNamePanel.setLayout(new GridLayout(1, 1));
         playerInfoLongPanel.setLayout(new BorderLayout());
         playerInfoLongPanel.add(playerNamePanel, BorderLayout.NORTH, SwingConstants.CENTER);
-        //playerNamePanel.setLayout(new GridLayout(1, 5));
-        playerNamePanel.setLayout(new FlowLayout(FlowLayout.CENTER,8,8));
+        playerNamePanel.setLayout(new FlowLayout(FlowLayout.CENTER, 8, 8));
         playerInfoLongPanel.add(playerScorePanel, BorderLayout.CENTER, SwingConstants.CENTER);
-        //playerScorePanel.setLayout(new GridLayout(1,5));
-        playerScorePanel.setLayout(new FlowLayout(FlowLayout.CENTER,8,8));
+        playerScorePanel.setLayout(new FlowLayout(FlowLayout.CENTER, 8, 8));
         playerInfoLongPanel.add(playerInfoSpaceFillerLongPanel, BorderLayout.SOUTH, SwingConstants.CENTER);
-        //firstRoundLongPanel.setLayout(new GridLayout(1,5));
-        firstRoundLongPanel.setLayout(new FlowLayout(FlowLayout.CENTER,8,22));
-        secondRoundLongPanel.setLayout(new FlowLayout(FlowLayout.CENTER,8,22));
-
-        //secondRoundLongPanel.setLayout(new GridLayout(1,5));
-        thirdRoundLongPanel.setLayout(new GridLayout(1,5));
-        fourthRoundLongPanel.setLayout(new GridLayout(1,5));
-        bottomOfScreenPanel.setLayout(new FlowLayout());
-        bottomOfScreenPanel.add(continue2Button);
+        FlowLayout layout = new FlowLayout(FlowLayout.CENTER, 8, 22);
+        firstRoundLongPanel.setLayout(layout);
+        secondRoundLongPanel.setLayout(layout);
+        thirdRoundLongPanel.setLayout(layout);
+        fourthRoundLongPanel.setLayout(layout);
+        fifthRoundLongPanel.setLayout(layout);
         gameNamePanel.add(gameNameLabel);
         playerNamePanel.add(spacefiller1Panel);
         playerNamePanel.add(player1NameLabel);
@@ -214,185 +125,214 @@ public class CurrentResultGUI extends JFrame implements ActionListener{
         playerScorePanel.add(currentPointsPlayer2label);
         playerScorePanel.add(spacefiller6Panel);
 
-
-        firstRoundLongPanel.add(player1Round1Question1Panel);
-        firstRoundLongPanel.add(player1Round1Question2Panel);
-        firstRoundLongPanel.add(player1Round1Question3Panel);
-        firstRoundLongPanel.add(spacefiller7Panel);
-        firstRoundLongPanel.add(round1Label);
-        firstRoundLongPanel.add(spacefiller8Panel);
-        firstRoundLongPanel.add(player2Round1Question1Panel);
-        firstRoundLongPanel.add(player2Round1Question2Panel);
-        firstRoundLongPanel.add(player2Round1Question3Panel);
-
-        secondRoundLongPanel.add(player1Round2Question1Panel);
-        player1Round2Question1Panel.add(questionMark1Label);
-        secondRoundLongPanel.add(player1Round2Question2Panel);
-        player1Round2Question2Panel.add(questionMark2Label);
-        secondRoundLongPanel.add(player1Round2Question3Panel);
-        player1Round2Question3Panel.add(questionMark3Label);
-        secondRoundLongPanel.add(spacefiller9Panel);
-        secondRoundLongPanel.add(round2Label);
-        secondRoundLongPanel.add(spacefiller10Panel);
-        secondRoundLongPanel.add(player2Round2Question1Panel);
-        secondRoundLongPanel.add(player2Round2Question2Panel);
-        secondRoundLongPanel.add(player2Round2Question3Panel);
+        for (int j = 0; j < GameRules.numberOfQuestions; j++) {
+            JPanel thisQuestion = new JPanel();
+            thisQuestion.setPreferredSize(new Dimension(35, 35));
+            thisQuestion.setBackground(lighterGray);
+            currentPlayerQuestions.add(thisQuestion);
+        }
+        for (int j = 0; j < GameRules.numberOfQuestions; j++) {
+            JPanel thisQuestion = new JPanel();
+            thisQuestion.setPreferredSize(new Dimension(35, 35));
+            thisQuestion.setBackground(lighterGray);
+            otherPlayerQuestions.add(thisQuestion);
+        }
 
 
-        /*
-        final Runnable update = new Runnable() {
-            @Override
-            public void run() {
-                questionMark1Label.setVisible(!questionMark1Label.isVisible());
-                questionMark2Label.setVisible(!questionMark1Label.isVisible());
-                questionMark3Label.setVisible(questionMark1Label.isVisible());
+        if (GameRules.numberOfRounds >= 1) {
+            List<JPanel> firstRound = copyList(currentPlayerQuestions);
+            for (JPanel panel : firstRound) {
+                firstRoundLongPanel.add(panel);
             }
-        };
-
-        ScheduledExecutorService executorService = Executors.newScheduledThreadPool(1);
-        executorService.scheduleAtFixedRate(new Runnable() {
-            @Override
-            public void run() {
-                SwingUtilities.invokeLater(update);
+            firstRoundLongPanel.add(spacefiller7Panel);
+            firstRoundLongPanel.add(round1Label);
+            firstRoundLongPanel.add(spacefiller8Panel);
+            firstRound = copyList(otherPlayerQuestions);
+            for (JPanel panel : firstRound) {
+                firstRoundLongPanel.add(panel);
             }
-        }, 1, 2, TimeUnit.SECONDS);
+        }
 
-         */
+        if (GameRules.numberOfRounds >= 2) {
+            List<JPanel> secondRound = copyList(currentPlayerQuestions);
+            for (JPanel panel : secondRound) {
+                secondRoundLongPanel.add(panel);
+            }
+            secondRoundLongPanel.add(spacefiller9Panel);
+            secondRoundLongPanel.add(round2Label);
+            secondRoundLongPanel.add(spacefiller10Panel);
+            secondRound = copyList(otherPlayerQuestions);
+            for (JPanel panel : secondRound) {
+                secondRoundLongPanel.add(panel);
+            }
+        }
 
+        if (GameRules.numberOfRounds >= 3) {
+            List<JPanel> thirdRound = copyList(currentPlayerQuestions);
 
-
-        /*
-        //BorderLayout.NORTH(setLayout(new FlowLayout());
-        panel3.add(label1, BorderLayout.NORTH);
-        //panel3.add(button5, BorderLayout.SOUTH);
-        //panel3.add(button1, BorderLayout.WEST);
-        //panel3.add(button2, BorderLayout.EAST);
-        panel3.add(panel4, BorderLayout.CENTER);
-        panel4.setLayout(new GridLayout(4,7));
-        panel4.add(spelare1button1);
-        panel4.add(spelare1button2);
-        panel4.add(spelare1button3);
-        panel4.add(runda1Label);
-        panel4.add(spelare2button1);
-        panel4.add(spelare2button2);
-        panel4.add(spelare2button3);
-
-        panel4.add(spelare1button4);
-        panel4.add(spelare1button5);
-        panel4.add(spelare1button6);
-        panel4.add(runda2Label);
-        panel4.add(spelare2button4);
-        panel4.add(spelare2button5);
-        panel4.add(spelare2button6);
-
-        panel4.add(spelare1button7);
-        panel4.add(spelare1button8);
-        panel4.add(spelare1button9);
-        panel4.add(runda3Label);
-        panel4.add(spelare2button7);
-        panel4.add(spelare2button8);
-        panel4.add(spelare2button9);
-
-        panel4.add(spelare1button10);
-        panel4.add(spelare1button11);
-        panel4.add(spelare1button12);
-        panel4.add(runda4Label);
-        panel4.add(spelare2button10);
-        panel4.add(spelare2button11);
-        panel4.add(spelare2button12);
-
-        spelare1button1.setPreferredSize(new Dimension(40,40));
-        spelare1button2.setPreferredSize(new Dimension(40,40));
-        spelare1button3.setPreferredSize(new Dimension(40,40));
-        spelare1button4.setPreferredSize(new Dimension(40,40));
-        spelare1button5.setPreferredSize(new Dimension(40,40));
-        spelare1button6.setPreferredSize(new Dimension(40,40));
-        spelare1button7.setPreferredSize(new Dimension(40,40));
-
-         */
-
-
-
-        continue2Button.addActionListener(this);
-        setTitle("Quiz Game");
-        setSize(400,600);
-        panel3.setBackground( Color.PINK );
-        panel4.setBackground( Color.PINK );
-        spacefiller1Panel.setBackground( Color.PINK );
-        spacefiller2Panel.setBackground( Color.PINK );
-        spacefiller3Panel.setBackground( Color.PINK );
-        spacefiller4Panel.setBackground( Color.PINK );
-        spacefiller5Panel.setBackground( Color.PINK );
-        spacefiller6Panel.setBackground( Color.PINK );
-        gameNamePanel.setBackground( Color.PINK );
+            for (JPanel panel : thirdRound) {
+                thirdRoundLongPanel.add(panel);
+            }
+            thirdRoundLongPanel.add(spacefiller11Panel);
+            thirdRoundLongPanel.add(round3Label);
+            thirdRoundLongPanel.add(spacefiller12Panel);
+            thirdRound = copyList(otherPlayerQuestions);
+            for (JPanel panel : thirdRound) {
+                thirdRoundLongPanel.add(panel);
+            }
+        }
+        if (GameRules.numberOfRounds >= 4) {
+            List<JPanel> fourthRound = copyList(currentPlayerQuestions);
+            for (JPanel panel : fourthRound) {
+                fourthRoundLongPanel.add(panel);
+            }
+            fourthRoundLongPanel.add(spacefiller13Panel);
+            fourthRoundLongPanel.add(round4Label);
+            fourthRoundLongPanel.add(spacefiller14Panel);
+            fourthRound = copyList(otherPlayerQuestions);
+            for (JPanel panel : fourthRound) {
+                fourthRoundLongPanel.add(panel);
+            }
+        }
+        if (GameRules.numberOfRounds >= 5) {
+            List<JPanel> fifthRound = copyList(currentPlayerQuestions);
+            for (JPanel panel : fifthRound) {
+                fifthRoundLongPanel.add(panel);
+            }
+            fifthRoundLongPanel.add(spacefiller15Panel);
+            fifthRoundLongPanel.add(round5Label);
+            fifthRoundLongPanel.add(spacefiller16Panel);
+            fifthRound = copyList(otherPlayerQuestions);
+            for (JPanel panel : fifthRound) {
+                fifthRoundLongPanel.add(panel);
+            }
+        }
+        //TODO: ändra storlek beroende på antal frågor och rundor
+        setSize(400, 600);
+        panel3.setBackground(Color.PINK);
+        panel4.setBackground(Color.PINK);
+        spacefiller1Panel.setBackground(Color.PINK);
+        spacefiller2Panel.setBackground(Color.PINK);
+        spacefiller3Panel.setBackground(Color.PINK);
+        spacefiller4Panel.setBackground(Color.PINK);
+        spacefiller5Panel.setBackground(Color.PINK);
+        spacefiller6Panel.setBackground(Color.PINK);
+        gameNamePanel.setBackground(Color.PINK);
         currentlyPlayingPanel.setBackground(Color.PINK);
-        playerNamePanel.setBackground( Color.PINK);
+        playerNamePanel.setBackground(Color.PINK);
         playerScorePanel.setBackground(Color.PINK);
-        playerInfoLongPanel.setBackground( Color.PINK );
-        playerInfoSpaceFillerLongPanel.setBackground(( Color.PINK));;
+        playerInfoLongPanel.setBackground(Color.PINK);
+        playerInfoSpaceFillerLongPanel.setBackground((Color.PINK));
         firstRoundLongPanel.setBackground(Color.WHITE);
         firstRoundLongPanel.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
-        secondRoundLongPanel.setBackground(lighterGray);
-        secondRoundLongPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        secondRoundLongPanel.setBackground(Color.WHITE);
+        secondRoundLongPanel.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
         thirdRoundLongPanel.setBackground(Color.WHITE);
         thirdRoundLongPanel.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
         fourthRoundLongPanel.setBackground(Color.WHITE);
         fourthRoundLongPanel.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
-        bottomOfScreenPanel.setBackground(Color.PINK);
-        bottomOfScreenPanel.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
-        continue2Button.setPreferredSize(new Dimension(350,60));
-        currentlyPlayingPanel.setPreferredSize(new Dimension(120,35));
-        //bottomOfScreenPanel.setPreferredSize(new Dimension(400,80)); //resize funkar ej
-        player1Round1Question1Panel.setBackground(softerRed);
-        player1Round1Question1Panel.setPreferredSize(new Dimension(35,35));
-        player1Round1Question2Panel.setBackground(softerGreen);
-        player1Round1Question2Panel.setPreferredSize(new Dimension(35,35));
-        player1Round1Question3Panel.setBackground(softerGreen);
-        player1Round1Question3Panel.setPreferredSize(new Dimension(35,35));
-        player2Round1Question1Panel.setBackground(softerGreen);
-        player2Round1Question1Panel.setPreferredSize(new Dimension(35,35));
-        player2Round1Question2Panel.setBackground(softerRed);
-        player2Round1Question2Panel.setPreferredSize(new Dimension(35,35));
-        player2Round1Question3Panel.setBackground(softerRed);
-        player2Round1Question3Panel.setPreferredSize(new Dimension(35,35));
+        fifthRoundLongPanel.setBackground(Color.WHITE);
+        fifthRoundLongPanel.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
+        currentlyPlayingPanel.setPreferredSize(new Dimension(120, 35));
         spacefiller7Panel.setBackground(Color.WHITE);
         spacefiller8Panel.setBackground(Color.WHITE);
-        spacefiller9Panel.setBackground(lighterGray);
-        spacefiller10Panel.setBackground(lighterGray);
-        player1Round2Question1Panel.setBackground(Color.WHITE);
-        player1Round2Question1Panel.setPreferredSize(new Dimension(35,35));
-        player1Round2Question2Panel.setBackground(Color.WHITE);
-        player1Round2Question2Panel.setPreferredSize(new Dimension(35,35));
-        player1Round2Question3Panel.setBackground(Color.WHITE);
-        player1Round2Question3Panel.setPreferredSize(new Dimension(35,35));
-        player2Round2Question1Panel.setBackground(lighterGray);
-        player2Round2Question1Panel.setPreferredSize(new Dimension(35,35));
-        player2Round2Question2Panel.setBackground(lighterGray);
-        player2Round2Question2Panel.setPreferredSize(new Dimension(35,35));
-        player2Round2Question3Panel.setBackground(lighterGray);
-        player2Round2Question3Panel.setPreferredSize(new Dimension(35,35));
+        spacefiller9Panel.setBackground(Color.WHITE);
+        spacefiller10Panel.setBackground(Color.WHITE);
+        spacefiller11Panel.setBackground(Color.WHITE);
+        spacefiller12Panel.setBackground(Color.WHITE);
+        spacefiller13Panel.setBackground(Color.WHITE);
+        spacefiller14Panel.setBackground(Color.WHITE);
+        spacefiller15Panel.setBackground(Color.WHITE);
+        spacefiller16Panel.setBackground(Color.WHITE);
 
-        //pack();
-        setLocationRelativeTo(null);
         setVisible(true);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
-
     }
 
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        if (continue2Button.getText().equalsIgnoreCase("Fortsätt")) {
-            continue2Button.setText("The Mario/Luigi Conspiracy");
-
+    private List<JPanel> copyList(List<JPanel> sourceList) {
+        List<JPanel> copy = new ArrayList<>();
+        for (JPanel panel : sourceList) {
+            JPanel panelCopy = new JPanel();
+            panelCopy.setPreferredSize(panel.getPreferredSize());
+            panelCopy.setBackground(panel.getBackground());
+            copy.add(panelCopy);
         }
+        return copy;
     }
 
+    public void showResult(List<Boolean> currentPlayerAnswers, List<Boolean> otherPlayerAnswers, int round) {
+        switch (round) {
+            case 1:
+                for (int i = 0; i < currentPlayerAnswers.size(); i++) {
+                    if (currentPlayerAnswers.get(i)) {
+                        firstRoundLongPanel.getComponent(i).setBackground(correctAnswerColor);
+                    } else {
+                        firstRoundLongPanel.getComponent(i).setBackground(incorrectAnswerColor);
+                    }
+                    if (otherPlayerAnswers.get(i)) {
+                        firstRoundLongPanel.getComponent(currentPlayerAnswers.size() + 3 + i).setBackground(correctAnswerColor);
+                    } else {
+                        firstRoundLongPanel.getComponent(currentPlayerAnswers.size() + 3 + i).setBackground(incorrectAnswerColor);
+                    }
 
+                }
+                break;
+            case 2:
+                for (int i = 0; i < currentPlayerAnswers.size(); i++) {
+                    if (currentPlayerAnswers.get(i)) {
+                        secondRoundLongPanel.getComponent(i).setBackground(correctAnswerColor);
+                    } else {
+                        secondRoundLongPanel.getComponent(i).setBackground(incorrectAnswerColor);
+                    }
+                    if (otherPlayerAnswers.get(i)) {
+                        secondRoundLongPanel.getComponent(currentPlayerAnswers.size() + 3 + i).setBackground(correctAnswerColor);
+                    } else {
+                        secondRoundLongPanel.getComponent(currentPlayerAnswers.size() + 3 + i).setBackground(incorrectAnswerColor);
+                    }
+                }
+                break;
+            case 3:
+                for (int i = 0; i < currentPlayerAnswers.size(); i++) {
+                    if (currentPlayerAnswers.get(i)) {
+                        thirdRoundLongPanel.getComponent(i).setBackground(correctAnswerColor);
+                    } else {
+                        thirdRoundLongPanel.getComponent(i).setBackground(incorrectAnswerColor);
+                    }
+                    if (otherPlayerAnswers.get(i)) {
+                        thirdRoundLongPanel.getComponent(currentPlayerAnswers.size() + 3 + i).setBackground(correctAnswerColor);
+                    } else {
+                        thirdRoundLongPanel.getComponent(currentPlayerAnswers.size() + 3 + i).setBackground(incorrectAnswerColor);
+                    }
+                }
+                break;
+            case 4:
+                for (int i = 0; i < currentPlayerAnswers.size(); i++) {
+                    if (currentPlayerAnswers.get(i)) {
+                        fourthRoundLongPanel.getComponent(i).setBackground(correctAnswerColor);
+                    } else {
+                        fourthRoundLongPanel.getComponent(i).setBackground(incorrectAnswerColor);
+                    }
+                    if (otherPlayerAnswers.get(i)) {
+                        fourthRoundLongPanel.getComponent(currentPlayerAnswers.size() + 3 + i).setBackground(correctAnswerColor);
+                    } else {
+                        fourthRoundLongPanel.getComponent(currentPlayerAnswers.size() + 3 + i).setBackground(incorrectAnswerColor);
+                    }
+                }
+                break;
+            case 5:
+                for (int i = 0; i < currentPlayerAnswers.size(); i++) {
+                    if (currentPlayerAnswers.get(i)) {
+                        fifthRoundLongPanel.getComponent(i).setBackground(correctAnswerColor);
+                    } else {
+                        fifthRoundLongPanel.getComponent(i).setBackground(incorrectAnswerColor);
+                    }
+                    if (otherPlayerAnswers.get(i)) {
+                        fifthRoundLongPanel.getComponent(currentPlayerAnswers.size() + 3 + i).setBackground(correctAnswerColor);
+                    } else {
+                        fifthRoundLongPanel.getComponent(currentPlayerAnswers.size() + 3 + i).setBackground(incorrectAnswerColor);
+                    }
+                }
+                break;
+        }
 
-    public static void main(String[] args) {
-
-        CurrentResultGUI currentResultGUI = new CurrentResultGUI();
     }
 }
-
