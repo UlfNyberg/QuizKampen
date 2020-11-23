@@ -10,7 +10,6 @@ public class QuizGame extends Thread {
     //private ServerQuizPlayer playerTwo;
 
 
-
     private List<Question> questionList;
 
     private List<ServerQuizPlayer> playerList = new ArrayList<>();
@@ -30,21 +29,21 @@ public class QuizGame extends Thread {
 
         while (round <= GameRules.numberOfRounds) {
             if (round % 2 != 0) {
-                selectCategory("--Spelare 1 väljer kategori--",1,0);
-                playSubset("--spelare 1s tur--",  0, playerOneTotalAnswers);
+                selectCategory("--Spelare 1 väljer kategori--", 1, 0);
+                playSubset("--spelare 1s tur--", 0, playerOneTotalAnswers);
                 //TODO: Ska wait vara här eller ska vi köra wait i subset och selectcategory?
-                playSubset("--spelare 2s tur--",  1, playerTwoTotalAnswers);
+                playSubset("--spelare 2s tur--", 1, playerTwoTotalAnswers);
             } else {
-                selectCategory("--Spelare 2 väljer kategori--",0,1);
-                playSubset("--spelare 2s tur--",  1, playerTwoTotalAnswers);
-                playSubset("--spelare 1s tur--",  0, playerOneTotalAnswers);
+                selectCategory("--Spelare 2 väljer kategori--", 0, 1);
+                playSubset("--spelare 2s tur--", 1, playerTwoTotalAnswers);
+                playSubset("--spelare 1s tur--", 0, playerOneTotalAnswers);
             }
             int playerOneScore = calculateScore(playerOneTotalAnswers);
             int playerTwoScore = calculateScore(playerTwoTotalAnswers);
-            playerList.get(0).sendObject(new Result(playerOneTotalAnswers.get(round-1),
-                    playerTwoTotalAnswers.get(round-1), round, playerOneScore, playerTwoScore));
-            playerList.get(1).sendObject(new Result(playerTwoTotalAnswers.get(round-1),
-                    playerOneTotalAnswers.get(round-1), round, playerTwoScore, playerOneScore));
+            playerList.get(0).sendObject(new Result(playerOneTotalAnswers.get(round - 1),
+                    playerTwoTotalAnswers.get(round - 1), round, playerOneScore, playerTwoScore));
+            playerList.get(1).sendObject(new Result(playerTwoTotalAnswers.get(round - 1),
+                    playerOneTotalAnswers.get(round - 1), round, playerTwoScore, playerOneScore));
             System.out.println("--checking score p1--");
             printPlayerAnswers(playerOneTotalAnswers);
             System.out.println("--checking score p2--");
@@ -60,17 +59,17 @@ public class QuizGame extends Thread {
     }
 
 
-    private void selectCategory(String serverMessage, int otherPlayer, int initialPlayer){
+    private void selectCategory(String serverMessage, int otherPlayer, int initialPlayer) {
         System.out.println(serverMessage);
         playerList.get(otherPlayer).sendObject(new Wait());
         List<String> categories = database.getRandomCategories(GameRules.numberOfCategories);
-        playerList.get(initialPlayer).sendObject(new Category(categories.get(0),categories.get(1)));
+        playerList.get(initialPlayer).sendObject(new Category(categories.get(0), categories.get(1)));
         Object fromPlayer = playerList.get(initialPlayer).receiveAnswer();
         String category = ((Category) fromPlayer).selectedCategory;
         getQuestions(category);
     }
 
-    private void playSubset(String serverMessage,int initialPlayer, List<List<Boolean>> initialPlayerAnswers) {
+    private void playSubset(String serverMessage, int initialPlayer, List<List<Boolean>> initialPlayerAnswers) {
         System.out.println(serverMessage);
         answerResult = playOneSet(playerList.get(initialPlayer));
         initialPlayerAnswers.add(List.copyOf(answerResult));
@@ -106,14 +105,15 @@ public class QuizGame extends Thread {
         }
         return answers;
     }
-    
-    public int calculateScore(List<List<Boolean>> playerAnswers){
+
+    public int calculateScore(List<List<Boolean>> playerAnswers) {
         int playerScore = 0;
-        for (List <Boolean> list : playerAnswers){
-            for(Boolean answer : list){
+        for (List<Boolean> list : playerAnswers) {
+            for (Boolean answer : list) {
                 if (answer)
                     playerScore++;
             }
-        }return playerScore;
+        }
+        return playerScore;
     }
 }

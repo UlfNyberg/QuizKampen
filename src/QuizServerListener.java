@@ -15,15 +15,15 @@ public class QuizServerListener {
         GameRules gameRules = new GameRules();
         ServerSocket serverSocket = new ServerSocket(22222);
 
-        while(true){
+        while (true) {
             QuizGame quizGame = new QuizGame();
 
             System.out.println("Server startad");
 
-            ServerQuizPlayer serverPlayerOne = new ServerQuizPlayer(serverSocket.accept(),quizGame);
+            ServerQuizPlayer serverPlayerOne = new ServerQuizPlayer(serverSocket.accept(), quizGame);
             System.out.println("player1 connected");
             serverPlayerOne.setUserName("player1");
-            ServerQuizPlayer serverPlayerTwo = new ServerQuizPlayer(serverSocket.accept(),quizGame);
+            ServerQuizPlayer serverPlayerTwo = new ServerQuizPlayer(serverSocket.accept(), quizGame);
             System.out.println("player2 connected");
             serverPlayerTwo.setUserName("player2");
 

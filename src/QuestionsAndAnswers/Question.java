@@ -16,7 +16,8 @@ public class Question implements Serializable {
     private List<Answer> answers;
     private String category;
 
-    public Question() {}
+    public Question() {
+    }
 
     public Question(String question) {
         this.question = question;

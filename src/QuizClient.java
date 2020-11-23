@@ -76,8 +76,8 @@ public class QuizClient implements Runnable, ActionListener {
             Object fromServer;
 
             while ((fromServer = in.readObject()) != null) {
-                if(fromServer instanceof Category){
-                    card.show(cardPane,"Category Panel");
+                if (fromServer instanceof Category) {
+                    card.show(cardPane, "Category Panel");
                     categoryGUI.category1Button.setText(((Category) fromServer).category1);
                     categoryGUI.category2Button.setText(((Category) fromServer).category2);
                 }
@@ -96,7 +96,7 @@ public class QuizClient implements Runnable, ActionListener {
 
                 } else if (fromServer instanceof Wait) {
                     card.show(cardPane, "Result Panel");
-                } else if (fromServer  instanceof Result) {
+                } else if (fromServer instanceof Result) {
                     List<Boolean> currentPlayer = ((Result) fromServer).currentPlayerAnswers;
                     List<Boolean> otherPlayer = ((Result) fromServer).otherPlayerAnswers;
                     int round = ((Result) fromServer).round;
@@ -166,7 +166,7 @@ public class QuizClient implements Runnable, ActionListener {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        }else if(ae.getSource() == categoryGUI.category1Button || ae.getSource() == categoryGUI.category2Button) {
+        } else if (ae.getSource() == categoryGUI.category1Button || ae.getSource() == categoryGUI.category2Button) {
             try {
                 System.out.println("skickar category svar");
                 out.writeObject(new Category(((JButton) ae.getSource()).getText()));

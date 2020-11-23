@@ -22,13 +22,13 @@ public class DAO {
         for (Map.Entry<String, List<Question>> entry : categories.entrySet()) {
             if (s.equalsIgnoreCase(entry.getKey())) {
                 if (entry.getValue().size() >= amount)
-                return entry.getValue();
+                    return entry.getValue();
             }
         }
         return null;
     }
 
-    public List<Question> getRandomQuestions (String category, int amount) {
+    public List<Question> getRandomQuestions(String category, int amount) {
         List<Question> questions = new ArrayList<>(List.copyOf(getCategoryData(category, amount)));
         Random random = new Random();
         List<Question> randomQuestions = new ArrayList<>();
@@ -42,7 +42,7 @@ public class DAO {
         return randomQuestions;
     }
 
-    public List<String> getCategories (int amount) {
+    public List<String> getCategories(int amount) {
         List<String> categoriesList = new ArrayList<>();
         for (Map.Entry<String, List<Question>> entry : categories.entrySet()) {
             if (entry.getValue().size() >= amount) {
@@ -52,11 +52,11 @@ public class DAO {
         return categoriesList;
     }
 
-    public List<String> getRandomCategories (int amount) {
+    public List<String> getRandomCategories(int amount) {
         List<String> categoriesList = getCategories(amount);
         Collections.shuffle(categoriesList);
         for (int i = 0; i < amount; i++) {
-            categoriesList.remove(categoriesList.size()-1-i);
+            categoriesList.remove(categoriesList.size() - 1 - i);
         }
         return categoriesList;
     }

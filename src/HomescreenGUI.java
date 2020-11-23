@@ -10,7 +10,7 @@ import java.awt.event.ActionListener;
  * Project: QuizKampen
  * Copyright: MIT
  */
-public class HomescreenGUI extends JPanel{
+public class HomescreenGUI extends JPanel {
 
     JPanel panel = new JPanel();
     JButton imageButton1 = new JButton("Tryck här1");
@@ -24,13 +24,12 @@ public class HomescreenGUI extends JPanel{
     JLabel portNrLabel = new JLabel("Ange ditt portnummer: ");
     JLabel IPaddressLabel = new JLabel("Ange ditt IP-nummer:");
 
-    JTextField  nameOfPlayerTextField = new JTextField("Ex. Mr. Burns", 15);
-    JTextField  portNrTextField = new JTextField("22222", 15);
-    public JTextField  IPAddressTextField = new JTextField("127.0.0.1", 15);
+    JTextField nameOfPlayerTextField = new JTextField("Ex. Mr. Burns", 15);
+    JTextField portNrTextField = new JTextField("22222", 15);
+    public JTextField IPAddressTextField = new JTextField("127.0.0.1", 15);
 
 
-
-    HomescreenGUI(ActionListener al){
+    HomescreenGUI(ActionListener al) {
         this.setLayout(new BorderLayout());
         panel.setLayout(new BorderLayout());
         add(panel);
@@ -50,8 +49,8 @@ public class HomescreenGUI extends JPanel{
         imageButton2.addActionListener(al);
         initiateNewGameButton.addActionListener(al);
 
-        setSize(400,600);
-        panel2.setBackground( Color.PINK );
-        panel.setBackground( Color.PINK );
+        setSize(400, 600);
+        panel2.setBackground(Color.PINK);
+        panel.setBackground(Color.PINK);
     }
 }

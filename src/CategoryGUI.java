@@ -43,7 +43,6 @@ public class CategoryGUI extends JPanel {
     JPanel spacefiller12Panel = new JPanel();
 
 
-
     JLabel timeToChooseLabel = new JLabel("DAGS ATT VÄLJA EN KATEGORI!");
 
     JLabel chooseCategoryLabel = new JLabel("VÄLJ MELLAN");
@@ -125,8 +124,8 @@ public class CategoryGUI extends JPanel {
         bottomOfScreenPanel.setBackground(Color.PINK);
         bottomOfScreenPanel.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
 
-        category1Button.setPreferredSize(new Dimension(350,60));
-        category2Button.setPreferredSize(new Dimension(350,60));
+        category1Button.setPreferredSize(new Dimension(350, 60));
+        category2Button.setPreferredSize(new Dimension(350, 60));
         category1Button.setBackground(Color.WHITE);
         category2Button.setBackground(Color.WHITE);
         category1Button.addActionListener(al);

@@ -8,6 +8,7 @@ public class Category implements Serializable {
     public Category(String selectedCategory) {
         this.selectedCategory = selectedCategory;
     }
+
     public Category(String category1, String category2) {
         this.category1 = category1;
         this.category2 = category2;
