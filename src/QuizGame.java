@@ -27,7 +27,6 @@ public class QuizGame extends Thread {
 
     public void run() {
         int round = 1;
-        String category = "Film";
 
         while (round <= GameRules.numberOfRounds) {
             if (round % 2 != 0) {
@@ -107,8 +106,7 @@ public class QuizGame extends Thread {
         }
         return answers;
     }
-
-
+    
     public int calculateScore(List<List<Boolean>> playerAnswers){
         int playerScore = 0;
         for (List <Boolean> list : playerAnswers){
@@ -118,8 +116,4 @@ public class QuizGame extends Thread {
             }
         }return playerScore;
     }
-
-
-
-
 }

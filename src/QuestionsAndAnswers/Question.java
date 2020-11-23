@@ -14,6 +14,7 @@ import java.util.List;
 public class Question implements Serializable {
     private String question;
     private List<Answer> answers;
+    private String category;
 
     public Question() {}
 
@@ -28,6 +29,14 @@ public class Question implements Serializable {
 
     public List<Answer> getAnswers() {
         return answers;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 
     public void addAnswer(Answer answer) {

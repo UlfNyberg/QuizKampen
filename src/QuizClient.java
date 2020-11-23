@@ -88,6 +88,7 @@ public class QuizClient implements Runnable, ActionListener {
                     gameBoardGUI.alternative2.setText(((Question) fromServer).getAnswers().get(1).getText());
                     gameBoardGUI.alternative3.setText(((Question) fromServer).getAnswers().get(2).getText());
                     gameBoardGUI.alternative4.setText(((Question) fromServer).getAnswers().get(3).getText());
+                    gameBoardGUI.categoryLabel.setText(((Question) fromServer).getCategory());
                     answer1 = ((Question) fromServer).getAnswers().get(0);
                     answer2 = ((Question) fromServer).getAnswers().get(1);
                     answer3 = ((Question) fromServer).getAnswers().get(2);

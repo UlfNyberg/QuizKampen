@@ -28,13 +28,15 @@ public class DAO {
         return null;
     }
 
-    public List<Question> getRandomQuestions (String s, int amount) {
-        List<Question> questions = new ArrayList<>(List.copyOf(getCategoryData(s, amount)));
+    public List<Question> getRandomQuestions (String category, int amount) {
+        List<Question> questions = new ArrayList<>(List.copyOf(getCategoryData(category, amount)));
         Random random = new Random();
         List<Question> randomQuestions = new ArrayList<>();
         for (int i = 0; i < amount; i++) {
             int index = random.nextInt(questions.size());
-            randomQuestions.add(questions.get(index));
+            Question questionToBeAdded = questions.get(index);
+            questionToBeAdded.setCategory(category);
+            randomQuestions.add(questionToBeAdded);
             questions.remove(index);
         }
         return randomQuestions;
