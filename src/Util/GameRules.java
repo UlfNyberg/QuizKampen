@@ -19,7 +19,7 @@ public class GameRules {
 
     public GameRules() {
         try {
-            properties.load(new FileInputStream("src/Util.GameRules.properties"));
+            properties.load(new FileInputStream("src/Util/GameRules.properties"));
         } catch (IOException e) {
             System.out.println("Filen kunde inte hittas");
         }

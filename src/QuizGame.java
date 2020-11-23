@@ -21,7 +21,7 @@ public class QuizGame extends Thread {
     private List<List<Boolean>> playerTwoTotalAnswers = new ArrayList<>();
 
     public QuizGame() {
-        database = new DAO("QuestionsAndAnswers.txt");
+        database = new DAO("src/Util/QuestionsAndAnswers.txt");
 
     }
 
