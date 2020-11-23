@@ -5,6 +5,9 @@ S 1998
 Q Vad är Mario och Luigis relation?
 A Bröder, Vänner, Ett par, Far och son
 S Bröder
+Q Vad är Mario och Luigis relation...egentligen?
+A Platonisk, Passionerad, Yrkesmässig, Vänliga grannar
+S Yrkesmässig
 K Film
 Q Vilken karaktär har flest on-screen kills i Sagan om Ringen trilogin?
 A Legolas, Boromir, Gimli, Frodo

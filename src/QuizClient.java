@@ -76,6 +76,11 @@ public class QuizClient implements Runnable, ActionListener {
             Object fromServer;
 
             while ((fromServer = in.readObject()) != null) {
+                if(fromServer instanceof Category){
+                    card.show(cardPane,"Category Panel");
+                    categoryGUI.category1Button.setText(((Category) fromServer).category1);
+                    categoryGUI.category2Button.setText(((Category) fromServer).category2);
+                }
                 if (fromServer instanceof Question) {
                     card.show(cardPane, "Gameboard Panel");
                     gameBoardGUI.questionTextArea.setText(((Question) fromServer).getQuestion());
@@ -94,6 +99,12 @@ public class QuizClient implements Runnable, ActionListener {
                     List<Boolean> currentPlayer = ((Result) fromServer).currentPlayerAnswers;
                     List<Boolean> otherPlayer = ((Result) fromServer).otherPlayerAnswers;
                     int round = ((Result) fromServer).round;
+                    int currentPlayerResult = ((Result) fromServer).currentPlayerScore;
+                    gameBoardGUI.currentPointsPlayer1Label.setText(String.valueOf(currentPlayerResult));
+                    currentResultGUI.currentPointsPlayer1Label.setText(String.valueOf(currentPlayerResult));
+                    int otherPlayerResult = ((Result) fromServer).otherPlayerScore;
+                    gameBoardGUI.currentPointsPlayer2Label.setText(String.valueOf(otherPlayerResult));
+                    currentResultGUI.currentPointsPlayer2Label.setText(String.valueOf(otherPlayerResult));
                     SwingUtilities.invokeLater(() -> currentResultGUI.showResult(currentPlayer, otherPlayer, round));
 
                     card.show(cardPane, "Result Panel");
@@ -151,6 +162,13 @@ public class QuizClient implements Runnable, ActionListener {
         } else if (ae.getSource() == gameBoardGUI.alternative4) {
             try {
                 out.writeObject(answer4);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }else if(ae.getSource() == categoryGUI.category1Button || ae.getSource() == categoryGUI.category2Button) {
+            try {
+                System.out.println("skickar category svar");
+                out.writeObject(new Category(((JButton) ae.getSource()).getText()));
             } catch (IOException e) {
                 e.printStackTrace();
             }

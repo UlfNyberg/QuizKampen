@@ -12,10 +12,15 @@ public class Result implements Serializable {
     List<Boolean> currentPlayerAnswers;
     List<Boolean> otherPlayerAnswers;
     int round;
+    int currentPlayerScore;
+    int otherPlayerScore;
 
-    public Result(List<Boolean> currentPlayerAnswers, List<Boolean> otherPlayerAnswers, int round) {
+    public Result(List<Boolean> currentPlayerAnswers, List<Boolean> otherPlayerAnswers,
+                  int round, int currentPlayerScore, int otherPlayerScore) {
         this.currentPlayerAnswers = currentPlayerAnswers;
         this.otherPlayerAnswers = otherPlayerAnswers;
         this.round = round;
+        this.currentPlayerScore = currentPlayerScore;
+        this.otherPlayerScore = otherPlayerScore;
     }
 }
