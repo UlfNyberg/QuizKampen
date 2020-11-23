@@ -46,4 +46,13 @@ public class DAO {
         }
         return categoriesList;
     }
+
+    public List<String> getRandomCategories (int amount) {
+        List<String> categoriesList = getCategories();
+        Collections.shuffle(categoriesList);
+        for (int i = 0; i < amount; i++) {
+            categoriesList.remove(categoriesList.size()-1-i);
+        }
+        return categoriesList;
+    }
 }
