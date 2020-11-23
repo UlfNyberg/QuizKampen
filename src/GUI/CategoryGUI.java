@@ -1,3 +1,5 @@
+package GUI;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -47,8 +49,8 @@ public class CategoryGUI extends JPanel {
 
     JLabel chooseCategoryLabel = new JLabel("VÄLJ MELLAN");
 
-    JButton category1Button = new JButton("Science");
-    JButton category2Button = new JButton("Djur & Natur");
+    public JButton category1Button = new JButton("Science");
+    public JButton category2Button = new JButton("Djur & Natur");
 
     //////////////////////////////////
 
@@ -64,7 +66,7 @@ public class CategoryGUI extends JPanel {
     Color softerRed = new Color(255, 45, 33);
 
 
-    CategoryGUI(ActionListener al) {
+    public CategoryGUI(ActionListener al) {
         this.setLayout(new BorderLayout());
         chooseCategoryLabel.setFont(font2);
         timeToChooseLabel.setFont(font1);

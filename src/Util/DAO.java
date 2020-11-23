@@ -1,4 +1,6 @@
-import QuestionsAndAnswers.Question;
+package Util;
+
+import NetworkClasses.Question;
 
 import java.util.*;
 

@@ -1,3 +1,5 @@
+package NetworkClasses;
+
 import java.io.Serializable;
 
 public class Category implements Serializable {
@@ -14,11 +16,15 @@ public class Category implements Serializable {
         this.category2 = category2;
     }
 
-    public String getSelectedCategory() {
-        return selectedCategory;
+    public String getCategory1() {
+        return category1;
     }
 
-    public void setSelectedCategory(String selectedCategory) {
-        this.selectedCategory = selectedCategory;
+    public String getCategory2() {
+        return category2;
+    }
+
+    public String getSelectedCategory() {
+        return selectedCategory;
     }
 }

@@ -1,3 +1,5 @@
+package Util;
+
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
@@ -15,9 +17,9 @@ public class GameRules {
     public static int numberOfRounds;
     public static int numberOfCategories;
 
-    GameRules() {
+    public GameRules() {
         try {
-            properties.load(new FileInputStream("src/GameRules.properties"));
+            properties.load(new FileInputStream("src/Util.GameRules.properties"));
         } catch (IOException e) {
             System.out.println("Filen kunde inte hittas");
         }

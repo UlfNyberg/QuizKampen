@@ -1,3 +1,5 @@
+package GUI;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
@@ -31,11 +33,11 @@ public class GameBoardGUI extends JPanel {
     Font font3 = new Font("SansSerif", Font.BOLD, 14);
 
 
-    JButton alternative1 = new JButton("Alternativ 1");
-    JButton alternative2 = new JButton("Alternativ 2");
-    JButton alternative3 = new JButton("Alternativ 3");
-    JButton alternative4 = new JButton("Alternativ 4");
-    JButton continueButton = new JButton("Fortsätt");
+    public JButton alternative1 = new JButton("Alternativ 1");
+    public JButton alternative2 = new JButton("Alternativ 2");
+    public JButton alternative3 = new JButton("Alternativ 3");
+    public JButton alternative4 = new JButton("Alternativ 4");
+    public JButton continueButton = new JButton("Fortsätt");
 
     JLabel quizGameLabel = new JLabel("QUIZ GAME", SwingConstants.CENTER);
 
@@ -47,18 +49,18 @@ public class GameBoardGUI extends JPanel {
     JLabel pointsForUserLabel2 = new JLabel("Poäng: ");
 
     JLabel categoryHeaderLabel = new JLabel("Kategori:");
-    JLabel categoryLabel = new JLabel("TV-spel");
+    public JLabel categoryLabel = new JLabel("TV-spel");
 
     JLabel questionStaticLabel = new JLabel("Fråga:");
     JLabel questionTestLabel = new JLabel("Vilken relation har Mario och Luigi...egentligen?");
-    JTextArea questionTextArea = new JTextArea(4, 5);
+    public JTextArea questionTextArea = new JTextArea(4, 5);
 
     JLabel gameNameLabel = new JLabel("Quiz Game");
 
-    JLabel currentPointsPlayer1Label = new JLabel("0");
-    JLabel currentPointsPlayer2Label = new JLabel("0");
+    public JLabel currentPointsPlayer1Label = new JLabel("0");
+    public JLabel currentPointsPlayer2Label = new JLabel("0");
 
-    GameBoardGUI(ActionListener al) {
+    public GameBoardGUI(ActionListener al) {
         this.setLayout(new BorderLayout());
         categoryHeaderLabel.setFont(font1);
         user1Label.setFont(font1);

@@ -1,3 +1,5 @@
+package NetworkClasses;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -22,5 +24,25 @@ public class Result implements Serializable {
         this.round = round;
         this.currentPlayerScore = currentPlayerScore;
         this.otherPlayerScore = otherPlayerScore;
+    }
+
+    public List<Boolean> getCurrentPlayerAnswers() {
+        return currentPlayerAnswers;
+    }
+
+    public List<Boolean> getOtherPlayerAnswers() {
+        return otherPlayerAnswers;
+    }
+
+    public int getRound() {
+        return round;
+    }
+
+    public int getCurrentPlayerScore() {
+        return currentPlayerScore;
+    }
+
+    public int getOtherPlayerScore() {
+        return otherPlayerScore;
     }
 }

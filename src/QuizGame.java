@@ -1,5 +1,6 @@
-import QuestionsAndAnswers.Answer;
-import QuestionsAndAnswers.Question;
+import NetworkClasses.*;
+import Util.DAO;
+import Util.GameRules;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -65,7 +66,7 @@ public class QuizGame extends Thread {
         List<String> categories = database.getRandomCategories(GameRules.numberOfCategories);
         playerList.get(initialPlayer).sendObject(new Category(categories.get(0), categories.get(1)));
         Object fromPlayer = playerList.get(initialPlayer).receiveAnswer();
-        String category = ((Category) fromPlayer).selectedCategory;
+        String category = ((Category) fromPlayer).getSelectedCategory();
         getQuestions(category);
     }
 

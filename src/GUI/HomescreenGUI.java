@@ -1,3 +1,5 @@
+package GUI;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -17,7 +19,7 @@ public class HomescreenGUI extends JPanel {
     JButton imageButton2 = new JButton("Tryck här2");
 
     JLabel welcomeLabel = new JLabel("VÄLKOMMEN!", SwingConstants.CENTER);
-    JButton initiateNewGameButton = new JButton(" \n" + "Starta nytt spel!" + "\n ");
+    public JButton initiateNewGameButton = new JButton(" \n" + "Starta nytt spel!" + "\n ");
     JPanel panel2 = new JPanel();
 
     JLabel nameOfPlayerLabel = new JLabel("Ange ditt namn: ");
@@ -25,11 +27,11 @@ public class HomescreenGUI extends JPanel {
     JLabel IPaddressLabel = new JLabel("Ange ditt IP-nummer:");
 
     JTextField nameOfPlayerTextField = new JTextField("Ex. Mr. Burns", 15);
-    JTextField portNrTextField = new JTextField("22222", 15);
+    public JTextField portNrTextField = new JTextField("22222", 15);
     public JTextField IPAddressTextField = new JTextField("127.0.0.1", 15);
 
 
-    HomescreenGUI(ActionListener al) {
+    public HomescreenGUI(ActionListener al) {
         this.setLayout(new BorderLayout());
         panel.setLayout(new BorderLayout());
         add(panel);

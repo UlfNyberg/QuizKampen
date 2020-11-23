@@ -1,5 +1,9 @@
-import QuestionsAndAnswers.Answer;
-import QuestionsAndAnswers.Question;
+import GUI.CategoryGUI;
+import GUI.CurrentResultGUI;
+import GUI.GameBoardGUI;
+import GUI.HomescreenGUI;
+import NetworkClasses.*;
+import Util.GameRules;
 
 import javax.swing.*;
 import java.awt.*;
@@ -51,9 +55,9 @@ public class QuizClient implements Runnable, ActionListener {
         cardPane.setLayout(card);
 
         cardPane.add(homeScreenGUI, "Homescreen Panel");
-        cardPane.add(categoryGUI, "Category Panel");
+        cardPane.add(categoryGUI, "NetworkClasses.Category Panel");
         cardPane.add(gameBoardGUI, "Gameboard Panel");
-        cardPane.add(currentResultGUI, "Result Panel");
+        cardPane.add(currentResultGUI, "NetworkClasses.Result Panel");
 
         frame.add(cardPane);
         frame.setVisible(true);
@@ -77,9 +81,9 @@ public class QuizClient implements Runnable, ActionListener {
 
             while ((fromServer = in.readObject()) != null) {
                 if (fromServer instanceof Category) {
-                    card.show(cardPane, "Category Panel");
-                    categoryGUI.category1Button.setText(((Category) fromServer).category1);
-                    categoryGUI.category2Button.setText(((Category) fromServer).category2);
+                    card.show(cardPane, "NetworkClasses.Category Panel");
+                    categoryGUI.category1Button.setText(((Category) fromServer).getCategory1());
+                    categoryGUI.category2Button.setText(((Category) fromServer).getCategory2());
                 }
                 if (fromServer instanceof Question) {
                     card.show(cardPane, "Gameboard Panel");
@@ -95,20 +99,20 @@ public class QuizClient implements Runnable, ActionListener {
                     answer4 = ((Question) fromServer).getAnswers().get(3);
 
                 } else if (fromServer instanceof Wait) {
-                    card.show(cardPane, "Result Panel");
+                    card.show(cardPane, "NetworkClasses.Result Panel");
                 } else if (fromServer instanceof Result) {
-                    List<Boolean> currentPlayer = ((Result) fromServer).currentPlayerAnswers;
-                    List<Boolean> otherPlayer = ((Result) fromServer).otherPlayerAnswers;
-                    int round = ((Result) fromServer).round;
-                    int currentPlayerResult = ((Result) fromServer).currentPlayerScore;
+                    List<Boolean> currentPlayer = ((Result) fromServer).getCurrentPlayerAnswers();
+                    List<Boolean> otherPlayer = ((Result) fromServer).getOtherPlayerAnswers();
+                    int round = ((Result) fromServer).getRound();
+                    int currentPlayerResult = ((Result) fromServer).getCurrentPlayerScore();
                     gameBoardGUI.currentPointsPlayer1Label.setText(String.valueOf(currentPlayerResult));
                     currentResultGUI.currentPointsPlayer1Label.setText(String.valueOf(currentPlayerResult));
-                    int otherPlayerResult = ((Result) fromServer).otherPlayerScore;
+                    int otherPlayerResult = ((Result) fromServer).getOtherPlayerScore();
                     gameBoardGUI.currentPointsPlayer2Label.setText(String.valueOf(otherPlayerResult));
                     currentResultGUI.currentPointsPlayer2Label.setText(String.valueOf(otherPlayerResult));
                     SwingUtilities.invokeLater(() -> currentResultGUI.showResult(currentPlayer, otherPlayer, round));
 
-                    card.show(cardPane, "Result Panel");
+                    card.show(cardPane, "NetworkClasses.Result Panel");
                 }
 
             }

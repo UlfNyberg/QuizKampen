@@ -1,4 +1,4 @@
-package QuestionsAndAnswers;
+package NetworkClasses;
 
 import java.io.Serializable;
 import java.util.ArrayList;

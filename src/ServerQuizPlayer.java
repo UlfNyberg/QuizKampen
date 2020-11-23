@@ -1,6 +1,3 @@
-import QuestionsAndAnswers.Answer;
-import QuestionsAndAnswers.Question;
-
 import java.io.*;
 import java.net.Socket;
 

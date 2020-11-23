@@ -1,3 +1,7 @@
+package GUI;
+
+import Util.GameRules;
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
@@ -65,8 +69,8 @@ public class CurrentResultGUI extends JPanel {
     JLabel currentlyPlayingLabel = new JLabel("SPELAR");
     JLabel player1NameLabel = new JLabel("Spelare1");
     JLabel player2NameLabel = new JLabel("Spelare2");
-    JLabel currentPointsPlayer1Label = new JLabel("0");
-    JLabel currentPointsPlayer2Label = new JLabel("0");
+    public JLabel currentPointsPlayer1Label = new JLabel("0");
+    public JLabel currentPointsPlayer2Label = new JLabel("0");
     JLabel versusLabel = new JLabel("vs.");
     JLabel betweenLabel = new JLabel("-");
     JLabel questionMark1Label = new JLabel("?");
@@ -77,7 +81,7 @@ public class CurrentResultGUI extends JPanel {
     Color correctAnswerColor = new Color(125, 255, 0);
     Color incorrectAnswerColor = new Color(255, 45, 33);
 
-    CurrentResultGUI() {
+    public CurrentResultGUI() {
         gameNameLabel.setFont(font2);
         player1NameLabel.setFont(font1);
         player2NameLabel.setFont(font1);
