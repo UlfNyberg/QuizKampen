@@ -64,7 +64,7 @@ public class QuizGame extends Thread {
     private void selectCategory(String serverMessage, int otherPlayer, int initialPlayer){
         System.out.println(serverMessage);
         playerList.get(otherPlayer).sendObject(new Wait());
-        List<String> categories = database.getCategories(2);
+        List<String> categories = database.getRandomCategories(GameRules.numberOfCategories);
         playerList.get(initialPlayer).sendObject(new Category(categories.get(0),categories.get(1)));
         Object fromPlayer = playerList.get(initialPlayer).receiveAnswer();
         String category = ((Category) fromPlayer).selectedCategory;

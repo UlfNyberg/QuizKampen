@@ -13,6 +13,7 @@ public class GameRules {
     private static final Properties properties = new Properties();
     public static int numberOfQuestions;
     public static int numberOfRounds;
+    public static int numberOfCategories;
 
     GameRules() {
         try {
@@ -22,5 +23,6 @@ public class GameRules {
         }
         numberOfQuestions = Integer.parseInt(properties.getProperty("numberOfQuestions", "2"));
         numberOfRounds = Integer.parseInt(properties.getProperty("numberOfRounds", "3"));
+        numberOfCategories = Integer.parseInt(properties.getProperty("numberOfCategories", "2"));
     }
 }
