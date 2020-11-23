@@ -51,7 +51,7 @@ public class DAO {
     }
 
     public List<String> getRandomCategories (int amount) {
-        List<String> categoriesList = getCategories();
+        List<String> categoriesList = getCategories(amount);
         Collections.shuffle(categoriesList);
         for (int i = 0; i < amount; i++) {
             categoriesList.remove(categoriesList.size()-1-i);
