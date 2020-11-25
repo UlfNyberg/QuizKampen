@@ -171,8 +171,8 @@ public class QuizClient implements Runnable, ActionListener {
                         Integer.parseInt(homeScreenGUI.portNrTextField.getText()));
                 out = new ObjectOutputStream(socket.getOutputStream());
                 gameStarted = true;
+                System.out.println("Ansluten till servern");
             } catch (IOException e) {
-                e.printStackTrace();
                 System.out.println("Kunde inte ansluta. Försök igen.");
             }
         } else if (ae.getSource() == gameBoardGUI.alternative1) {
