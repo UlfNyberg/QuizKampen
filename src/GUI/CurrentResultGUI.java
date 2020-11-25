@@ -16,6 +16,8 @@ import java.util.List;
  */
 public class CurrentResultGUI extends JPanel {
 
+    protected GameRules gameRules;
+
     JPanel panel3 = new JPanel();
     JPanel panel4 = new JPanel();
 
@@ -173,6 +175,8 @@ public class CurrentResultGUI extends JPanel {
     }
 
     public void setupUI(GameRules gameRules) {
+
+        this.gameRules = gameRules;
 
         for (int j = 0; j < gameRules.getNumberOfQuestions(); j++) {
             JPanel thisQuestion = new JPanel();
@@ -348,9 +352,9 @@ public class CurrentResultGUI extends JPanel {
 
     public void resetResult(int round) {
         for (int i = 0; i < round; i++) {
-            for (int j = 0; j < GameRules.numberOfQuestions; j++) {
+            for (int j = 0; j < gameRules.getNumberOfQuestions(); j++) {
                 roundLongPanelArray[i].getComponent(j).setBackground(lighterGray);
-                roundLongPanelArray[i].getComponent(GameRules.numberOfQuestions + j + 3).setBackground(lighterGray);
+                roundLongPanelArray[i].getComponent(gameRules.getNumberOfQuestions() + j + 3).setBackground(lighterGray);
             }
         }
     }
