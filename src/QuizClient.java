@@ -169,8 +169,7 @@ public class QuizClient implements Runnable, ActionListener {
                     gameBoardGUI.alternative2.setBackground(babyBlue);
                 } else if (answer3.isCorrect()) {
                     gameBoardGUI.alternative3.setBackground(babyBlue);
-                }
-                if (answer4.isCorrect()) {
+                } else if (answer4.isCorrect()) {
                     gameBoardGUI.alternative4.setBackground(babyBlue);
                 }
             }
@@ -203,8 +202,7 @@ public class QuizClient implements Runnable, ActionListener {
                     gameBoardGUI.alternative1.setBackground(babyBlue);
                 } else if (answer3.isCorrect()) {
                     gameBoardGUI.alternative3.setBackground(babyBlue);
-                }
-                if (answer4.isCorrect()) {
+                } else if (answer4.isCorrect()) {
                     gameBoardGUI.alternative4.setBackground(babyBlue);
                 }
             }
@@ -238,8 +236,7 @@ public class QuizClient implements Runnable, ActionListener {
                     gameBoardGUI.alternative1.setBackground(babyBlue);
                 } else if (answer2.isCorrect()) {
                     gameBoardGUI.alternative2.setBackground(babyBlue);
-                }
-                if (answer4.isCorrect()) {
+                } else if (answer4.isCorrect()) {
                     gameBoardGUI.alternative4.setBackground(babyBlue);
                 }
             }
@@ -273,8 +270,7 @@ public class QuizClient implements Runnable, ActionListener {
                     gameBoardGUI.alternative1.setBackground(babyBlue);
                 } else if (answer2.isCorrect()) {
                     gameBoardGUI.alternative2.setBackground(babyBlue);
-                }
-                if (answer3.isCorrect()) {
+                } else if (answer3.isCorrect()) {
                     gameBoardGUI.alternative3.setBackground(babyBlue);
                 }
             }
