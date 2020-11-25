@@ -7,9 +7,6 @@ import java.util.List;
 
 public class QuizGame extends Thread {
     private final DAO database;
-    //private ServerQuizPlayer playerOne;
-    //private ServerQuizPlayer playerTwo;
-
 
     private List<Question> questionList;
 
@@ -26,8 +23,10 @@ public class QuizGame extends Thread {
     }
 
     public void run() {
+        System.out.println("Running");
         int round = 1;
-
+        int playerOneScore = 0;
+        int playerTwoScore = 0;
         initPlayers();
 
         while (round <= GameRules.numberOfRounds) {
@@ -41,8 +40,8 @@ public class QuizGame extends Thread {
                 playSubset("--spelare 2s tur--", 1, playerTwoTotalAnswers);
                 playSubset("--spelare 1s tur--", 0, playerOneTotalAnswers);
             }
-            int playerOneScore = calculateScore(playerOneTotalAnswers);
-            int playerTwoScore = calculateScore(playerTwoTotalAnswers);
+             playerOneScore = calculateScore(playerOneTotalAnswers);
+             playerTwoScore = calculateScore(playerTwoTotalAnswers);
             playerList.get(0).sendObject(new Result(playerOneTotalAnswers.get(round - 1),
                     playerTwoTotalAnswers.get(round - 1), round, playerOneScore, playerTwoScore));
             playerList.get(1).sendObject(new Result(playerTwoTotalAnswers.get(round - 1),
@@ -52,6 +51,13 @@ public class QuizGame extends Thread {
             System.out.println("--checking score p2--");
             printPlayerAnswers(playerTwoTotalAnswers);
             round++;
+        }
+        if (playerOneScore > playerTwoScore) {
+            playerList.get(0).sendObject(new Winner(round-1));
+            playerList.get(1).sendObject(new Loser(round-1));
+        } else if (playerOneScore < playerTwoScore) {
+            playerList.get(0).sendObject(new Loser(round-1));
+            playerList.get(1).sendObject(new Winner(round-1));
         }
     }
 

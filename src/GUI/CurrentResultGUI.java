@@ -30,6 +30,8 @@ public class CurrentResultGUI extends JPanel {
     JPanel thirdRoundLongPanel = new JPanel();
     JPanel fourthRoundLongPanel = new JPanel();
     JPanel fifthRoundLongPanel = new JPanel();
+    JPanel[] roundLongPanelArray = {firstRoundLongPanel, secondRoundLongPanel, thirdRoundLongPanel,
+    fourthRoundLongPanel, fifthRoundLongPanel};
 
     List<JPanel> currentPlayerQuestions = new ArrayList<>();
     List<JPanel> otherPlayerQuestions = new ArrayList<>();
@@ -337,6 +339,14 @@ public class CurrentResultGUI extends JPanel {
                 }
                 break;
         }
+    }
 
+    public void resetResult(int round) {
+        for (int i = 0; i < round; i++) {
+            for (int j = 0; j < GameRules.numberOfQuestions; j++) {
+                roundLongPanelArray[i].getComponent(j).setBackground(lighterGray);
+                roundLongPanelArray[i].getComponent(GameRules.numberOfQuestions + j + 3).setBackground(lighterGray);
+            }
+        }
     }
 }

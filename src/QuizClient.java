@@ -79,81 +79,101 @@ public class QuizClient implements Runnable, ActionListener {
     }
 
     public void run() {
+        while (!Thread.interrupted()) {
+            while (!gameStarted) {
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+            try (ObjectInputStream in = new ObjectInputStream(socket.getInputStream())) {
 
-        while (!gameStarted) {
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
+                Object fromServer;
+
+                while ((fromServer = in.readObject()) != null) {
+
+                    if (fromServer instanceof Init) {
+                        String initName = ((Init) fromServer).getPlayerName();
+                        if (initName == null) {
+                            out.writeObject(new Init(homeScreenGUI.nameOfPlayerTextField.getText()));
+                        } else {
+                            String currentPlayerName = homeScreenGUI.nameOfPlayerTextField.getText();
+                            currentResultGUI.player1NameLabel.setText(currentPlayerName);
+                            currentResultGUI.player2NameLabel.setText(initName);
+                            gameBoardGUI.user1Label.setText(currentPlayerName);
+                            gameBoardGUI.user2Label.setText(initName);
+                        }
+                    }
+
+                    if (fromServer instanceof Category) {
+                        card.show(cardPane, "Category Panel");
+                        categoryGUI.category1Button.setText(((Category) fromServer).getCategory1());
+                        categoryGUI.category2Button.setText(((Category) fromServer).getCategory2());
+                    }
+                    if (fromServer instanceof Question) {
+                        card.show(cardPane, "Gameboard Panel");
+                        gameBoardGUI.questionTextArea.setText(((Question) fromServer).getQuestion());
+                        gameBoardGUI.alternative1.setText(((Question) fromServer).getAnswers().get(0).getText());
+                        gameBoardGUI.alternative2.setText(((Question) fromServer).getAnswers().get(1).getText());
+                        gameBoardGUI.alternative3.setText(((Question) fromServer).getAnswers().get(2).getText());
+                        gameBoardGUI.alternative4.setText(((Question) fromServer).getAnswers().get(3).getText());
+                        gameBoardGUI.categoryLabel.setText(((Question) fromServer).getCategory());
+                        answer1 = ((Question) fromServer).getAnswers().get(0);
+                        answer2 = ((Question) fromServer).getAnswers().get(1);
+                        answer3 = ((Question) fromServer).getAnswers().get(2);
+                        answer4 = ((Question) fromServer).getAnswers().get(3);
+
+                    } else if (fromServer instanceof Wait) {
+                        card.show(cardPane, "Result Panel");
+                    } else if (fromServer instanceof Result) {
+                        List<Boolean> currentPlayer = ((Result) fromServer).getCurrentPlayerAnswers();
+                        List<Boolean> otherPlayer = ((Result) fromServer).getOtherPlayerAnswers();
+                        int round = ((Result) fromServer).getRound();
+                        int currentPlayerResult = ((Result) fromServer).getCurrentPlayerScore();
+                        gameBoardGUI.currentPointsPlayer1Label.setText(String.valueOf(currentPlayerResult));
+                        currentResultGUI.currentPointsPlayer1Label.setText(String.valueOf(currentPlayerResult));
+                        int otherPlayerResult = ((Result) fromServer).getOtherPlayerScore();
+                        gameBoardGUI.currentPointsPlayer2Label.setText(String.valueOf(otherPlayerResult));
+                        currentResultGUI.currentPointsPlayer2Label.setText(String.valueOf(otherPlayerResult));
+                        SwingUtilities.invokeLater(() -> currentResultGUI.showResult(currentPlayer, otherPlayer, round));
+
+                        card.show(cardPane, "Result Panel");
+                    } else if (fromServer instanceof Winner) {
+                        int round = ((Winner) fromServer).getRound();
+                        JOptionPane.showMessageDialog(null, "Du vann!");
+                        gameStarted = false;
+                        SwingUtilities.invokeLater(() -> currentResultGUI.resetResult(round));
+                        currentResultGUI.currentPointsPlayer1Label.setText("0");
+                        currentResultGUI.currentPointsPlayer2Label.setText("0");
+                        gameBoardGUI.currentPointsPlayer1Label.setText("0");
+                        gameBoardGUI.currentPointsPlayer2Label.setText("0");
+                        card.show(cardPane, "Homescreen Panel");
+                        break;
+                    } else if (fromServer instanceof Loser) {
+                        int round = ((Loser) fromServer).getRound();
+                        JOptionPane.showMessageDialog(null, "Du förlorade");
+                        gameStarted = false;
+                        SwingUtilities.invokeLater(() -> currentResultGUI.resetResult(round));
+                        card.show(cardPane, "Homescreen Panel");
+                        break;
+                    }
+
+                }
+
+            } catch (UnknownHostException e) {
+                System.err.println("Don't know about host ");
+                System.exit(1);
+            } catch (SocketException e) {
+                System.out.println("Socket Closed");
+                gameStarted = false;
+            } catch (IOException e) {
+                System.err.println("Couldn't get I/O for the connection to ");
+                e.printStackTrace();
+                System.exit(1);
+            } catch (ClassNotFoundException e) {
                 e.printStackTrace();
             }
-        }
-        try (ObjectInputStream in = new ObjectInputStream(socket.getInputStream())) {
-
-            Object fromServer;
-
-            while ((fromServer = in.readObject()) != null) {
-
-                if (fromServer instanceof Init) {
-                    String initName = ((Init) fromServer).getPlayerName();
-                    if (initName == null) {
-                        out.writeObject(new Init(homeScreenGUI.nameOfPlayerTextField.getText()));
-                    } else {
-                        String currentPlayerName = homeScreenGUI.nameOfPlayerTextField.getText();
-                        currentResultGUI.player1NameLabel.setText(currentPlayerName);
-                        currentResultGUI.player2NameLabel.setText(initName);
-                        gameBoardGUI.user1Label.setText(currentPlayerName);
-                        gameBoardGUI.user2Label.setText(initName);
-                    }
-                }
-
-                if (fromServer instanceof Category) {
-                    card.show(cardPane, "Category Panel");
-                    categoryGUI.category1Button.setText(((Category) fromServer).getCategory1());
-                    categoryGUI.category2Button.setText(((Category) fromServer).getCategory2());
-                }
-                if (fromServer instanceof Question) {
-                    card.show(cardPane, "Gameboard Panel");
-                    gameBoardGUI.questionTextArea.setText(((Question) fromServer).getQuestion());
-                    gameBoardGUI.alternative1.setText(((Question) fromServer).getAnswers().get(0).getText());
-                    gameBoardGUI.alternative2.setText(((Question) fromServer).getAnswers().get(1).getText());
-                    gameBoardGUI.alternative3.setText(((Question) fromServer).getAnswers().get(2).getText());
-                    gameBoardGUI.alternative4.setText(((Question) fromServer).getAnswers().get(3).getText());
-                    gameBoardGUI.categoryLabel.setText(((Question) fromServer).getCategory());
-                    answer1 = ((Question) fromServer).getAnswers().get(0);
-                    answer2 = ((Question) fromServer).getAnswers().get(1);
-                    answer3 = ((Question) fromServer).getAnswers().get(2);
-                    answer4 = ((Question) fromServer).getAnswers().get(3);
-
-                } else if (fromServer instanceof Wait) {
-                    card.show(cardPane, "Result Panel");
-                } else if (fromServer instanceof Result) {
-                    List<Boolean> currentPlayer = ((Result) fromServer).getCurrentPlayerAnswers();
-                    List<Boolean> otherPlayer = ((Result) fromServer).getOtherPlayerAnswers();
-                    int round = ((Result) fromServer).getRound();
-                    int currentPlayerResult = ((Result) fromServer).getCurrentPlayerScore();
-                    gameBoardGUI.currentPointsPlayer1Label.setText(String.valueOf(currentPlayerResult));
-                    currentResultGUI.currentPointsPlayer1Label.setText(String.valueOf(currentPlayerResult));
-                    int otherPlayerResult = ((Result) fromServer).getOtherPlayerScore();
-                    gameBoardGUI.currentPointsPlayer2Label.setText(String.valueOf(otherPlayerResult));
-                    currentResultGUI.currentPointsPlayer2Label.setText(String.valueOf(otherPlayerResult));
-                    SwingUtilities.invokeLater(() -> currentResultGUI.showResult(currentPlayer, otherPlayer, round));
-
-                    card.show(cardPane, "Result Panel");
-                }
-
-            }
-
-        } catch (UnknownHostException e) {
-            System.err.println("Don't know about host ");
-            System.exit(1);
-        } catch (SocketException e) {
-            System.out.println("Socket Closed");
-        } catch (IOException e) {
-            System.err.println("Couldn't get I/O for the connection to ");
-            e.printStackTrace();
-            System.exit(1);
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
         }
     }
 
