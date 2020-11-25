@@ -52,7 +52,7 @@ public class QuizClient implements Runnable, ActionListener {
         currentResultGUI = new CurrentResultGUI();
         homeScreenGUI = new HomescreenGUI(this);
 
-        frame = new JFrame("Quiz Client");
+        frame = new JFrame("Quizkampen");
         frame.setSize(400, 600);
 
         cardPane = new JPanel();
@@ -165,7 +165,7 @@ public class QuizClient implements Runnable, ActionListener {
         if (ae.getSource() == homeScreenGUI.initiateNewGameButton) {
             socket = null;
             try {
-                socket = new Socket(homeScreenGUI.IPAddressTextField.getText(),
+                socket = new Socket(homeScreenGUI.ipAddressTextField.getText(),
                         Integer.parseInt(homeScreenGUI.portNrTextField.getText()));
                 out = new ObjectOutputStream(socket.getOutputStream());
                 gameStarted = true;
