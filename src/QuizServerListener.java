@@ -30,9 +30,6 @@ public class QuizServerListener {
             System.out.println("player2 connected");
             serverPlayerTwo.setUserName("player2");
 
-            serverPlayerOne.addOpponent(serverPlayerTwo);
-            serverPlayerTwo.addOpponent(serverPlayerOne);
-
             quizGame.start();
         }
     }

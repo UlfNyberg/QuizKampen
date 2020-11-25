@@ -26,7 +26,7 @@ public class HomescreenGUI extends JPanel {
     JLabel portNrLabel = new JLabel("Ange ditt portnummer: ");
     JLabel IPaddressLabel = new JLabel("Ange ditt IP-nummer:");
 
-    JTextField nameOfPlayerTextField = new JTextField("Ex. Mr. Burns", 15);
+    public JTextField nameOfPlayerTextField = new JTextField("Ex. Mr. Burns", 15);
     public JTextField portNrTextField = new JTextField("22222", 15);
     public JTextField IPAddressTextField = new JTextField("127.0.0.1", 15);
 
