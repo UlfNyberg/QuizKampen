@@ -44,7 +44,6 @@ public class QuizClient implements Runnable, ActionListener {
     Answer answer4;
 
     public QuizClient() {
-        GameRules gameRules = new GameRules();
         gameBoardGUI = new GameBoardGUI(this);
         categoryGUI = new CategoryGUI(this);
         currentResultGUI = new CurrentResultGUI();
@@ -144,7 +143,7 @@ public class QuizClient implements Runnable, ActionListener {
                         card.show(cardPane, "Result Panel");
                     } else if (fromServer instanceof Winner) {
                         int round = ((Winner) fromServer).getRound();
-                        JOptionPane.showMessageDialog(null, "Du vann!");
+                        JOptionPane.showMessageDialog(currentResultGUI, "Du vann!");
                         gameStarted = false;
                         SwingUtilities.invokeLater(() -> currentResultGUI.resetResult(round));
                         currentResultGUI.currentPointsPlayer1Label.setText("0");
@@ -155,7 +154,7 @@ public class QuizClient implements Runnable, ActionListener {
                         break;
                     } else if (fromServer instanceof Loser) {
                         int round = ((Loser) fromServer).getRound();
-                        JOptionPane.showMessageDialog(null, "Du förlorade");
+                        JOptionPane.showMessageDialog(currentResultGUI, "Du förlorade");
                         gameStarted = false;
                         SwingUtilities.invokeLater(() -> currentResultGUI.resetResult(round));
                         card.show(cardPane, "Homescreen Panel");
