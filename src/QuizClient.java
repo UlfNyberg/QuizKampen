@@ -93,18 +93,21 @@ public class QuizClient implements Runnable, ActionListener {
 
                 while ((fromServer = in.readObject()) != null) {
 
-                    if (fromServer instanceof Init) {
-                        String initName = ((Init) fromServer).getPlayerName();
-                        if (initName == null) {
-                            out.writeObject(new Init(homeScreenGUI.nameOfPlayerTextField.getText()));
-                        } else {
-                            String currentPlayerName = homeScreenGUI.nameOfPlayerTextField.getText();
-                            currentResultGUI.player1NameLabel.setText(currentPlayerName);
-                            currentResultGUI.player2NameLabel.setText(initName);
-                            gameBoardGUI.user1Label.setText(currentPlayerName);
-                            gameBoardGUI.user2Label.setText(initName);
-                        }
+                if (fromServer instanceof Init) {
+                    String initName = ((Init) fromServer).getPlayerName();
+                    GameRules gameRules = ((Init) fromServer).getGameRules();
+                    if(initName == null){
+                        out.writeObject(new Init(homeScreenGUI.nameOfPlayerTextField.getText(),null));
+                        SwingUtilities.invokeLater(()-> currentResultGUI.setupUI(gameRules));
+
+                    }else{
+                        String currentPlayerName = homeScreenGUI.nameOfPlayerTextField.getText();
+                        currentResultGUI.player1NameLabel.setText(currentPlayerName);
+                        currentResultGUI.player2NameLabel.setText(initName);
+                        gameBoardGUI.user1Label.setText(currentPlayerName);
+                        gameBoardGUI.user2Label.setText(initName);
                     }
+                }
 
                     if (fromServer instanceof Category) {
                         card.show(cardPane, "Category Panel");

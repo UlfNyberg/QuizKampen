@@ -21,7 +21,7 @@ public class QuizServerListener {
         ServerSocket serverSocket = new ServerSocket(scanner.nextInt());
         System.out.println("Server startad");
         while (true) {
-            QuizGame quizGame = new QuizGame();
+            QuizGame quizGame = new QuizGame(gameRules);
 
             ServerQuizPlayer serverPlayerOne = new ServerQuizPlayer(serverSocket.accept(), quizGame);
             System.out.println("player1 connected");
