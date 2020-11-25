@@ -19,7 +19,7 @@ public class QuizServerListener {
         ServerSocket serverSocket = new ServerSocket(22222);
 
         while (true) {
-            QuizGame quizGame = new QuizGame();
+            QuizGame quizGame = new QuizGame(gameRules);
 
             System.out.println("Server startad");
 

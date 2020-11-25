@@ -12,17 +12,16 @@ public class QuizGame extends Thread {
 
 
     private List<Question> questionList;
-
     private List<ServerQuizPlayer> playerList = new ArrayList<>();
-
     private List<Boolean> answerResult = new ArrayList<>();
-
     private List<List<Boolean>> playerOneTotalAnswers = new ArrayList<>();
     private List<List<Boolean>> playerTwoTotalAnswers = new ArrayList<>();
 
-    public QuizGame() {
-        database = new DAO("src/Util/QuestionsAndAnswers.txt");
+    protected GameRules gameRules;
 
+    public QuizGame(GameRules gameRules) {
+        database = new DAO("src/Util/QuestionsAndAnswers.txt");
+        this.gameRules = gameRules;
     }
 
     public void run() {
@@ -30,7 +29,7 @@ public class QuizGame extends Thread {
 
         initPlayers();
 
-        while (round <= GameRules.numberOfRounds) {
+        while (round <= gameRules.getNumberOfRounds()) {
             if (round % 2 != 0) {
                 selectCategory("--Spelare 1 väljer kategori--", 1, 0);
                 playSubset("--spelare 1s tur--", 0, playerOneTotalAnswers);
@@ -56,10 +55,10 @@ public class QuizGame extends Thread {
     }
 
     private void initPlayers() {
-        playerList.get(0).sendObject(new Init(null));
+        playerList.get(0).sendObject(new Init(null,gameRules));
         Object fromPlayerOne = playerList.get(0).receiveAnswer();
 
-        playerList.get(1).sendObject(new Init(null));
+        playerList.get(1).sendObject(new Init(null,gameRules));
         Object fromPlayerTwo = playerList.get(1).receiveAnswer();
 
         playerList.get(0).sendObject(fromPlayerTwo);
@@ -78,7 +77,7 @@ public class QuizGame extends Thread {
     private void selectCategory(String serverMessage, int otherPlayer, int initialPlayer) {
         System.out.println(serverMessage);
         playerList.get(otherPlayer).sendObject(new Wait());
-        List<String> categories = database.getRandomCategories(GameRules.numberOfCategories);
+        List<String> categories = database.getRandomCategories(gameRules.getNumberOfCategories());
         playerList.get(initialPlayer).sendObject(new Category(categories.get(0), categories.get(1)));
         Object fromPlayer = playerList.get(initialPlayer).receiveAnswer();
         String category = ((Category) fromPlayer).getSelectedCategory();
@@ -100,14 +99,14 @@ public class QuizGame extends Thread {
     }
 
     public void getQuestions(String category) {
-        questionList = database.getRandomQuestions(category, GameRules.numberOfQuestions);
+        questionList = database.getRandomQuestions(category, gameRules.getNumberOfQuestions());
     }
 
     public List<Boolean> playOneSet(ServerQuizPlayer player) {
         Object inputObject;
         List<Boolean> answers = new ArrayList<>();
 
-        for (int question = 0; question < GameRules.numberOfQuestions; question++) {
+        for (int question = 0; question < gameRules.getNumberOfQuestions(); question++) {
             player.sendObject(questionList.get(question));
             inputObject = player.receiveAnswer();
             if (((Answer) inputObject).isCorrect()) {
