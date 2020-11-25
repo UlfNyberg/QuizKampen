@@ -14,7 +14,9 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.lang.reflect.InvocationTargetException;
 import java.net.Socket;
+import java.net.SocketException;
 import java.net.UnknownHostException;
+import java.sql.Time;
 import java.util.List;
 
 /**
@@ -66,6 +68,13 @@ public class QuizClient implements Runnable, ActionListener {
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+            try {
+                socket.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }));
 
     }
 
@@ -137,6 +146,8 @@ public class QuizClient implements Runnable, ActionListener {
         } catch (UnknownHostException e) {
             System.err.println("Don't know about host ");
             System.exit(1);
+        } catch (SocketException e) {
+            System.out.println("Socket Closed");
         } catch (IOException e) {
             System.err.println("Couldn't get I/O for the connection to ");
             e.printStackTrace();
@@ -163,6 +174,7 @@ public class QuizClient implements Runnable, ActionListener {
                 System.out.println("Kunde inte ansluta. Försök igen.");
             }
         } else if (ae.getSource() == gameBoardGUI.alternative1) {
+            disableButtonsOnClick();
             if (answer1.isCorrect()) {
                 gameBoardGUI.alternative1.setBackground(correctAnswerColor);
             } else {
@@ -196,6 +208,7 @@ public class QuizClient implements Runnable, ActionListener {
             t2.setRepeats(false);
             t2.restart();
         } else if (ae.getSource() == gameBoardGUI.alternative2) {
+            disableButtonsOnClick();
             if (answer2.isCorrect()) {
                 gameBoardGUI.alternative2.setBackground(correctAnswerColor);
             } else {
@@ -230,6 +243,7 @@ public class QuizClient implements Runnable, ActionListener {
             t2.restart();
 
         } else if (ae.getSource() == gameBoardGUI.alternative3) {
+            disableButtonsOnClick();
             if (answer3.isCorrect()) {
                 gameBoardGUI.alternative3.setBackground(correctAnswerColor);
             } else {
@@ -264,6 +278,7 @@ public class QuizClient implements Runnable, ActionListener {
             t2.restart();
 
         } else if (ae.getSource() == gameBoardGUI.alternative4) {
+            disableButtonsOnClick();
             if (answer4.isCorrect()) {
                 gameBoardGUI.alternative4.setBackground(correctAnswerColor);
             } else {
@@ -304,6 +319,22 @@ public class QuizClient implements Runnable, ActionListener {
                 e.printStackTrace();
             }
         }
+    }
+
+    private void disableButtonsOnClick() {
+        gameBoardGUI.alternative1.setEnabled(false);
+        gameBoardGUI.alternative2.setEnabled(false);
+        gameBoardGUI.alternative3.setEnabled(false);
+        gameBoardGUI.alternative4.setEnabled(false);
+        Timer t = new Timer(1000, e -> {
+            gameBoardGUI.alternative1.setEnabled(true);
+            gameBoardGUI.alternative2.setEnabled(true);
+            gameBoardGUI.alternative3.setEnabled(true);
+            gameBoardGUI.alternative4.setEnabled(true);
+        });
+        t.setInitialDelay(1000);
+        t.setRepeats(false);
+        t.restart();
     }
 
     public static void main(String[] args) {
