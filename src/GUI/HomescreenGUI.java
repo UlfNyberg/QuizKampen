@@ -44,12 +44,13 @@ public class HomescreenGUI extends JPanel {
         this.setLayout(new BorderLayout());
         panel.setLayout(new BorderLayout());
         add(panel);
-        //welcomeLabel.setSize(40,40);
-        panel.add(welcomeLabel, BorderLayout.NORTH);
+        welcomeLabel.setFont(new Font ("", Font.PLAIN, 30));
+        //panel.add(welcomeLabel, BorderLayout.NORTH);
         panel.add(initiateNewGameButton, BorderLayout.SOUTH);
         panel.add(imageButton1, BorderLayout.WEST);welcomeLabel.setSize(30,30);
         panel.add(imageButton2, BorderLayout.EAST);
         panel.add(panel2, BorderLayout.CENTER);
+        panel2.add(welcomeLabel);
         panel2.add(nameOfPlayerLabel);
         panel2.add(nameOfPlayerTextField);
         panel2.add(ipaddressLabel);
@@ -58,7 +59,7 @@ public class HomescreenGUI extends JPanel {
         panel2.add(portNrTextField);
         //panel2.add(imageButton3);
         imageButton1.setPreferredSize(new Dimension(80,50));
-        imageButton2.setPreferredSize(new Dimension(80,50));
+        imageButton2.setPreferredSize(new Dimension(80,30));
         imageButton3.setPreferredSize(new Dimension(150,150));
         //imageButton1.setIcon(new ImageIcon(bild1));
         //imageButton1.add(new ImageIcon(bild1));
