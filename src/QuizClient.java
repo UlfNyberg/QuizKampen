@@ -70,7 +70,9 @@ public class QuizClient implements Runnable, ActionListener {
 
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
             try {
-                socket.close();
+                if (socket != null) {
+                    socket.close();
+                }
             } catch (IOException e) {
                 e.printStackTrace();
             }
