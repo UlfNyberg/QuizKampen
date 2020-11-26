@@ -60,7 +60,7 @@ public class QuizGame extends Thread {
                 playerList.get(0).sendObject(new Loser(round - 1));
                 playerList.get(1).sendObject(new Winner(round - 1));
             }
-        }catch (Exception e){
+        }catch (IOException | ClassNotFoundException e){
             System.out.println("Avslutar matchen");
             try {
                 playerList.get(0).sendObject(new Winner(0));
@@ -72,10 +72,12 @@ public class QuizGame extends Thread {
             } catch (IOException ioException) {
                 System.out.println("Kunde inte skicka meddelande till spelare 2");
             }
+        }catch (Exception e){
+            e.printStackTrace();
         }
     }
 
-    private void initPlayers() throws IOException {
+    private void initPlayers() throws IOException, ClassNotFoundException {
         playerList.get(0).sendObject(new Init(null,gameRules));
         Object fromPlayerOne = playerList.get(0).receiveAnswer();
 
@@ -95,7 +97,7 @@ public class QuizGame extends Thread {
     }
 
 
-    private void selectCategory(String serverMessage, int otherPlayer, int initialPlayer) throws NullPointerException, IOException {
+    private void selectCategory(String serverMessage, int otherPlayer, int initialPlayer) throws NullPointerException, IOException, ClassNotFoundException {
         System.out.println(serverMessage);
         playerList.get(otherPlayer).sendObject(new Wait());
         List<String> categories = database.getRandomCategories(gameRules.getNumberOfCategories());
@@ -108,7 +110,7 @@ public class QuizGame extends Thread {
         getQuestions(category);
     }
 
-    private void playSubset(String serverMessage, int initialPlayer, List<List<Boolean>> initialPlayerAnswers) throws IOException {
+    private void playSubset(String serverMessage, int initialPlayer, List<List<Boolean>> initialPlayerAnswers) throws IOException, ClassNotFoundException {
         System.out.println(serverMessage);
         answerResult = playOneSet(playerList.get(initialPlayer));
         initialPlayerAnswers.add(List.copyOf(answerResult));
@@ -126,16 +128,14 @@ public class QuizGame extends Thread {
         questionList = database.getRandomQuestions(category, gameRules.getNumberOfQuestions());
     }
 
-    public List<Boolean> playOneSet(ServerQuizPlayer player) throws NullPointerException, IOException {
+    public List<Boolean> playOneSet(ServerQuizPlayer player) throws IOException, ClassNotFoundException {
         Object inputObject;
         List<Boolean> answers = new ArrayList<>();
 
         for (int question = 0; question < gameRules.getNumberOfQuestions(); question++) {
             player.sendObject(questionList.get(question));
             inputObject = player.receiveAnswer();
-            if(inputObject == null){
-                throw new NullPointerException();
-            }
+
             if (((Answer) inputObject).isCorrect()) {
                 System.out.println("spelare " + player.getUserName() + " svarade rätt");
                 answers.add(question, true);

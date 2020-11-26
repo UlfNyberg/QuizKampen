@@ -45,22 +45,11 @@ public class ServerQuizPlayer extends Thread {
 
     }
 
-    public Object receiveAnswer() {
+    public Object receiveAnswer() throws IOException, ClassNotFoundException {
 
-        try {
-            inputObject = objectInputStream.readObject();
-            return inputObject;
+        inputObject = objectInputStream.readObject();
+        return inputObject;
 
-        } catch (IOException e) {
-            System.out.println("Cannot connect I/O");
-            System.out.println(e.getMessage());
-
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-
-        System.out.println(this.toString() + " failed to receive answer");
-        return null;
     }
 
     public void addOpponent(ServerQuizPlayer opponent) {
