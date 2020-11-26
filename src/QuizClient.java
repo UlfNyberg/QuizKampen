@@ -143,21 +143,11 @@ public class QuizClient implements Runnable, ActionListener {
                         card.show(cardPane, "Result Panel");
                     } else if (fromServer instanceof Winner) {
                         int round = ((Winner) fromServer).getRound();
-                        JOptionPane.showMessageDialog(currentResultGUI, "Du vann!");
-                        gameStarted = false;
-                        SwingUtilities.invokeLater(() -> currentResultGUI.resetResult(round));
-                        currentResultGUI.currentPointsPlayer1Label.setText("0");
-                        currentResultGUI.currentPointsPlayer2Label.setText("0");
-                        gameBoardGUI.currentPointsPlayer1Label.setText("0");
-                        gameBoardGUI.currentPointsPlayer2Label.setText("0");
-                        card.show(cardPane, "Homescreen Panel");
+                        resetGame(round, "Du vann!");
                         break;
                     } else if (fromServer instanceof Loser) {
                         int round = ((Loser) fromServer).getRound();
-                        JOptionPane.showMessageDialog(currentResultGUI, "Du förlorade");
-                        gameStarted = false;
-                        SwingUtilities.invokeLater(() -> currentResultGUI.resetResult(round));
-                        card.show(cardPane, "Homescreen Panel");
+                        resetGame(round, "Du förlorade");
                         break;
                     }
 
@@ -179,6 +169,18 @@ public class QuizClient implements Runnable, ActionListener {
         }
     }
 
+    public void resetGame(int round, String message) {
+        JOptionPane.showMessageDialog(currentResultGUI, message);
+        gameStarted = false;
+        SwingUtilities.invokeLater(() -> currentResultGUI.resetResult(round));
+        currentResultGUI.currentPointsPlayer1Label.setText("0");
+        currentResultGUI.currentPointsPlayer2Label.setText("0");
+        gameBoardGUI.currentPointsPlayer1Label.setText("0");
+        gameBoardGUI.currentPointsPlayer2Label.setText("0");
+        homeScreenGUI.initiateNewGameButton.setText("Starta nytt spel!");
+        card.show(cardPane, "Homescreen Panel");
+    }
+
     @Override
     public void actionPerformed(ActionEvent ae) {
         Color babyBlue = new Color(137, 207, 240);
@@ -192,8 +194,10 @@ public class QuizClient implements Runnable, ActionListener {
                 out = new ObjectOutputStream(socket.getOutputStream());
                 gameStarted = true;
                 System.out.println("Ansluten till servern");
+                homeScreenGUI.initiateNewGameButton.setText("väntar på en till spelare...");
             } catch (IOException e) {
                 System.out.println("Kunde inte ansluta. Försök igen.");
+                homeScreenGUI.initiateNewGameButton.setText("Kunde inte ansluta. Försök igen");
             }
         } else if (ae.getSource() == gameBoardGUI.alternative1) {
             disableButtonsOnClick();
