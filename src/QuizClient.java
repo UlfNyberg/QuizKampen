@@ -182,6 +182,7 @@ public class QuizClient extends MouseAdapter implements Runnable, ActionListener
         JOptionPane.showMessageDialog(currentResultGUI, message);
         gameStarted = false;
         SwingUtilities.invokeLater(() -> currentResultGUI.resetResult(round));
+        SwingUtilities.invokeLater(() -> currentResultGUI.resetUI(round));
         currentResultGUI.currentPointsPlayer1Label.setText("0");
         currentResultGUI.currentPointsPlayer2Label.setText("0");
         gameBoardGUI.currentPointsPlayer1Label.setText("0");

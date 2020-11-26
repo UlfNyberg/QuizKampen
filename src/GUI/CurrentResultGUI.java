@@ -5,6 +5,7 @@ import Util.GameRules;
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -32,7 +33,7 @@ public class CurrentResultGUI extends JPanel {
     JPanel thirdRoundLongPanel = new JPanel();
     JPanel fourthRoundLongPanel = new JPanel();
     JPanel fifthRoundLongPanel = new JPanel();
-    JPanel[] roundLongPanelArray = {firstRoundLongPanel, secondRoundLongPanel, thirdRoundLongPanel,
+    public JPanel[] roundLongPanelArray = {firstRoundLongPanel, secondRoundLongPanel, thirdRoundLongPanel,
     fourthRoundLongPanel, fifthRoundLongPanel};
 
     List<JPanel> currentPlayerQuestions = new ArrayList<>();
@@ -42,22 +43,6 @@ public class CurrentResultGUI extends JPanel {
 
     //TODO: ändra alla spacefiller till spaceFiller listan
     List<JPanel> spaceFillerList = new ArrayList<>();
-    JPanel spacefiller1Panel = new JPanel();
-    JPanel spacefiller2Panel = new JPanel();
-    JPanel spacefiller3Panel = new JPanel();
-    JPanel spacefiller4Panel = new JPanel();
-    JPanel spacefiller5Panel = new JPanel();
-    JPanel spacefiller6Panel = new JPanel();
-    JPanel spacefiller7Panel = new JPanel();
-    JPanel spacefiller8Panel = new JPanel();
-    JPanel spacefiller9Panel = new JPanel();
-    JPanel spacefiller10Panel = new JPanel();
-    JPanel spacefiller11Panel = new JPanel();
-    JPanel spacefiller12Panel = new JPanel();
-    JPanel spacefiller13Panel = new JPanel();
-    JPanel spacefiller14Panel = new JPanel();
-    JPanel spacefiller15Panel = new JPanel();
-    JPanel spacefiller16Panel = new JPanel();
 
     JLabel round1Label = new JLabel("Runda 1");
     JLabel round2Label = new JLabel("Runda 2");
@@ -359,6 +344,14 @@ public class CurrentResultGUI extends JPanel {
                 roundLongPanelArray[i].getComponent(j).setBackground(lighterGray);
                 roundLongPanelArray[i].getComponent(gameRules.getNumberOfQuestions() + j + 3).setBackground(lighterGray);
             }
+        }
+    }
+
+    public void resetUI(int round) {
+        currentPlayerQuestions = new ArrayList<>();
+        otherPlayerQuestions = new ArrayList<>();
+        for (int i = 0; i < round; i++) {
+            roundLongPanelArray[i].removeAll();
         }
     }
 }
