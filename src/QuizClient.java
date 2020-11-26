@@ -6,6 +6,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -64,6 +66,12 @@ public class QuizClient extends MouseAdapter implements Runnable, ActionListener
         frame.add(cardPane);
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        try {
+            UIManager.setLookAndFeel( UIManager.getCrossPlatformLookAndFeelClassName() );
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
             try {
