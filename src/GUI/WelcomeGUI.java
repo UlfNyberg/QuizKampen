@@ -17,8 +17,8 @@ public class WelcomeGUI extends JPanel{
     public JPanel panel = new JPanel();
     public JPanel panel2 = new JPanel();
 
-    ImageIcon welcomeImage = new ImageIcon(new ImageIcon ("src/GUI/welcomePicture.jpg").getImage().getScaledInstance(407,600, Image.SCALE_DEFAULT));
-    ImageIcon welcome2Image = new ImageIcon(new ImageIcon ("src/GUI/welcome2Picture.jpg").getImage().getScaledInstance(407,600, Image.SCALE_DEFAULT));
+    ImageIcon welcomeImage = new ImageIcon(new ImageIcon ("src/GUI/Images/welcomePicture.jpg").getImage().getScaledInstance(407,600, Image.SCALE_DEFAULT));
+    ImageIcon welcome2Image = new ImageIcon(new ImageIcon ("src/GUI/Images/welcome2Picture.jpg").getImage().getScaledInstance(407,600, Image.SCALE_DEFAULT));
 
 
     JButton imageButton1 = new JButton(welcomeImage);
