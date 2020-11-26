@@ -1,5 +1,7 @@
 package GUI;
 
+import Util.GameRules;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -26,6 +28,8 @@ public class CategoryGUI extends JPanel {
     JPanel chooseBetweenPanel = new JPanel();
     JPanel category1Panel = new JPanel();
     JPanel category2Panel = new JPanel();
+    JPanel category3Panel = new JPanel();
+    JPanel category4Panel = new JPanel();
     JPanel bottomOfScreenPanel = new JPanel();
 
 
@@ -51,6 +55,8 @@ public class CategoryGUI extends JPanel {
 
     public JButton category1Button = new JButton("Science");
     public JButton category2Button = new JButton("Djur & Natur");
+    public JButton category3Button = new JButton("Djur & Natur");
+    public JButton category4Button = new JButton("Djur & Natur");
 
     //////////////////////////////////
 
@@ -72,6 +78,8 @@ public class CategoryGUI extends JPanel {
         timeToChooseLabel.setFont(font1);
         category1Button.setFont(font1);
         category2Button.setFont(font1);
+        category3Button.setFont(font1);
+        category4Button.setFont(font1);
 
         gameNameLabel.setFont(font2);
 
@@ -81,8 +89,6 @@ public class CategoryGUI extends JPanel {
         firstPanel.add(gameNamePanel);
         firstPanel.add(timeToChoosePanel);
         firstPanel.add(chooseBetweenPanel);
-        firstPanel.add(category1Panel);
-        firstPanel.add(category2Panel);
         firstPanel.add(bottomOfScreenPanel);
 
         gameNamePanel.setLayout(new GridLayout(1, 1));
@@ -90,6 +96,8 @@ public class CategoryGUI extends JPanel {
         chooseBetweenPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 8, 22));
         category1Panel.setLayout(new FlowLayout(FlowLayout.CENTER, 8, 12));
         category2Panel.setLayout(new FlowLayout(FlowLayout.CENTER, 8, 12));
+        category3Panel.setLayout(new FlowLayout(FlowLayout.CENTER, 8, 12));
+        category4Panel.setLayout(new FlowLayout(FlowLayout.CENTER, 8, 12));
         bottomOfScreenPanel.setLayout(new FlowLayout());
 
         gameNamePanel.add(gameNameLabel);
@@ -99,7 +107,8 @@ public class CategoryGUI extends JPanel {
         chooseBetweenPanel.add(chooseCategoryLabel);
         category1Panel.add(category1Button);
         category2Panel.add(category2Button);
-
+        category3Panel.add(category3Button);
+        category4Panel.add(category4Button);
 
         setSize(400, 600);
         panel3.setBackground(Color.PINK);
@@ -123,20 +132,41 @@ public class CategoryGUI extends JPanel {
         category1Panel.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
         category2Panel.setBackground(Color.WHITE);
         category2Panel.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
+        category3Panel.setBackground(Color.WHITE);
+        category3Panel.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
+        category4Panel.setBackground(Color.WHITE);
+        category4Panel.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
         bottomOfScreenPanel.setBackground(Color.PINK);
         bottomOfScreenPanel.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
 
         category1Button.setPreferredSize(new Dimension(350, 60));
         category2Button.setPreferredSize(new Dimension(350, 60));
+        category3Button.setPreferredSize(new Dimension(350, 60));
+        category4Button.setPreferredSize(new Dimension(350, 60));
         category1Button.setBackground(Color.WHITE);
         category2Button.setBackground(Color.WHITE);
+        category3Button.setBackground(Color.WHITE);
+        category4Button.setBackground(Color.WHITE);
         category1Button.addActionListener(al);
         category2Button.addActionListener(al);
+        category3Button.addActionListener(al);
+        category4Button.addActionListener(al);
 
         currentlyPlayingPanel.setPreferredSize(new Dimension(120, 35));
 
         setVisible(true);
 
+    }
+
+    public void setupUI(GameRules gameRules) {
+        firstPanel.add(category1Panel);
+        firstPanel.add(category2Panel);
+        if (gameRules.getNumberOfCategories() >= 3) {
+            firstPanel.add(category3Panel);
+        }
+        if (gameRules.getNumberOfCategories() == 4) {
+            firstPanel.add(category4Panel);
+        }
     }
 
 }
