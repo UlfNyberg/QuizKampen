@@ -90,6 +90,11 @@ public class GameBoardGUI extends JPanel {
         pointsPanel.add(currentPointsPlayer2Label);
         pointsPanel.add(spacePanel3);
 
+        alternative1.setOpaque(true);
+        alternative2.setOpaque(true);
+        alternative3.setOpaque(true);
+        alternative4.setOpaque(true);
+
         backgroundPanel.add(centerPanel, BorderLayout.CENTER);
 
         centerPanel.setLayout(new BorderLayout());
@@ -154,6 +159,7 @@ public class GameBoardGUI extends JPanel {
         questionTextArea.setLineWrap(true);
         questionTextArea.setWrapStyleWord(true);
         setVisible(true);
+
     }
 }
 

@@ -85,6 +85,7 @@ public class HomescreenGUI extends JPanel {
         imageButton1.addActionListener(al);
         imageButton2.addActionListener(al);
         initiateNewGameButton.addActionListener(al);
+        initiateNewGameButton.setOpaque(true);
 
         setSize(400, 600);
         panel2.setBackground(Color.PINK);

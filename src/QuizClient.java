@@ -68,12 +68,6 @@ public class QuizClient extends MouseAdapter implements Runnable, ActionListener
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        try {
-            UIManager.setLookAndFeel( UIManager.getCrossPlatformLookAndFeelClassName() );
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
             try {
                 if (socket != null) {
