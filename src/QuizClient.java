@@ -1,14 +1,10 @@
-import GUI.CategoryGUI;
-import GUI.CurrentResultGUI;
-import GUI.GameBoardGUI;
-import GUI.HomescreenGUI;
+import GUI.*;
 import NetworkClasses.*;
 import Util.GameRules;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 import java.io.*;
 import java.net.Socket;
 import java.net.UnknownHostException;
@@ -21,7 +17,7 @@ import java.util.List;
  * Project: QuizKampen
  * Copyright: MIT
  */
-public class QuizClient implements Runnable, ActionListener {
+public class QuizClient extends MouseAdapter implements Runnable, ActionListener {
 
     JFrame frame;
     JPanel cardPane;
@@ -34,6 +30,7 @@ public class QuizClient implements Runnable, ActionListener {
     CategoryGUI categoryGUI;
     CurrentResultGUI currentResultGUI;
     HomescreenGUI homeScreenGUI;
+    WelcomeGUI welcomeGUI;
     boolean gameStarted = false;
     Answer answer1;
     Answer answer2;
@@ -46,6 +43,7 @@ public class QuizClient implements Runnable, ActionListener {
         categoryGUI = new CategoryGUI(this);
         currentResultGUI = new CurrentResultGUI();
         homeScreenGUI = new HomescreenGUI(this);
+        welcomeGUI = new WelcomeGUI(this);
 
         frame = new JFrame("Quizkampen");
         frame.setSize(400, 600);
@@ -54,10 +52,11 @@ public class QuizClient implements Runnable, ActionListener {
         card = new CardLayout();
         cardPane.setLayout(card);
 
+        cardPane.add(welcomeGUI, "Welcome Panel");
         cardPane.add(homeScreenGUI, "Homescreen Panel");
-        cardPane.add(categoryGUI, "NetworkClasses.Category Panel");
+        cardPane.add(categoryGUI, "Category Panel");
         cardPane.add(gameBoardGUI, "Gameboard Panel");
-        cardPane.add(currentResultGUI, "NetworkClasses.Result Panel");
+        cardPane.add(currentResultGUI, "Result Panel");
 
         frame.add(cardPane);
         frame.setVisible(true);
@@ -81,7 +80,7 @@ public class QuizClient implements Runnable, ActionListener {
 
             while ((fromServer = in.readObject()) != null) {
                 if (fromServer instanceof Category) {
-                    card.show(cardPane, "NetworkClasses.Category Panel");
+                    card.show(cardPane, "Category Panel");
                     categoryGUI.category1Button.setText(((Category) fromServer).getCategory1());
                     categoryGUI.category2Button.setText(((Category) fromServer).getCategory2());
                 }
@@ -99,7 +98,7 @@ public class QuizClient implements Runnable, ActionListener {
                     answer4 = ((Question) fromServer).getAnswers().get(3);
 
                 } else if (fromServer instanceof Wait) {
-                    card.show(cardPane, "NetworkClasses.Result Panel");
+                    card.show(cardPane, "Result Panel");
                 } else if (fromServer instanceof Result) {
                     List<Boolean> currentPlayer = ((Result) fromServer).getCurrentPlayerAnswers();
                     List<Boolean> otherPlayer = ((Result) fromServer).getOtherPlayerAnswers();
@@ -112,7 +111,7 @@ public class QuizClient implements Runnable, ActionListener {
                     currentResultGUI.currentPointsPlayer2Label.setText(String.valueOf(otherPlayerResult));
                     SwingUtilities.invokeLater(() -> currentResultGUI.showResult(currentPlayer, otherPlayer, round));
 
-                    card.show(cardPane, "NetworkClasses.Result Panel");
+                    card.show(cardPane, "Result Panel");
                 }
 
             }
@@ -186,4 +185,10 @@ public class QuizClient implements Runnable, ActionListener {
     }
 
 
+    @Override
+    public void mousePressed(MouseEvent e) {
+        if (e.getSource() == welcomeGUI.image2) {
+            card.show(cardPane, "Homescreen Panel");
+        }
+    }
 }

@@ -2,10 +2,7 @@ package GUI;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.*;
 
 /**
  * Created by: Ulf Nyberg
@@ -14,7 +11,7 @@ import java.awt.event.MouseEvent;
  * Project: QuizKampen
  * Copyright: MIT
  */
-public class WelcomeGUI extends JFrame{
+public class WelcomeGUI extends JPanel{
 
 
     JPanel panel = new JPanel();
@@ -26,22 +23,22 @@ public class WelcomeGUI extends JFrame{
 
     JButton imageButton1 = new JButton(welcomeImage);
 
-    JLabel imagePanel = new JLabel(welcomeImage);
-    JLabel image2Panel = new JLabel(welcome2Image);
+    JLabel image = new JLabel(welcomeImage);
+    public JLabel image2 = new JLabel(welcome2Image);
 
-    public WelcomeGUI (){  //ActionListener al
+    public WelcomeGUI (MouseAdapter ma){
         this.setLayout(new BorderLayout());
         panel2.setLayout(new BorderLayout());
-        panel.add(imagePanel);
-        panel2.add(image2Panel);
+        panel.add(image);
+        panel2.add(image2);
         add(panel2);
         add(panel);
-
+        image2.addMouseListener(ma);
         setSize(400, 620);
         setVisible(true);
 
 
-        imagePanel.addMouseListener(new MouseAdapter() {
+        this.addMouseListener(new MouseAdapter() {
             public void mouseEntered(MouseEvent evt) {
                 add(panel2);
                 panel.setVisible(false);
@@ -49,15 +46,12 @@ public class WelcomeGUI extends JFrame{
 
             public void mouseExited(MouseEvent evt) {
                 panel.setVisible(true);
-                //panel2.setVisible(false);
-                //panel.setVisible(true);
             }
+
+
         });
     }
 
-    public static void main(String[] args) {
-        WelcomeGUI wq = new WelcomeGUI();
-    }
 
 
 }
