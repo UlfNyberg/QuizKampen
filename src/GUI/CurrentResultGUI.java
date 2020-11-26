@@ -16,6 +16,8 @@ import java.util.List;
  */
 public class CurrentResultGUI extends JPanel {
 
+    protected GameRules gameRules;
+
     JPanel panel3 = new JPanel();
     JPanel panel4 = new JPanel();
 
@@ -30,6 +32,8 @@ public class CurrentResultGUI extends JPanel {
     JPanel thirdRoundLongPanel = new JPanel();
     JPanel fourthRoundLongPanel = new JPanel();
     JPanel fifthRoundLongPanel = new JPanel();
+    JPanel[] roundLongPanelArray = {firstRoundLongPanel, secondRoundLongPanel, thirdRoundLongPanel,
+    fourthRoundLongPanel, fifthRoundLongPanel};
 
     List<JPanel> currentPlayerQuestions = new ArrayList<>();
     List<JPanel> otherPlayerQuestions = new ArrayList<>();
@@ -82,6 +86,9 @@ public class CurrentResultGUI extends JPanel {
     Color incorrectAnswerColor = new Color(255, 45, 33);
 
     public CurrentResultGUI() {
+        for (int i = 0; i < 16; i++) {
+            spaceFillerList.add(new JPanel());
+        }
         gameNameLabel.setFont(font2);
         player1NameLabel.setFont(font1);
         player2NameLabel.setFont(font1);
@@ -116,111 +123,29 @@ public class CurrentResultGUI extends JPanel {
         fourthRoundLongPanel.setLayout(layout);
         fifthRoundLongPanel.setLayout(layout);
         gameNamePanel.add(gameNameLabel);
-        playerNamePanel.add(spacefiller1Panel);
+        playerNamePanel.add(spaceFillerList.get(0));
         playerNamePanel.add(player1NameLabel);
-        playerNamePanel.add(spacefiller2Panel);
-        spacefiller2Panel.add(versusLabel);
+        playerNamePanel.add(spaceFillerList.get(1));
+        spaceFillerList.get(1).add(versusLabel);
         playerNamePanel.add(player2NameLabel);
-        playerNamePanel.add(spacefiller3Panel);
-        playerScorePanel.add(spacefiller4Panel);
+        playerNamePanel.add(spaceFillerList.get(2));
+        playerScorePanel.add(spaceFillerList.get(3));
         playerScorePanel.add(currentPointsPlayer1Label);
-        playerScorePanel.add(spacefiller5Panel);
-        spacefiller5Panel.add(betweenLabel);
+        playerScorePanel.add(spaceFillerList.get(4));
+        spaceFillerList.get(4).add(betweenLabel);
         playerScorePanel.add(currentPointsPlayer2Label);
-        playerScorePanel.add(spacefiller6Panel);
+        playerScorePanel.add(spaceFillerList.get(5));
 
-        for (int j = 0; j < GameRules.numberOfQuestions; j++) {
-            JPanel thisQuestion = new JPanel();
-            thisQuestion.setPreferredSize(new Dimension(35, 35));
-            thisQuestion.setBackground(lighterGray);
-            currentPlayerQuestions.add(thisQuestion);
-        }
-        for (int j = 0; j < GameRules.numberOfQuestions; j++) {
-            JPanel thisQuestion = new JPanel();
-            thisQuestion.setPreferredSize(new Dimension(35, 35));
-            thisQuestion.setBackground(lighterGray);
-            otherPlayerQuestions.add(thisQuestion);
-        }
-
-
-        if (GameRules.numberOfRounds >= 1) {
-            List<JPanel> firstRound = copyList(currentPlayerQuestions);
-            for (JPanel panel : firstRound) {
-                firstRoundLongPanel.add(panel);
-            }
-            firstRoundLongPanel.add(spacefiller7Panel);
-            firstRoundLongPanel.add(round1Label);
-            firstRoundLongPanel.add(spacefiller8Panel);
-            firstRound = copyList(otherPlayerQuestions);
-            for (JPanel panel : firstRound) {
-                firstRoundLongPanel.add(panel);
-            }
-        }
-
-        if (GameRules.numberOfRounds >= 2) {
-            List<JPanel> secondRound = copyList(currentPlayerQuestions);
-            for (JPanel panel : secondRound) {
-                secondRoundLongPanel.add(panel);
-            }
-            secondRoundLongPanel.add(spacefiller9Panel);
-            secondRoundLongPanel.add(round2Label);
-            secondRoundLongPanel.add(spacefiller10Panel);
-            secondRound = copyList(otherPlayerQuestions);
-            for (JPanel panel : secondRound) {
-                secondRoundLongPanel.add(panel);
-            }
-        }
-
-        if (GameRules.numberOfRounds >= 3) {
-            List<JPanel> thirdRound = copyList(currentPlayerQuestions);
-
-            for (JPanel panel : thirdRound) {
-                thirdRoundLongPanel.add(panel);
-            }
-            thirdRoundLongPanel.add(spacefiller11Panel);
-            thirdRoundLongPanel.add(round3Label);
-            thirdRoundLongPanel.add(spacefiller12Panel);
-            thirdRound = copyList(otherPlayerQuestions);
-            for (JPanel panel : thirdRound) {
-                thirdRoundLongPanel.add(panel);
-            }
-        }
-        if (GameRules.numberOfRounds >= 4) {
-            List<JPanel> fourthRound = copyList(currentPlayerQuestions);
-            for (JPanel panel : fourthRound) {
-                fourthRoundLongPanel.add(panel);
-            }
-            fourthRoundLongPanel.add(spacefiller13Panel);
-            fourthRoundLongPanel.add(round4Label);
-            fourthRoundLongPanel.add(spacefiller14Panel);
-            fourthRound = copyList(otherPlayerQuestions);
-            for (JPanel panel : fourthRound) {
-                fourthRoundLongPanel.add(panel);
-            }
-        }
-        if (GameRules.numberOfRounds >= 5) {
-            List<JPanel> fifthRound = copyList(currentPlayerQuestions);
-            for (JPanel panel : fifthRound) {
-                fifthRoundLongPanel.add(panel);
-            }
-            fifthRoundLongPanel.add(spacefiller15Panel);
-            fifthRoundLongPanel.add(round5Label);
-            fifthRoundLongPanel.add(spacefiller16Panel);
-            fifthRound = copyList(otherPlayerQuestions);
-            for (JPanel panel : fifthRound) {
-                fifthRoundLongPanel.add(panel);
-            }
-        }
         //TODO: ändra storlek beroende på antal frågor och rundor
         setSize(400, 600);
         panel3.setBackground(Color.PINK);
         panel4.setBackground(Color.PINK);
-        spacefiller1Panel.setBackground(Color.PINK);
-        spacefiller2Panel.setBackground(Color.PINK);
-        spacefiller3Panel.setBackground(Color.PINK);
-        spacefiller4Panel.setBackground(Color.PINK);
-        spacefiller5Panel.setBackground(Color.PINK);
-        spacefiller6Panel.setBackground(Color.PINK);
+        spaceFillerList.get(0).setBackground(Color.PINK);
+        spaceFillerList.get(1).setBackground(Color.PINK);
+        spaceFillerList.get(2).setBackground(Color.PINK);
+        spaceFillerList.get(3).setBackground(Color.PINK);
+        spaceFillerList.get(4).setBackground(Color.PINK);
+        spaceFillerList.get(5).setBackground(Color.PINK);
         gameNamePanel.setBackground(Color.PINK);
         currentlyPlayingPanel.setBackground(Color.PINK);
         playerNamePanel.setBackground(Color.PINK);
@@ -238,18 +163,107 @@ public class CurrentResultGUI extends JPanel {
         fifthRoundLongPanel.setBackground(Color.WHITE);
         fifthRoundLongPanel.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
         currentlyPlayingPanel.setPreferredSize(new Dimension(120, 35));
-        spacefiller7Panel.setBackground(Color.WHITE);
-        spacefiller8Panel.setBackground(Color.WHITE);
-        spacefiller9Panel.setBackground(Color.WHITE);
-        spacefiller10Panel.setBackground(Color.WHITE);
-        spacefiller11Panel.setBackground(Color.WHITE);
-        spacefiller12Panel.setBackground(Color.WHITE);
-        spacefiller13Panel.setBackground(Color.WHITE);
-        spacefiller14Panel.setBackground(Color.WHITE);
-        spacefiller15Panel.setBackground(Color.WHITE);
-        spacefiller16Panel.setBackground(Color.WHITE);
+        spaceFillerList.get(6).setBackground(Color.WHITE);
+        spaceFillerList.get(7).setBackground(Color.WHITE);
+        spaceFillerList.get(8).setBackground(Color.WHITE);
+        spaceFillerList.get(9).setBackground(Color.WHITE);
+        spaceFillerList.get(10).setBackground(Color.WHITE);
+        spaceFillerList.get(11).setBackground(Color.WHITE);
+        spaceFillerList.get(12).setBackground(Color.WHITE);
+        spaceFillerList.get(13).setBackground(Color.WHITE);
+        spaceFillerList.get(14).setBackground(Color.WHITE);
+        spaceFillerList.get(15).setBackground(Color.WHITE);
 
         setVisible(true);
+    }
+
+    public void setupUI(GameRules gameRules) {
+
+        this.gameRules = gameRules;
+
+        for (int j = 0; j < gameRules.getNumberOfQuestions(); j++) {
+            JPanel thisQuestion = new JPanel();
+            thisQuestion.setPreferredSize(new Dimension(35, 35));
+            thisQuestion.setBackground(lighterGray);
+            currentPlayerQuestions.add(thisQuestion);
+        }
+        for (int j = 0; j < gameRules.getNumberOfQuestions(); j++) {
+            JPanel thisQuestion = new JPanel();
+            thisQuestion.setPreferredSize(new Dimension(35, 35));
+            thisQuestion.setBackground(lighterGray);
+            otherPlayerQuestions.add(thisQuestion);
+        }
+
+
+        if (gameRules.getNumberOfRounds() >= 1) {
+            List<JPanel> firstRound = copyList(currentPlayerQuestions);
+            for (JPanel panel : firstRound) {
+                firstRoundLongPanel.add(panel);
+            }
+            firstRoundLongPanel.add(spaceFillerList.get(6));
+            firstRoundLongPanel.add(round1Label);
+            firstRoundLongPanel.add(spaceFillerList.get(7));
+            firstRound = copyList(otherPlayerQuestions);
+            for (JPanel panel : firstRound) {
+                firstRoundLongPanel.add(panel);
+            }
+        }
+
+        if (gameRules.getNumberOfRounds() >= 2) {
+            List<JPanel> secondRound = copyList(currentPlayerQuestions);
+            for (JPanel panel : secondRound) {
+                secondRoundLongPanel.add(panel);
+            }
+            secondRoundLongPanel.add(spaceFillerList.get(8));
+            secondRoundLongPanel.add(round2Label);
+            secondRoundLongPanel.add(spaceFillerList.get(9));
+            secondRound = copyList(otherPlayerQuestions);
+            for (JPanel panel : secondRound) {
+                secondRoundLongPanel.add(panel);
+            }
+        }
+
+        if (gameRules.getNumberOfRounds() >= 3) {
+            List<JPanel> thirdRound = copyList(currentPlayerQuestions);
+
+            for (JPanel panel : thirdRound) {
+                thirdRoundLongPanel.add(panel);
+            }
+            thirdRoundLongPanel.add(spaceFillerList.get(10));
+            thirdRoundLongPanel.add(round3Label);
+            thirdRoundLongPanel.add(spaceFillerList.get(11));
+            thirdRound = copyList(otherPlayerQuestions);
+            for (JPanel panel : thirdRound) {
+                thirdRoundLongPanel.add(panel);
+            }
+        }
+        if (gameRules.getNumberOfRounds() >= 4) {
+            List<JPanel> fourthRound = copyList(currentPlayerQuestions);
+            for (JPanel panel : fourthRound) {
+                fourthRoundLongPanel.add(panel);
+            }
+            fourthRoundLongPanel.add(spaceFillerList.get(12));
+            fourthRoundLongPanel.add(round4Label);
+            fourthRoundLongPanel.add(spaceFillerList.get(13));
+            fourthRound = copyList(otherPlayerQuestions);
+            for (JPanel panel : fourthRound) {
+                fourthRoundLongPanel.add(panel);
+            }
+        }
+        if (gameRules.getNumberOfRounds() >= 5) {
+            List<JPanel> fifthRound = copyList(currentPlayerQuestions);
+            for (JPanel panel : fifthRound) {
+                fifthRoundLongPanel.add(panel);
+            }
+            fifthRoundLongPanel.add(spaceFillerList.get(14));
+            fifthRoundLongPanel.add(round5Label);
+            fifthRoundLongPanel.add(spaceFillerList.get(15));
+            fifthRound = copyList(otherPlayerQuestions);
+            for (JPanel panel : fifthRound) {
+                fifthRoundLongPanel.add(panel);
+            }
+        }
+
     }
 
     private List<JPanel> copyList(List<JPanel> sourceList) {
@@ -337,6 +351,14 @@ public class CurrentResultGUI extends JPanel {
                 }
                 break;
         }
+    }
 
+    public void resetResult(int round) {
+        for (int i = 0; i < round; i++) {
+            for (int j = 0; j < gameRules.getNumberOfQuestions(); j++) {
+                roundLongPanelArray[i].getComponent(j).setBackground(lighterGray);
+                roundLongPanelArray[i].getComponent(gameRules.getNumberOfQuestions() + j + 3).setBackground(lighterGray);
+            }
+        }
     }
 }

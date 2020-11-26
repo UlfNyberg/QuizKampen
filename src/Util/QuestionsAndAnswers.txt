@@ -8,6 +8,9 @@ S Bröder
 Q Vad är Mario och Luigis relation...egentligen?
 A Platonisk, Passionerad, Yrkesmässig, Vänliga grannar
 S Yrkesmässig
+Q Hur många spelare är det i en "raid" i spelserien Destiny?
+A 3, 4, 5, 6
+S 6
 K Film
 Q Vilken karaktär har flest on-screen kills i Sagan om Ringen trilogin?
 A Legolas, Boromir, Gimli, Frodo
