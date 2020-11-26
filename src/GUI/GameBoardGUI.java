@@ -43,7 +43,8 @@ public class GameBoardGUI extends JPanel {
 
     public JLabel user1Label = new JLabel("Användare1");
     public JLabel user2Label = new JLabel("Användare2");
-    JLabel spaceLabel = new JLabel("- - - - - -");
+    JLabel spaceLabel = new JLabel("vs.");
+    JLabel betweenLabel = new JLabel("-");
 
     JLabel pointsForUserLabel1 = new JLabel("Poäng: ");
     JLabel pointsForUserLabel2 = new JLabel("Poäng: ");
@@ -81,14 +82,14 @@ public class GameBoardGUI extends JPanel {
         usernamePanel.add(user1Label); //SwingConstants.LEFT
         usernamePanel.add(spaceLabel);
         usernamePanel.add(user2Label);  //SwingConstants.RIGHT
-        pointsPanel.setLayout(new GridLayout(1, 7));
-        pointsPanel.add(spacePanel);
         pointsPanel.add((pointsForUserLabel1));
         pointsPanel.add(currentPointsPlayer1Label);
+        pointsPanel.add(spacePanel);
+        pointsPanel.add(betweenLabel);
         pointsPanel.add(spacePanel2);
         pointsPanel.add(pointsForUserLabel2);
         pointsPanel.add(currentPointsPlayer2Label);
-        pointsPanel.add(spacePanel3);
+        //pointsPanel.add(spacePanel3);
 
         alternative1.setOpaque(true);
         alternative2.setOpaque(true);
