@@ -160,6 +160,7 @@ public class CurrentResultGUI extends JPanel {
         spaceFillerList.get(15).setBackground(Color.WHITE);
 
         setVisible(true);
+
     }
 
     public void setupUI(GameRules gameRules) {
