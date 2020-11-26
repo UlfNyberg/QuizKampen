@@ -4,10 +4,18 @@ import Util.GameRules;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.lang.reflect.InvocationTargetException;
 import java.awt.event.*;
 import java.io.*;
 import java.net.Socket;
+import java.net.SocketException;
 import java.net.UnknownHostException;
+import java.sql.Time;
 import java.util.List;
 
 /**
@@ -62,6 +70,13 @@ public class QuizClient extends MouseAdapter implements Runnable, ActionListener
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+            try {
+                socket.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }));
 
     }
 
@@ -79,6 +94,20 @@ public class QuizClient extends MouseAdapter implements Runnable, ActionListener
             Object fromServer;
 
             while ((fromServer = in.readObject()) != null) {
+
+                if(fromServer instanceof Init){
+                    String initName = ((Init) fromServer).getPlayerName();
+                    if(initName == null){
+                        out.writeObject(new Init(homeScreenGUI.nameOfPlayerTextField.getText()));
+                    }else{
+                        String currentPlayerName = homeScreenGUI.nameOfPlayerTextField.getText();
+                        currentResultGUI.player1NameLabel.setText(currentPlayerName);
+                        currentResultGUI.player2NameLabel.setText(initName);
+                        gameBoardGUI.user1Label.setText(currentPlayerName);
+                        gameBoardGUI.user2Label.setText(initName);
+                    }
+                }
+
                 if (fromServer instanceof Category) {
                     card.show(cardPane, "Category Panel");
                     categoryGUI.category1Button.setText(((Category) fromServer).getCategory1());
@@ -119,6 +148,8 @@ public class QuizClient extends MouseAdapter implements Runnable, ActionListener
         } catch (UnknownHostException e) {
             System.err.println("Don't know about host ");
             System.exit(1);
+        } catch (SocketException e) {
+            System.out.println("Socket Closed");
         } catch (IOException e) {
             System.err.println("Couldn't get I/O for the connection to ");
             e.printStackTrace();
@@ -130,7 +161,9 @@ public class QuizClient extends MouseAdapter implements Runnable, ActionListener
 
     @Override
     public void actionPerformed(ActionEvent ae) {
-
+        Color babyBlue = new Color(137,207,240);
+        Color correctAnswerColor = new Color(125, 255, 0);
+        Color incorrectAnswerColor = new Color(255, 45, 33);
         if (ae.getSource() == homeScreenGUI.initiateNewGameButton) {
             socket = null;
             try {
@@ -143,32 +176,143 @@ public class QuizClient extends MouseAdapter implements Runnable, ActionListener
                 System.out.println("Kunde inte ansluta. Försök igen.");
             }
         } else if (ae.getSource() == gameBoardGUI.alternative1) {
-            try {
-                out.writeObject(answer1);
-            } catch (IOException e) {
-                e.printStackTrace();
+            disableButtonsOnClick();
+            if (answer1.isCorrect()) {
+                gameBoardGUI.alternative1.setBackground(correctAnswerColor);
+            } else {
+                gameBoardGUI.alternative1.setBackground(incorrectAnswerColor);
+                if (answer2.isCorrect()) {
+                    gameBoardGUI.alternative2.setBackground(babyBlue);
+                } else if (answer3.isCorrect()) {
+                    gameBoardGUI.alternative3.setBackground(babyBlue);
+                } else if (answer4.isCorrect()) {
+                    gameBoardGUI.alternative4.setBackground(babyBlue);
+                }
             }
 
+            Timer t = new Timer(1000, e -> {
+                gameBoardGUI.alternative1.setBackground(Color.WHITE);
+                gameBoardGUI.alternative2.setBackground(Color.WHITE);
+                gameBoardGUI.alternative3.setBackground(Color.WHITE);
+                gameBoardGUI.alternative4.setBackground(Color.WHITE);
+            });
+            t.setInitialDelay(1000);
+            t.setRepeats(false);
+            t.restart();
+            Timer t2 = new Timer(1000, e -> {
+                try {
+                    out.writeObject(answer1);
+                } catch (IOException ioException) {
+                    ioException.printStackTrace();
+                }
+            });
+            t2.setInitialDelay(1000);
+            t2.setRepeats(false);
+            t2.restart();
         } else if (ae.getSource() == gameBoardGUI.alternative2) {
-            try {
-                out.writeObject(answer2);
-            } catch (IOException e) {
-                e.printStackTrace();
+            disableButtonsOnClick();
+            if (answer2.isCorrect()) {
+                gameBoardGUI.alternative2.setBackground(correctAnswerColor);
+            } else {
+                gameBoardGUI.alternative2.setBackground(incorrectAnswerColor);
+                if (answer1.isCorrect()) {
+                    gameBoardGUI.alternative1.setBackground(babyBlue);
+                } else if (answer3.isCorrect()) {
+                    gameBoardGUI.alternative3.setBackground(babyBlue);
+                } else if (answer4.isCorrect()) {
+                    gameBoardGUI.alternative4.setBackground(babyBlue);
+                }
             }
+
+            Timer t = new Timer(1000, e -> {
+                gameBoardGUI.alternative1.setBackground(Color.WHITE);
+                gameBoardGUI.alternative2.setBackground(Color.WHITE);
+                gameBoardGUI.alternative3.setBackground(Color.WHITE);
+                gameBoardGUI.alternative4.setBackground(Color.WHITE);
+            });
+            t.setInitialDelay(1000);
+            t.setRepeats(false);
+            t.restart();
+            Timer t2 = new Timer(1000, e -> {
+                try {
+                    out.writeObject(answer2);
+                } catch (IOException ioException) {
+                    ioException.printStackTrace();
+                }
+            });
+            t2.setInitialDelay(1000);
+            t2.setRepeats(false);
+            t2.restart();
 
         } else if (ae.getSource() == gameBoardGUI.alternative3) {
-            try {
-                out.writeObject(answer3);
-            } catch (IOException e) {
-                e.printStackTrace();
+            disableButtonsOnClick();
+            if (answer3.isCorrect()) {
+                gameBoardGUI.alternative3.setBackground(correctAnswerColor);
+            } else {
+                gameBoardGUI.alternative3.setBackground(incorrectAnswerColor);
+                if (answer1.isCorrect()) {
+                    gameBoardGUI.alternative1.setBackground(babyBlue);
+                } else if (answer2.isCorrect()) {
+                    gameBoardGUI.alternative2.setBackground(babyBlue);
+                } else if (answer4.isCorrect()) {
+                    gameBoardGUI.alternative4.setBackground(babyBlue);
+                }
             }
 
+            Timer t = new Timer(1000, e -> {
+                gameBoardGUI.alternative1.setBackground(Color.WHITE);
+                gameBoardGUI.alternative2.setBackground(Color.WHITE);
+                gameBoardGUI.alternative3.setBackground(Color.WHITE);
+                gameBoardGUI.alternative4.setBackground(Color.WHITE);
+            });
+            t.setInitialDelay(1000);
+            t.setRepeats(false);
+            t.restart();
+            Timer t2 = new Timer(1000, e -> {
+                try {
+                    out.writeObject(answer3);
+                } catch (IOException ioException) {
+                    ioException.printStackTrace();
+                }
+            });
+            t2.setInitialDelay(1000);
+            t2.setRepeats(false);
+            t2.restart();
+
         } else if (ae.getSource() == gameBoardGUI.alternative4) {
-            try {
-                out.writeObject(answer4);
-            } catch (IOException e) {
-                e.printStackTrace();
+            disableButtonsOnClick();
+            if (answer4.isCorrect()) {
+                gameBoardGUI.alternative4.setBackground(correctAnswerColor);
+            } else {
+                gameBoardGUI.alternative4.setBackground(incorrectAnswerColor);
+                if (answer1.isCorrect()) {
+                    gameBoardGUI.alternative1.setBackground(babyBlue);
+                } else if (answer2.isCorrect()) {
+                    gameBoardGUI.alternative2.setBackground(babyBlue);
+                } else if (answer3.isCorrect()) {
+                    gameBoardGUI.alternative3.setBackground(babyBlue);
+                }
             }
+
+            Timer t = new Timer(1000, e -> {
+                gameBoardGUI.alternative1.setBackground(Color.WHITE);
+                gameBoardGUI.alternative2.setBackground(Color.WHITE);
+                gameBoardGUI.alternative3.setBackground(Color.WHITE);
+                gameBoardGUI.alternative4.setBackground(Color.WHITE);
+            });
+            t.setInitialDelay(1000);
+            t.setRepeats(false);
+            t.restart();
+            Timer t2 = new Timer(1000, e -> {
+                try {
+                    out.writeObject(answer4);
+                } catch (IOException ioException) {
+                    ioException.printStackTrace();
+                }
+            });
+            t2.setInitialDelay(1000);
+            t2.setRepeats(false);
+            t2.restart();
         } else if (ae.getSource() == categoryGUI.category1Button || ae.getSource() == categoryGUI.category2Button) {
             try {
                 System.out.println("skickar category svar");
@@ -177,6 +321,22 @@ public class QuizClient extends MouseAdapter implements Runnable, ActionListener
                 e.printStackTrace();
             }
         }
+    }
+
+    private void disableButtonsOnClick() {
+        gameBoardGUI.alternative1.setEnabled(false);
+        gameBoardGUI.alternative2.setEnabled(false);
+        gameBoardGUI.alternative3.setEnabled(false);
+        gameBoardGUI.alternative4.setEnabled(false);
+        Timer t = new Timer(1000, e -> {
+            gameBoardGUI.alternative1.setEnabled(true);
+            gameBoardGUI.alternative2.setEnabled(true);
+            gameBoardGUI.alternative3.setEnabled(true);
+            gameBoardGUI.alternative4.setEnabled(true);
+        });
+        t.setInitialDelay(1000);
+        t.setRepeats(false);
+        t.restart();
     }
 
     public static void main(String[] args) {

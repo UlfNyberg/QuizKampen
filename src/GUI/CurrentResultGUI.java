@@ -67,8 +67,8 @@ public class CurrentResultGUI extends JPanel {
 
     JLabel gameNameLabel = new JLabel("QUIZ GAME", SwingConstants.CENTER);
     JLabel currentlyPlayingLabel = new JLabel("SPELAR");
-    JLabel player1NameLabel = new JLabel("Spelare1");
-    JLabel player2NameLabel = new JLabel("Spelare2");
+    public JLabel player1NameLabel = new JLabel("Spelare1");
+    public JLabel player2NameLabel = new JLabel("Spelare2");
     public JLabel currentPointsPlayer1Label = new JLabel("0");
     public JLabel currentPointsPlayer2Label = new JLabel("0");
     JLabel versusLabel = new JLabel("vs.");

@@ -41,8 +41,8 @@ public class GameBoardGUI extends JPanel {
 
     JLabel quizGameLabel = new JLabel("QUIZ GAME", SwingConstants.CENTER);
 
-    JLabel user1Label = new JLabel("Användare1");
-    JLabel user2Label = new JLabel("Användare2");
+    public JLabel user1Label = new JLabel("Användare1");
+    public JLabel user2Label = new JLabel("Användare2");
     JLabel spaceLabel = new JLabel("- - - - - -");
 
     JLabel pointsForUserLabel1 = new JLabel("Poäng: ");

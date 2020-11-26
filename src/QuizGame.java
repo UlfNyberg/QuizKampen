@@ -28,6 +28,8 @@ public class QuizGame extends Thread {
     public void run() {
         int round = 1;
 
+        initPlayers();
+
         while (round <= GameRules.numberOfRounds) {
             if (round % 2 != 0) {
                 selectCategory("--Spelare 1 väljer kategori--", 1, 0);
@@ -51,6 +53,19 @@ public class QuizGame extends Thread {
             printPlayerAnswers(playerTwoTotalAnswers);
             round++;
         }
+    }
+
+    private void initPlayers() {
+        playerList.get(0).sendObject(new Init(null));
+        Object fromPlayerOne = playerList.get(0).receiveAnswer();
+
+        playerList.get(1).sendObject(new Init(null));
+        Object fromPlayerTwo = playerList.get(1).receiveAnswer();
+
+        playerList.get(0).sendObject(fromPlayerTwo);
+        playerList.get(1).sendObject(fromPlayerOne);
+
+
     }
 
     private void printPlayerAnswers(List<List<Boolean>> playerTotalAnswers) {
