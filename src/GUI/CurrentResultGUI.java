@@ -5,7 +5,6 @@ import Util.GameRules;
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -41,7 +40,6 @@ public class CurrentResultGUI extends JPanel {
 
     JPanel currentlyPlayingPanel = new JPanel();
 
-    //TODO: ändra alla spacefiller till spaceFiller listan
     List<JPanel> spaceFillerList = new ArrayList<>();
 
     JLabel round1Label = new JLabel("Runda 1");
@@ -160,6 +158,7 @@ public class CurrentResultGUI extends JPanel {
         spaceFillerList.get(15).setBackground(Color.WHITE);
 
         setVisible(true);
+
     }
 
     public void setupUI(GameRules gameRules) {
