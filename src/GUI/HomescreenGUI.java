@@ -27,27 +27,27 @@ public class HomescreenGUI extends JPanel {
     public JTextField portNrTextField = new JTextField("22222", 15);
     public JTextField ipAddressTextField = new JTextField("127.0.0.1", 15);
 
-    ImageIcon bild1 = new ImageIcon(new ImageIcon ("src/GUI/illustration1.jpg").getImage().getScaledInstance(250,850, Image.SCALE_DEFAULT));
-    ImageIcon bild2 = new ImageIcon(new ImageIcon ("src/GUI/illustration2.jpg").getImage().getScaledInstance(250,850, Image.SCALE_DEFAULT));
-    ImageIcon bild3 = new ImageIcon("src/GUI/illustration3.jpg");
-    ImageIcon bild4 = new ImageIcon("src/GUI/illustration4.jpg");
-    ImageIcon bild5 = new ImageIcon(new ImageIcon ("src/GUI/logopicture.jpg").getImage().getScaledInstance(220,220, Image.SCALE_DEFAULT));
-    ImageIcon bild6 = new ImageIcon(new ImageIcon ("src/GUI/welcomePicture.jpg").getImage().getScaledInstance(240,340, Image.SCALE_DEFAULT));
+    ImageIcon bild1 = new ImageIcon(new ImageIcon ("src/GUI/Images/illustration1.jpg").getImage().getScaledInstance(250,850, Image.SCALE_DEFAULT));
+    ImageIcon bild2 = new ImageIcon(new ImageIcon ("src/GUI/Images/illustration2.jpg").getImage().getScaledInstance(250,850, Image.SCALE_DEFAULT));
+    ImageIcon bild3 = new ImageIcon("src/GUI/Images/illustration3.jpg");
+    ImageIcon bild4 = new ImageIcon("src/GUI/Images/illustration4.jpg");
+    ImageIcon bild5 = new ImageIcon(new ImageIcon ("src/GUI/Images/logopicture.jpg").getImage().getScaledInstance(220,220, Image.SCALE_DEFAULT));
+    ImageIcon bild6 = new ImageIcon(new ImageIcon ("src/GUI/Images/welcomePicture.jpg").getImage().getScaledInstance(240,340, Image.SCALE_DEFAULT));
 
 
 
-    ImageIcon bwBrainImage = new ImageIcon(new ImageIcon ("src/GUI/bwBrain.jpg").getImage().getScaledInstance(250,850, Image.SCALE_DEFAULT));
-    ImageIcon yellowBrainImage = new ImageIcon(new ImageIcon ("src/GUI/yellowBrain").getImage().getScaledInstance(250,850, Image.SCALE_DEFAULT));
+    ImageIcon bwBrainImage = new ImageIcon(new ImageIcon ("src/GUI/Images/bwBrain.jpg").getImage().getScaledInstance(250,850, Image.SCALE_DEFAULT));
+    ImageIcon yellowBrainImage = new ImageIcon(new ImageIcon ("src/GUI/Images/yellowBrain").getImage().getScaledInstance(250,850, Image.SCALE_DEFAULT));
 
 
-    ImageIcon skyBanner1Image = new ImageIcon(new ImageIcon ("src/GUI/skyBanner1.png").getImage().getScaledInstance(250,850, Image.SCALE_DEFAULT));
-    ImageIcon skyBanner2Image = new ImageIcon(new ImageIcon ("src/GUI/skyBanner2.png").getImage().getScaledInstance(250,850, Image.SCALE_DEFAULT));
-    ImageIcon gameNameBannerImage = new ImageIcon(new ImageIcon ("src/GUI/gameNamebanner.png").getImage().getScaledInstance(150,150, Image.SCALE_DEFAULT));
-    ImageIcon gameNameCenterImage = new ImageIcon(new ImageIcon ("src/GUI/GameNameCenter.png").getImage().getScaledInstance(250,250, Image.SCALE_DEFAULT));
-    ImageIcon gameNameTopImage = new ImageIcon(new ImageIcon ("src/GUI/gameNameTopResized.png").getImage().getScaledInstance(400,600, Image.SCALE_SMOOTH));
+    ImageIcon skyBanner1Image = new ImageIcon(new ImageIcon ("src/GUI/Images/skyBanner1.png").getImage().getScaledInstance(250,850, Image.SCALE_DEFAULT));
+    ImageIcon skyBanner2Image = new ImageIcon(new ImageIcon ("src/GUI/Images/skyBanner2.png").getImage().getScaledInstance(250,850, Image.SCALE_DEFAULT));
+    ImageIcon gameNameBannerImage = new ImageIcon(new ImageIcon ("src/GUI/Images/gameNamebanner.png").getImage().getScaledInstance(150,150, Image.SCALE_DEFAULT));
+    ImageIcon gameNameCenterImage = new ImageIcon(new ImageIcon ("src/GUI/Images/GameNameCenter.png").getImage().getScaledInstance(250,250, Image.SCALE_DEFAULT));
+    ImageIcon gameNameTopImage = new ImageIcon(new ImageIcon ("src/GUI/Images/gameNameTopResized.png").getImage().getScaledInstance(400,600, Image.SCALE_SMOOTH));
 
 
-    JLabel imagePanel = new JLabel(new ImageIcon("src/GUI/gameNameTopResized.png"));
+    JLabel imagePanel = new JLabel(new ImageIcon("src/GUI/Images/gameNameTopResized.png"));
 
     JButton imageButton1 = new JButton(bild1);
     JButton imageButton2 = new JButton(bild2);
