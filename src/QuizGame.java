@@ -115,6 +115,9 @@ public class QuizGame extends Thread {
         for (int question = 0; question < gameRules.getNumberOfQuestions(); question++) {
             player.sendObject(questionList.get(question));
             inputObject = player.receiveAnswer();
+            if(inputObject == null){
+
+            }
             if (((Answer) inputObject).isCorrect()) {
                 System.out.println("spelare " + player.getUserName() + " svarade rätt");
                 answers.add(question, true);

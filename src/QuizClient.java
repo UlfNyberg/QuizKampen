@@ -31,6 +31,7 @@ public class QuizClient extends MouseAdapter implements Runnable, ActionListener
 
     private ObjectOutputStream out;
     private Socket socket;
+    public GameRules gameRules;
 
     GameBoardGUI gameBoardGUI;
     CategoryGUI categoryGUI;
@@ -106,6 +107,7 @@ public class QuizClient extends MouseAdapter implements Runnable, ActionListener
                     GameRules gameRules = ((Init) fromServer).getGameRules();
                     if(initName == null){
                         out.writeObject(new Init(homeScreenGUI.nameOfPlayerTextField.getText(),null));
+                        this.gameRules = gameRules;
                         SwingUtilities.invokeLater(()-> currentResultGUI.setupUI(gameRules));
 
                     }else{
@@ -167,6 +169,7 @@ public class QuizClient extends MouseAdapter implements Runnable, ActionListener
                 System.exit(1);
             } catch (SocketException e) {
                 System.out.println("Socket Closed");
+                resetGame(0,"Tappade kontakten till servern");
                 gameStarted = false;
             } catch (IOException e) {
                 System.err.println("Couldn't get I/O for the connection to ");
@@ -181,8 +184,7 @@ public class QuizClient extends MouseAdapter implements Runnable, ActionListener
     public void resetGame(int round, String message) {
         JOptionPane.showMessageDialog(currentResultGUI, message);
         gameStarted = false;
-        SwingUtilities.invokeLater(() -> currentResultGUI.resetResult(round));
-        SwingUtilities.invokeLater(() -> currentResultGUI.resetUI(round));
+        SwingUtilities.invokeLater(() -> currentResultGUI.resetUI(gameRules.getNumberOfRounds()));
         currentResultGUI.currentPointsPlayer1Label.setText("0");
         currentResultGUI.currentPointsPlayer2Label.setText("0");
         gameBoardGUI.currentPointsPlayer1Label.setText("0");
