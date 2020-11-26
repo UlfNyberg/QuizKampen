@@ -25,7 +25,6 @@ public class CategoryGUI extends JPanel {
     JPanel playerInfoSpaceFillerLongPanel = new JPanel();
     JPanel playerScorePanel = new JPanel();
     JPanel playerNamePanel = new JPanel();
-    JPanel chooseBetweenPanel = new JPanel();
     JPanel category1Panel = new JPanel();
     JPanel category2Panel = new JPanel();
     JPanel category3Panel = new JPanel();
@@ -51,8 +50,6 @@ public class CategoryGUI extends JPanel {
 
     JLabel timeToChooseLabel = new JLabel("DAGS ATT VÄLJA EN KATEGORI!");
 
-    JLabel chooseCategoryLabel = new JLabel("VÄLJ MELLAN");
-
     public JButton category1Button = new JButton("Science");
     public JButton category2Button = new JButton("Djur & Natur");
     public JButton category3Button = new JButton("Djur & Natur");
@@ -74,7 +71,6 @@ public class CategoryGUI extends JPanel {
 
     public CategoryGUI(ActionListener al) {
         this.setLayout(new BorderLayout());
-        chooseCategoryLabel.setFont(font2);
         timeToChooseLabel.setFont(font1);
         category1Button.setFont(font1);
         category2Button.setFont(font1);
@@ -83,17 +79,16 @@ public class CategoryGUI extends JPanel {
 
         gameNameLabel.setFont(font2);
 
-        firstPanel.setLayout(new GridLayout(6, 1));
+        firstPanel.setBackground(Color.PINK);
 
         this.add(firstPanel);
         firstPanel.add(gameNamePanel);
         firstPanel.add(timeToChoosePanel);
-        firstPanel.add(chooseBetweenPanel);
-        firstPanel.add(bottomOfScreenPanel);
+        FlowLayout layout = (FlowLayout) firstPanel.getLayout();
+        layout.setVgap(0);
 
         gameNamePanel.setLayout(new GridLayout(1, 1));
         timeToChoosePanel.setLayout(new FlowLayout(FlowLayout.CENTER, 8, 32));
-        chooseBetweenPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 8, 22));
         category1Panel.setLayout(new FlowLayout(FlowLayout.CENTER, 8, 12));
         category2Panel.setLayout(new FlowLayout(FlowLayout.CENTER, 8, 12));
         category3Panel.setLayout(new FlowLayout(FlowLayout.CENTER, 8, 12));
@@ -102,9 +97,7 @@ public class CategoryGUI extends JPanel {
 
         gameNamePanel.add(gameNameLabel);
 
-
         timeToChoosePanel.add(timeToChooseLabel);
-        chooseBetweenPanel.add(chooseCategoryLabel);
         category1Panel.add(category1Button);
         category2Panel.add(category2Button);
         category3Panel.add(category3Button);
@@ -126,8 +119,6 @@ public class CategoryGUI extends JPanel {
         timeToChoosePanel.setBackground(Color.PINK);
         playerInfoSpaceFillerLongPanel.setBackground((Color.PINK));
 
-        chooseBetweenPanel.setBackground(Color.WHITE);
-        chooseBetweenPanel.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
         category1Panel.setBackground(Color.WHITE);
         category1Panel.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
         category2Panel.setBackground(Color.WHITE);
@@ -167,6 +158,7 @@ public class CategoryGUI extends JPanel {
         if (gameRules.getNumberOfCategories() == 4) {
             firstPanel.add(category4Panel);
         }
+        //firstPanel.add(bottomOfScreenPanel);
     }
 
 }
