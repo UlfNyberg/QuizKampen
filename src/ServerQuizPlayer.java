@@ -39,13 +39,10 @@ public class ServerQuizPlayer extends Thread {
 
     }
 
-    public void sendObject(Object object) {
-        try {
-            objectOutputStream.writeObject(object);
-        } catch (IOException e) {
-            System.out.println("Failed to send question");
-            e.printStackTrace();
-        }
+    public void sendObject(Object object) throws IOException {
+
+        objectOutputStream.writeObject(object);
+
     }
 
     public Object receiveAnswer() {
