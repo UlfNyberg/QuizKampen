@@ -42,22 +42,17 @@ public class WelcomeGUI extends JFrame{
 
 
         imagePanel.addMouseListener(new MouseAdapter() {
-                                        public void mouseEntered(MouseEvent evt) {
-                                            add(panel2);
-                                            panel.setVisible(false);
-                                        }
+            public void mouseEntered(MouseEvent evt) {
+                add(panel2);
+                panel.setVisible(false);
+            }
 
-                                        public void mouseExited(MouseEvent evt) {
-                                            //add(panel);
-                                            panel.setVisible(true);
-                                            //panel2.setVisible(false);
-                                            //panel.setVisible(true);
-                                        }
-                                    });
-
-
-
-
+            public void mouseExited(MouseEvent evt) {
+                panel.setVisible(true);
+                //panel2.setVisible(false);
+                //panel.setVisible(true);
+            }
+        });
     }
 
     public static void main(String[] args) {
