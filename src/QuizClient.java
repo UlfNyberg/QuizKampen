@@ -51,7 +51,8 @@ public class QuizClient extends MouseAdapter implements Runnable, ActionListener
         welcomeGUI = new WelcomeGUI(this);
 
         frame = new JFrame("Quizkampen");
-        frame.setSize(400, 600);
+        frame.setSize(400, 640);
+        frame.setResizable(false);
 
         cardPane = new JPanel();
         card = new CardLayout();
@@ -327,8 +328,23 @@ public class QuizClient extends MouseAdapter implements Runnable, ActionListener
 
     @Override
     public void mousePressed(MouseEvent e) {
-        if (e.getSource() == welcomeGUI.image2) {
+        if (e.getSource() == welcomeGUI) {
             card.show(cardPane, "Homescreen Panel");
+        }
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+        if (e.getSource() == welcomeGUI) {
+            welcomeGUI.add(welcomeGUI.panel2);
+            welcomeGUI.panel.setVisible(false);
+        }
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+        if (e.getSource() == welcomeGUI) {
+            welcomeGUI.panel.setVisible(true);
         }
     }
 }

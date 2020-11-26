@@ -51,7 +51,6 @@ public class HomescreenGUI extends JPanel {
 
     JButton imageButton1 = new JButton(bild1);
     JButton imageButton2 = new JButton(bild2);
-    JButton imageButton3 = new JButton(bild6);
 
 
     public HomescreenGUI(ActionListener al) {
@@ -68,7 +67,6 @@ public class HomescreenGUI extends JPanel {
         //welcomeLabel.setSize(30,30);
         panel.add(imageButton2, BorderLayout.EAST);
         panel.add(panel2, BorderLayout.CENTER);
-        panel2.add(imageButton3, BorderLayout.NORTH);
         //panel2.add(welcomeLabel);
         panel2.add(nameOfPlayerLabel);
         panel2.add(nameOfPlayerTextField);
@@ -79,7 +77,6 @@ public class HomescreenGUI extends JPanel {
         //panel2.add(imageButton3);
         imageButton1.setPreferredSize(new Dimension(80,50));
         imageButton2.setPreferredSize(new Dimension(80,30));
-        imageButton3.setPreferredSize(new Dimension(240,340));
         //imageButton1.setIcon(new ImageIcon(bild1));
         //imageButton1.add(new ImageIcon(bild1));
 
