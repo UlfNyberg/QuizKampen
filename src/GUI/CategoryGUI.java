@@ -40,12 +40,6 @@ public class CategoryGUI extends JPanel {
     JPanel spacefiller4Panel = new JPanel();
     JPanel spacefiller5Panel = new JPanel();
     JPanel spacefiller6Panel = new JPanel();
-    JPanel spacefiller7Panel = new JPanel();
-    JPanel spacefiller8Panel = new JPanel();
-    JPanel spacefiller9Panel = new JPanel();
-    JPanel spacefiller10Panel = new JPanel();
-    JPanel spacefiller11Panel = new JPanel();
-    JPanel spacefiller12Panel = new JPanel();
 
 
     JLabel timeToChooseLabel = new JLabel("DAGS ATT VÄLJA EN KATEGORI!");
@@ -79,13 +73,14 @@ public class CategoryGUI extends JPanel {
 
         gameNameLabel.setFont(font2);
 
+        firstPanel.setLayout(new GridLayout(7, 1));
         firstPanel.setBackground(Color.PINK);
 
         this.add(firstPanel);
         firstPanel.add(gameNamePanel);
         firstPanel.add(timeToChoosePanel);
-        FlowLayout layout = (FlowLayout) firstPanel.getLayout();
-        layout.setVgap(0);
+//        FlowLayout layout = (FlowLayout) firstPanel.getLayout();
+//        layout.setVgap(0);
 
         gameNamePanel.setLayout(new GridLayout(1, 1));
         timeToChoosePanel.setLayout(new FlowLayout(FlowLayout.CENTER, 8, 32));
@@ -119,15 +114,15 @@ public class CategoryGUI extends JPanel {
         timeToChoosePanel.setBackground(Color.PINK);
         playerInfoSpaceFillerLongPanel.setBackground((Color.PINK));
 
-        category1Panel.setBackground(Color.WHITE);
-        category1Panel.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
-        category2Panel.setBackground(Color.WHITE);
-        category2Panel.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
-        category3Panel.setBackground(Color.WHITE);
-        category3Panel.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
-        category4Panel.setBackground(Color.WHITE);
-        category4Panel.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
-        bottomOfScreenPanel.setBackground(Color.PINK);
+        category1Panel.setBackground(lighterGray);
+        category1Panel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        category2Panel.setBackground(lighterGray);
+        category2Panel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        category3Panel.setBackground(lighterGray);
+        category3Panel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        category4Panel.setBackground(lighterGray);
+        category4Panel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        bottomOfScreenPanel.setBackground(lighterGray);
         bottomOfScreenPanel.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
 
         category1Button.setPreferredSize(new Dimension(350, 60));

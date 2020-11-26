@@ -135,28 +135,20 @@ public class CurrentResultGUI extends JPanel {
         playerScorePanel.setBackground(Color.PINK);
         playerInfoLongPanel.setBackground(Color.PINK);
         playerInfoSpaceFillerLongPanel.setBackground((Color.PINK));
-        firstRoundLongPanel.setBackground(Color.WHITE);
-        firstRoundLongPanel.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
-        secondRoundLongPanel.setBackground(Color.WHITE);
-        secondRoundLongPanel.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
-        thirdRoundLongPanel.setBackground(Color.WHITE);
-        thirdRoundLongPanel.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
-        fourthRoundLongPanel.setBackground(Color.WHITE);
-        fourthRoundLongPanel.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
-        fifthRoundLongPanel.setBackground(Color.WHITE);
-        fifthRoundLongPanel.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
+        firstRoundLongPanel.setBackground(lighterGray);
+        firstRoundLongPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        secondRoundLongPanel.setBackground(lighterGray);
+        secondRoundLongPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        thirdRoundLongPanel.setBackground(lighterGray);
+        thirdRoundLongPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        fourthRoundLongPanel.setBackground(lighterGray);
+        fourthRoundLongPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        fifthRoundLongPanel.setBackground(lighterGray);
+        fifthRoundLongPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         currentlyPlayingPanel.setPreferredSize(new Dimension(120, 35));
-        spaceFillerList.get(6).setBackground(Color.WHITE);
-        spaceFillerList.get(7).setBackground(Color.WHITE);
-        spaceFillerList.get(8).setBackground(Color.WHITE);
-        spaceFillerList.get(9).setBackground(Color.WHITE);
-        spaceFillerList.get(10).setBackground(Color.WHITE);
-        spaceFillerList.get(11).setBackground(Color.WHITE);
-        spaceFillerList.get(12).setBackground(Color.WHITE);
-        spaceFillerList.get(13).setBackground(Color.WHITE);
-        spaceFillerList.get(14).setBackground(Color.WHITE);
-        spaceFillerList.get(15).setBackground(Color.WHITE);
-
+        for (int i = 6; i < spaceFillerList.size(); i++) {
+            spaceFillerList.get(i).setBackground(lighterGray);
+        }
         setVisible(true);
 
     }
@@ -168,13 +160,15 @@ public class CurrentResultGUI extends JPanel {
         for (int j = 0; j < gameRules.getNumberOfQuestions(); j++) {
             JPanel thisQuestion = new JPanel();
             thisQuestion.setPreferredSize(new Dimension(35, 35));
-            thisQuestion.setBackground(lighterGray);
+            thisQuestion.setBackground(Color.WHITE);
+            thisQuestion.setBorder(BorderFactory.createLineBorder(Color.BLACK));
             currentPlayerQuestions.add(thisQuestion);
         }
         for (int j = 0; j < gameRules.getNumberOfQuestions(); j++) {
             JPanel thisQuestion = new JPanel();
             thisQuestion.setPreferredSize(new Dimension(35, 35));
-            thisQuestion.setBackground(lighterGray);
+            thisQuestion.setBackground(Color.WHITE);
+            thisQuestion.setBorder(BorderFactory.createLineBorder(Color.BLACK));
             otherPlayerQuestions.add(thisQuestion);
         }
 

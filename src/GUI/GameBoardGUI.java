@@ -1,6 +1,9 @@
 package GUI;
 
 import javax.swing.*;
+import javax.swing.text.SimpleAttributeSet;
+import javax.swing.text.StyleConstants;
+import javax.swing.text.StyledDocument;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
@@ -52,9 +55,9 @@ public class GameBoardGUI extends JPanel {
     JLabel categoryHeaderLabel = new JLabel("Kategori:");
     public JLabel categoryLabel = new JLabel("TV-spel");
 
-    JLabel questionStaticLabel = new JLabel("Fråga:");
-    JLabel questionTestLabel = new JLabel("Vilken relation har Mario och Luigi...egentligen?");
-    public JTextArea questionTextArea = new JTextArea(4, 5);
+    public JTextPane questionTextArea = new JTextPane();
+    StyledDocument doc = questionTextArea.getStyledDocument();
+    SimpleAttributeSet center = new SimpleAttributeSet();
 
     JLabel gameNameLabel = new JLabel("Quiz Game");
 
@@ -67,10 +70,11 @@ public class GameBoardGUI extends JPanel {
         user1Label.setFont(font1);
         user2Label.setFont(font1);
         quizGameLabel.setFont(font2);
-        questionTestLabel.setFont(font3);
         pointsForUserLabel1.setFont(font3);
         pointsForUserLabel2.setFont(font3);
-        questionStaticLabel.setFont(font1);
+        questionTextArea.setFont(font1);
+        StyleConstants.setAlignment(center, StyleConstants.ALIGN_CENTER);
+        doc.setParagraphAttributes(0,doc.getLength(), center, false);
         backgroundPanel.setLayout(new BorderLayout());
         this.add(backgroundPanel);
         backgroundPanel.add(northPanel, BorderLayout.NORTH, SwingConstants.CENTER);
@@ -103,8 +107,7 @@ public class GameBoardGUI extends JPanel {
         categoryPanel.add(categoryHeaderLabel);
         categoryPanel.add(categoryLabel);
         centerPanel.add(questionPanel, BorderLayout.CENTER, SwingConstants.CENTER);
-        questionPanel.setLayout(new GridLayout(2, 1));
-        questionPanel.add(questionStaticLabel, BorderLayout.NORTH);
+        questionPanel.setLayout(new BorderLayout());
         questionPanel.add(questionTextArea, BorderLayout.CENTER);
 
         backgroundPanel.add(southPanel, BorderLayout.SOUTH);
@@ -129,7 +132,7 @@ public class GameBoardGUI extends JPanel {
         alternative2.addActionListener(al);
         alternative3.addActionListener(al);
         alternative4.addActionListener(al);
-        questionPanel.setPreferredSize(new Dimension(320, 100)); ////
+        questionPanel.setPreferredSize(new Dimension(320, 100));
         categoryPanel.setSize(1000, 1000);
 
         this.setSize(400, 600);
@@ -157,8 +160,8 @@ public class GameBoardGUI extends JPanel {
         continueButton.setBackground(Color.WHITE);
         questionPanel.setBorder(BorderFactory.createLineBorder(Color.black));
         questionTextArea.setEditable(false);
-        questionTextArea.setLineWrap(true);
-        questionTextArea.setWrapStyleWord(true);
+        //questionTextArea.setLineWrap(true);
+        //questionTextArea.setWrapStyleWord(true);
         setVisible(true);
 
     }
