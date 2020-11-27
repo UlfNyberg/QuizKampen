@@ -156,7 +156,7 @@ public class QuizClient extends MouseAdapter implements Runnable, ActionListener
                         answer2 = ((Question) fromServer).getAnswers().get(1);
                         answer3 = ((Question) fromServer).getAnswers().get(2);
                         answer4 = ((Question) fromServer).getAnswers().get(3);
-                        gameBoardGUI.seconds = 5;
+                        gameBoardGUI.seconds = gameRules.getQuestionTimer();
                         gameBoardGUI.timerLabel.setText(gameBoardGUI.seconds + " sekunder kvar...");
                         gameBoardGUI.timer.start();
 
