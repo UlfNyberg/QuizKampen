@@ -39,17 +39,19 @@ public class QuizClient extends MouseAdapter implements Runnable, ActionListener
     HomescreenGUI homeScreenGUI;
     WelcomeGUI welcomeGUI;
     boolean gameStarted = false;
+    boolean isInitialPlayer = false;
     Answer answer1;
     Answer answer2;
     Answer answer3;
     Answer answer4;
     int height = 600;
     int width = 400;
+    int round = 1;
 
     public QuizClient() {
         gameBoardGUI = new GameBoardGUI(this);
         categoryGUI = new CategoryGUI(this);
-        currentResultGUI = new CurrentResultGUI();
+        currentResultGUI = new CurrentResultGUI(this);
         homeScreenGUI = new HomescreenGUI(this);
         welcomeGUI = new WelcomeGUI(this);
 
@@ -98,34 +100,50 @@ public class QuizClient extends MouseAdapter implements Runnable, ActionListener
 
                 while ((fromServer = in.readObject()) != null) {
 
-                if (fromServer instanceof Init) {
-                    String initName = ((Init) fromServer).getPlayerName();
-                    GameRules gameRules = ((Init) fromServer).getGameRules();
-                    if(initName == null){
-                        out.writeObject(new Init(homeScreenGUI.nameOfPlayerTextField.getText(),null));
-                        this.gameRules = gameRules;
-                        SwingUtilities.invokeLater(()-> currentResultGUI.setupUI(gameRules));
-                        SwingUtilities.invokeLater(()-> categoryGUI.setupUI(gameRules));
-                        if (gameRules.getNumberOfQuestions() == 4) {
-                            width = 470;
-                        } else if (gameRules.getNumberOfQuestions() == 5) {
-                            width = 560;
+                    if (fromServer instanceof Init) {
+                        String initName = ((Init) fromServer).getPlayerName();
+                        GameRules gameRules = ((Init) fromServer).getGameRules();
+                        if (initName == null) {
+                            out.writeObject(new Init(homeScreenGUI.nameOfPlayerTextField.getText(), null));
+                            this.gameRules = gameRules;
+                            SwingUtilities.invokeLater(() -> currentResultGUI.setupUI(gameRules));
+                            SwingUtilities.invokeLater(() -> categoryGUI.setupUI(gameRules));
+                            if (gameRules.getNumberOfQuestions() == 4) {
+                                width = 470;
+                            } else if (gameRules.getNumberOfQuestions() == 5) {
+                                width = 560;
+                            }
+                            if (gameRules.getNumberOfRounds() == 5) {
+                                height = 700;
+                            }
+                            frame.setSize(width, height);
+                        } else {
+                            String currentPlayerName = homeScreenGUI.nameOfPlayerTextField.getText();
+                            currentResultGUI.player1NameLabel.setText(currentPlayerName);
+                            currentResultGUI.player2NameLabel.setText(initName);
+                            gameBoardGUI.user1Label.setText(currentPlayerName);
+                            gameBoardGUI.user2Label.setText(initName);
                         }
-                        if (gameRules.getNumberOfRounds() == 5) {
-                            height = 700;
+                    } else if (fromServer instanceof Category) {
+                        isInitialPlayer = true;
+                        round = ((Category) fromServer).getRound();
+                        switch (round) {
+                            case 1:
+                                enableRoundButton(currentResultGUI.round1Button, true, false, false, false, false);
+                                break;
+                            case 2:
+                                enableRoundButton(currentResultGUI.round2Button, false, true, false, false, false);
+                                break;
+                            case 3:
+                                enableRoundButton(currentResultGUI.round3Button, false, false, true, false, false);
+                                break;
+                            case 4:
+                                enableRoundButton(currentResultGUI.round4Button, false, false, false, true, false);
+                                break;
+                            case 5:
+                                enableRoundButton(currentResultGUI.round5Button, false, false, false, false, true);
+                                break;
                         }
-                        frame.setSize(width, height);
-                    }else{
-                        String currentPlayerName = homeScreenGUI.nameOfPlayerTextField.getText();
-                        currentResultGUI.player1NameLabel.setText(currentPlayerName);
-                        currentResultGUI.player2NameLabel.setText(initName);
-                        gameBoardGUI.user1Label.setText(currentPlayerName);
-                        gameBoardGUI.user2Label.setText(initName);
-                    }
-                }
-
-                    if (fromServer instanceof Category) {
-                        card.show(cardPane, "Category Panel");
                         switch (gameRules.getNumberOfCategories()) {
                             case 2:
                                 categoryGUI.category1Button.setText(((Category) fromServer).getCategory1());
@@ -143,9 +161,24 @@ public class QuizClient extends MouseAdapter implements Runnable, ActionListener
                                 categoryGUI.category4Button.setText(((Category) fromServer).getCategory4());
                                 break;
                         }
-                    }
-                    if (fromServer instanceof Question) {
-                        card.show(cardPane, "Gameboard Panel");
+                    } else if (fromServer instanceof Question) {
+                        switch (round) {
+                            case 1:
+                                enableRoundButton(currentResultGUI.round1Button, true, false, false, false, false);
+                                break;
+                            case 2:
+                                enableRoundButton(currentResultGUI.round2Button, false, true, false, false, false);
+                                break;
+                            case 3:
+                                enableRoundButton(currentResultGUI.round3Button, false, false, true, false, false);
+                                break;
+                            case 4:
+                                enableRoundButton(currentResultGUI.round4Button, false, false, false, true, false);
+                                break;
+                            case 5:
+                                enableRoundButton(currentResultGUI.round5Button, false, false, false, false, true);
+                                break;
+                        }
                         gameBoardGUI.questionTextArea.setText("\n\n\n " + ((Question) fromServer).getQuestion());
                         gameBoardGUI.alternative1.setText(((Question) fromServer).getAnswers().get(0).getText());
                         gameBoardGUI.alternative2.setText(((Question) fromServer).getAnswers().get(1).getText());
@@ -156,11 +189,12 @@ public class QuizClient extends MouseAdapter implements Runnable, ActionListener
                         answer2 = ((Question) fromServer).getAnswers().get(1);
                         answer3 = ((Question) fromServer).getAnswers().get(2);
                         answer4 = ((Question) fromServer).getAnswers().get(3);
-                        gameBoardGUI.seconds = gameRules.getQuestionTimer();
-                        gameBoardGUI.timerLabel.setText(gameBoardGUI.seconds + " sekunder kvar...");
-                        gameBoardGUI.timer.start();
-
                     } else if (fromServer instanceof Wait) {
+                        currentResultGUI.round1Button.removeActionListener(this);
+                        currentResultGUI.round2Button.removeActionListener(this);
+                        currentResultGUI.round3Button.removeActionListener(this);
+                        currentResultGUI.round4Button.removeActionListener(this);
+                        currentResultGUI.round5Button.removeActionListener(this);
                         card.show(cardPane, "Result Panel");
                     } else if (fromServer instanceof Result) {
                         List<Boolean> currentPlayer = ((Result) fromServer).getCurrentPlayerAnswers();
@@ -173,16 +207,11 @@ public class QuizClient extends MouseAdapter implements Runnable, ActionListener
                         gameBoardGUI.currentPointsPlayer2Label.setText(String.valueOf(otherPlayerResult));
                         currentResultGUI.currentPointsPlayer2Label.setText(String.valueOf(otherPlayerResult));
                         SwingUtilities.invokeLater(() -> currentResultGUI.showResult(currentPlayer, otherPlayer, round));
-
                         card.show(cardPane, "Result Panel");
-                    } else if (fromServer instanceof Winner) {
-                        resetGame("Du vann!");
-                        break;
-                    } else if (fromServer instanceof Loser) {
-                        resetGame("Du förlorade");
+                    } else if (fromServer instanceof EndGame) {
+                        resetGame(((EndGame) fromServer).getEndGameState().message);
                         break;
                     }
-
                 }
 
             } catch (UnknownHostException e) {
@@ -202,8 +231,17 @@ public class QuizClient extends MouseAdapter implements Runnable, ActionListener
         }
     }
 
+    public void enableRoundButton(JButton roundButton, boolean b, boolean b2, boolean b3, boolean b4, boolean b5) {
+        roundButton.addActionListener(this);
+        currentResultGUI.round1Button.setEnabled(b);
+        currentResultGUI.round2Button.setEnabled(b2);
+        currentResultGUI.round3Button.setEnabled(b3);
+        currentResultGUI.round4Button.setEnabled(b4);
+        currentResultGUI.round5Button.setEnabled(b5);
+    }
+
     public void resetGame(String message) {
-        JOptionPane.showMessageDialog(currentResultGUI, message);
+        JOptionPane.showMessageDialog(frame, message);
         gameStarted = false;
         SwingUtilities.invokeLater(() -> currentResultGUI.resetUI(gameRules.getNumberOfRounds()));
         height = 640;
@@ -305,16 +343,16 @@ public class QuizClient extends MouseAdapter implements Runnable, ActionListener
             try {
                 System.out.println("skickar category svar");
                 out.writeObject(new Category(((JButton) ae.getSource()).getText()));
+                card.show(cardPane, "Gameboard Panel");
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        }
-        else if (ae.getSource() == gameBoardGUI.timer){
+        } else if (ae.getSource() == gameBoardGUI.timer) {
 
             gameBoardGUI.seconds--;
             gameBoardGUI.timerLabel.setText(gameBoardGUI.seconds + " sekunder kvar...");
 
-            if (gameBoardGUI.seconds <= 0){
+            if (gameBoardGUI.seconds <= 0) {
                 disableButtonsOnClick();
                 timedReset();
                 timedSendAnswer(new Answer(""));
@@ -324,16 +362,21 @@ public class QuizClient extends MouseAdapter implements Runnable, ActionListener
                     gameBoardGUI.alternative2.setBackground(babyBlue);
                 } else if (answer3.isCorrect()) {
                     gameBoardGUI.alternative3.setBackground(babyBlue);
-                }
-                else if (answer4.isCorrect()) {
+                } else if (answer4.isCorrect()) {
                     gameBoardGUI.alternative4.setBackground(babyBlue);
                 }
             }
-
-
-
-
-
+        } else if (ae.getSource() == currentResultGUI.round1Button || ae.getSource() == currentResultGUI.round2Button
+                || ae.getSource() == currentResultGUI.round3Button || ae.getSource() == currentResultGUI.round4Button
+                || ae.getSource() == currentResultGUI.round5Button) {
+            if (isInitialPlayer) {
+                card.show(cardPane, "Category Panel");
+            } else {
+                card.show(cardPane, "Gameboard Panel");
+                gameBoardGUI.seconds = gameRules.getQuestionTimer();
+                gameBoardGUI.timerLabel.setText(gameBoardGUI.seconds + " sekunder kvar...");
+                gameBoardGUI.timer.start();
+            }
         }
     }
 

@@ -33,11 +33,11 @@ public class QuizGame extends Thread {
 
             while (round <= gameRules.getNumberOfRounds()) {
                 if (round % 2 != 0) {
-                    selectCategory("--Spelare 1 väljer kategori--", 1, 0);
+                    selectCategory("--Spelare 1 väljer kategori--", 1, 0, round);
                     playSubset("--spelare 1s tur--", 0, playerOneTotalAnswers);
                     playSubset("--spelare 2s tur--", 1, playerTwoTotalAnswers);
                 } else {
-                    selectCategory("--Spelare 2 väljer kategori--", 0, 1);
+                    selectCategory("--Spelare 2 väljer kategori--", 0, 1, round);
                     playSubset("--spelare 2s tur--", 1, playerTwoTotalAnswers);
                     playSubset("--spelare 1s tur--", 0, playerOneTotalAnswers);
                 }
@@ -54,21 +54,24 @@ public class QuizGame extends Thread {
                 round++;
             }
             if (playerOneScore > playerTwoScore) {
-                playerList.get(0).sendObject(new Winner(round - 1));
-                playerList.get(1).sendObject(new Loser(round - 1));
+                playerList.get(0).sendObject(new EndGame(EndGame.EndGameStates.winner));
+                playerList.get(1).sendObject(new EndGame(EndGame.EndGameStates.loser));
             } else if (playerOneScore < playerTwoScore) {
-                playerList.get(0).sendObject(new Loser(round - 1));
-                playerList.get(1).sendObject(new Winner(round - 1));
+                playerList.get(0).sendObject(new EndGame(EndGame.EndGameStates.loser));
+                playerList.get(1).sendObject(new EndGame(EndGame.EndGameStates.winner));
+            } else {
+                playerList.get(0).sendObject(new EndGame(EndGame.EndGameStates.draw));
+                playerList.get(1).sendObject(new EndGame(EndGame.EndGameStates.draw));
             }
         }catch (IOException | ClassNotFoundException e){
             System.out.println("Avslutar matchen");
             try {
-                playerList.get(0).sendObject(new Winner(0));
+                playerList.get(0).sendObject(new EndGame(EndGame.EndGameStates.disconnected));
             } catch (IOException ioException) {
                 System.out.println("Kunde inte skicka meddelande till spelare 1");
             }
             try {
-                playerList.get(1).sendObject(new Winner(0));
+                playerList.get(1).sendObject(new EndGame(EndGame.EndGameStates.disconnected));
             } catch (IOException ioException) {
                 System.out.println("Kunde inte skicka meddelande till spelare 2");
             }
@@ -87,7 +90,7 @@ public class QuizGame extends Thread {
         playerList.get(0).sendObject(fromPlayerTwo);
         playerList.get(1).sendObject(fromPlayerOne);
 
-
+        playerList.get(0).sendObject(new Wait());
     }
 
     private void printPlayerAnswers(List<List<Boolean>> playerTotalAnswers) {
@@ -97,19 +100,19 @@ public class QuizGame extends Thread {
     }
 
 
-    private void selectCategory(String serverMessage, int otherPlayer, int initialPlayer) throws NullPointerException, IOException, ClassNotFoundException {
+    private void selectCategory(String serverMessage, int otherPlayer, int initialPlayer, int round) throws NullPointerException, IOException, ClassNotFoundException {
         System.out.println(serverMessage);
         playerList.get(otherPlayer).sendObject(new Wait());
         List<String> categories = database.getRandomCategories(gameRules.getNumberOfCategories());
         switch (categories.size()) {
             case 2:
-                playerList.get(initialPlayer).sendObject(new Category(categories.get(0), categories.get(1), null, null));
+                playerList.get(initialPlayer).sendObject(new Category(categories.get(0), categories.get(1), null, null, round));
                 break;
             case 3:
-                playerList.get(initialPlayer).sendObject(new Category(categories.get(0), categories.get(1), categories.get(2), null));
+                playerList.get(initialPlayer).sendObject(new Category(categories.get(0), categories.get(1), categories.get(2), null, round));
                 break;
             case 4:
-                playerList.get(initialPlayer).sendObject(new Category(categories.get(0), categories.get(1), categories.get(2), categories.get(3)));
+                playerList.get(initialPlayer).sendObject(new Category(categories.get(0), categories.get(1), categories.get(2), categories.get(3), round));
         }
         Object fromPlayer = playerList.get(initialPlayer).receiveAnswer();
         if(fromPlayer == null) {
@@ -119,11 +122,11 @@ public class QuizGame extends Thread {
         getQuestions(category);
     }
 
-    private void playSubset(String serverMessage, int initialPlayer, List<List<Boolean>> initialPlayerAnswers) throws IOException, ClassNotFoundException {
+    private void playSubset(String serverMessage, int currentPlayer, List<List<Boolean>> initialPlayerAnswers) throws IOException, ClassNotFoundException {
         System.out.println(serverMessage);
-        answerResult = playOneSet(playerList.get(initialPlayer));
+        answerResult = playOneSet(playerList.get(currentPlayer));
         initialPlayerAnswers.add(List.copyOf(answerResult));
-        playerList.get(initialPlayer).sendObject(new Wait());
+        playerList.get(currentPlayer).sendObject(new Wait());
     }
 
     public void addPlayer(ServerQuizPlayer player) {
