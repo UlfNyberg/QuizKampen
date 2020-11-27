@@ -8,16 +8,18 @@ public class Category implements Serializable {
     protected String category3;
     protected String category4;
     protected String selectedCategory = null;
+    protected int round;
 
     public Category(String selectedCategory) {
         this.selectedCategory = selectedCategory;
     }
 
-    public Category(String category1, String category2, String category3, String category4) {
+    public Category(String category1, String category2, String category3, String category4, int round) {
         this.category1 = category1;
         this.category2 = category2;
         this.category3 = category3;
         this.category4 = category4;
+        this.round = round;
     }
 
     public String getCategory1() {
@@ -38,5 +40,9 @@ public class Category implements Serializable {
 
     public String getSelectedCategory() {
         return selectedCategory;
+    }
+
+    public int getRound() {
+        return round;
     }
 }

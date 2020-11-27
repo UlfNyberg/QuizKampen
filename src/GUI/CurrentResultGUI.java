@@ -44,10 +44,10 @@ public class CurrentResultGUI extends JPanel {
     List<JPanel> spaceFillerList = new ArrayList<>();
 
     public JButton round1Button = new JButton("Runda 1");
-    public JButton round2Label = new JButton("Runda 2");
-    public JButton round3Label = new JButton("Runda 3");
-    public JButton round4Label = new JButton("Runda 4");
-    public JButton round5Label = new JButton("Runda 5");
+    public JButton round2Button = new JButton("Runda 2");
+    public JButton round3Button = new JButton("Runda 3");
+    public JButton round4Button = new JButton("Runda 4");
+    public JButton round5Button = new JButton("Runda 5");
 
     Font font1 = new Font("SansSerif", Font.BOLD, 20);
     Font font2 = new Font("Monospace", Font.BOLD, 30);
@@ -80,10 +80,10 @@ public class CurrentResultGUI extends JPanel {
         questionMark2Label.setFont(font1);
         questionMark3Label.setFont(font1);
         round1Button.setFont(font3);
-        round2Label.setFont(font3);
-        round3Label.setFont(font3);
-        round4Label.setFont(font3);
-        round5Label.setFont(font3);
+        round2Button.setFont(font3);
+        round3Button.setFont(font3);
+        round4Button.setFont(font3);
+        round5Button.setFont(font3);
         firstPanel.setLayout(new GridLayout(7, 1));
         this.add(firstPanel);
         firstPanel.add(gameNamePanel);
@@ -192,7 +192,7 @@ public class CurrentResultGUI extends JPanel {
                 secondRoundLongPanel.add(panel);
             }
             secondRoundLongPanel.add(spaceFillerList.get(8));
-            secondRoundLongPanel.add(round2Label);
+            secondRoundLongPanel.add(round2Button);
             secondRoundLongPanel.add(spaceFillerList.get(9));
             secondRound = copyList(otherPlayerQuestions);
             for (JPanel panel : secondRound) {
@@ -207,7 +207,7 @@ public class CurrentResultGUI extends JPanel {
                 thirdRoundLongPanel.add(panel);
             }
             thirdRoundLongPanel.add(spaceFillerList.get(10));
-            thirdRoundLongPanel.add(round3Label);
+            thirdRoundLongPanel.add(round3Button);
             thirdRoundLongPanel.add(spaceFillerList.get(11));
             thirdRound = copyList(otherPlayerQuestions);
             for (JPanel panel : thirdRound) {
@@ -220,7 +220,7 @@ public class CurrentResultGUI extends JPanel {
                 fourthRoundLongPanel.add(panel);
             }
             fourthRoundLongPanel.add(spaceFillerList.get(12));
-            fourthRoundLongPanel.add(round4Label);
+            fourthRoundLongPanel.add(round4Button);
             fourthRoundLongPanel.add(spaceFillerList.get(13));
             fourthRound = copyList(otherPlayerQuestions);
             for (JPanel panel : fourthRound) {
@@ -233,7 +233,7 @@ public class CurrentResultGUI extends JPanel {
                 fifthRoundLongPanel.add(panel);
             }
             fifthRoundLongPanel.add(spaceFillerList.get(14));
-            fifthRoundLongPanel.add(round5Label);
+            fifthRoundLongPanel.add(round5Button);
             fifthRoundLongPanel.add(spaceFillerList.get(15));
             fifthRound = copyList(otherPlayerQuestions);
             for (JPanel panel : fifthRound) {
