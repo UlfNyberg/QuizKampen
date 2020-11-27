@@ -11,6 +11,9 @@ S Yrkesmässig
 Q Hur många spelare är det i en "raid" i spelserien Destiny?
 A 3, 4, 5, 6
 S 6
+Q Vem är Zelda i Legend of Zelda spelen?
+A Huvudkaraktären, Antagonisten, Prinsessan, Huvudkaraktärens häst
+S Prinsessan
 K Film
 Q Vilken karaktär har flest on-screen kills i Sagan om Ringen trilogin?
 A Legolas, Boromir, Gimli, Frodo
