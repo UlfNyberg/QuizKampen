@@ -1,5 +1,7 @@
 package GUI;
 
+import Util.GameRules;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -23,9 +25,10 @@ public class CategoryGUI extends JPanel {
     JPanel playerInfoSpaceFillerLongPanel = new JPanel();
     JPanel playerScorePanel = new JPanel();
     JPanel playerNamePanel = new JPanel();
-    JPanel chooseBetweenPanel = new JPanel();
     JPanel category1Panel = new JPanel();
     JPanel category2Panel = new JPanel();
+    JPanel category3Panel = new JPanel();
+    JPanel category4Panel = new JPanel();
     JPanel bottomOfScreenPanel = new JPanel();
 
 
@@ -37,20 +40,14 @@ public class CategoryGUI extends JPanel {
     JPanel spacefiller4Panel = new JPanel();
     JPanel spacefiller5Panel = new JPanel();
     JPanel spacefiller6Panel = new JPanel();
-    JPanel spacefiller7Panel = new JPanel();
-    JPanel spacefiller8Panel = new JPanel();
-    JPanel spacefiller9Panel = new JPanel();
-    JPanel spacefiller10Panel = new JPanel();
-    JPanel spacefiller11Panel = new JPanel();
-    JPanel spacefiller12Panel = new JPanel();
 
 
     JLabel timeToChooseLabel = new JLabel("DAGS ATT VÄLJA EN KATEGORI!");
 
-    JLabel chooseCategoryLabel = new JLabel("VÄLJ MELLAN");
-
     public JButton category1Button = new JButton("Science");
     public JButton category2Button = new JButton("Djur & Natur");
+    public JButton category3Button = new JButton("Djur & Natur");
+    public JButton category4Button = new JButton("Djur & Natur");
 
     //////////////////////////////////
 
@@ -68,38 +65,38 @@ public class CategoryGUI extends JPanel {
 
     public CategoryGUI(ActionListener al) {
         this.setLayout(new BorderLayout());
-        chooseCategoryLabel.setFont(font2);
         timeToChooseLabel.setFont(font1);
         category1Button.setFont(font1);
         category2Button.setFont(font1);
+        category3Button.setFont(font1);
+        category4Button.setFont(font1);
 
         gameNameLabel.setFont(font2);
 
-        firstPanel.setLayout(new GridLayout(6, 1));
+        firstPanel.setLayout(new GridLayout(7, 1));
+        firstPanel.setBackground(Color.PINK);
 
         this.add(firstPanel);
         firstPanel.add(gameNamePanel);
         firstPanel.add(timeToChoosePanel);
-        firstPanel.add(chooseBetweenPanel);
-        firstPanel.add(category1Panel);
-        firstPanel.add(category2Panel);
-        firstPanel.add(bottomOfScreenPanel);
+//        FlowLayout layout = (FlowLayout) firstPanel.getLayout();
+//        layout.setVgap(0);
 
         gameNamePanel.setLayout(new GridLayout(1, 1));
         timeToChoosePanel.setLayout(new FlowLayout(FlowLayout.CENTER, 8, 32));
-        chooseBetweenPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 8, 22));
         category1Panel.setLayout(new FlowLayout(FlowLayout.CENTER, 8, 12));
         category2Panel.setLayout(new FlowLayout(FlowLayout.CENTER, 8, 12));
+        category3Panel.setLayout(new FlowLayout(FlowLayout.CENTER, 8, 12));
+        category4Panel.setLayout(new FlowLayout(FlowLayout.CENTER, 8, 12));
         bottomOfScreenPanel.setLayout(new FlowLayout());
 
         gameNamePanel.add(gameNameLabel);
 
-
         timeToChoosePanel.add(timeToChooseLabel);
-        chooseBetweenPanel.add(chooseCategoryLabel);
         category1Panel.add(category1Button);
         category2Panel.add(category2Button);
-
+        category3Panel.add(category3Button);
+        category4Panel.add(category4Button);
 
         setSize(400, 600);
         panel3.setBackground(Color.PINK);
@@ -117,26 +114,46 @@ public class CategoryGUI extends JPanel {
         timeToChoosePanel.setBackground(Color.PINK);
         playerInfoSpaceFillerLongPanel.setBackground((Color.PINK));
 
-        chooseBetweenPanel.setBackground(Color.WHITE);
-        chooseBetweenPanel.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
-        category1Panel.setBackground(Color.WHITE);
-        category1Panel.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
-        category2Panel.setBackground(Color.WHITE);
-        category2Panel.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
-        bottomOfScreenPanel.setBackground(Color.PINK);
+        category1Panel.setBackground(lighterGray);
+        category1Panel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        category2Panel.setBackground(lighterGray);
+        category2Panel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        category3Panel.setBackground(lighterGray);
+        category3Panel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        category4Panel.setBackground(lighterGray);
+        category4Panel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        bottomOfScreenPanel.setBackground(lighterGray);
         bottomOfScreenPanel.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
 
         category1Button.setPreferredSize(new Dimension(350, 60));
         category2Button.setPreferredSize(new Dimension(350, 60));
+        category3Button.setPreferredSize(new Dimension(350, 60));
+        category4Button.setPreferredSize(new Dimension(350, 60));
         category1Button.setBackground(Color.WHITE);
         category2Button.setBackground(Color.WHITE);
+        category3Button.setBackground(Color.WHITE);
+        category4Button.setBackground(Color.WHITE);
         category1Button.addActionListener(al);
         category2Button.addActionListener(al);
+        category3Button.addActionListener(al);
+        category4Button.addActionListener(al);
 
         currentlyPlayingPanel.setPreferredSize(new Dimension(120, 35));
 
         setVisible(true);
 
+    }
+
+    public void setupUI(GameRules gameRules) {
+        firstPanel.add(category1Panel);
+        firstPanel.add(category2Panel);
+        if (gameRules.getNumberOfCategories() >= 3) {
+            firstPanel.add(category3Panel);
+        }
+        if (gameRules.getNumberOfCategories() == 4) {
+            firstPanel.add(category4Panel);
+        }
+        //firstPanel.add(bottomOfScreenPanel);
     }
 
 }
