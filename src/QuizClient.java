@@ -49,7 +49,7 @@ public class QuizClient extends MouseAdapter implements Runnable, ActionListener
     public QuizClient() {
         gameBoardGUI = new GameBoardGUI(this);
         categoryGUI = new CategoryGUI(this);
-        currentResultGUI = new CurrentResultGUI();
+        currentResultGUI = new CurrentResultGUI(this);
         homeScreenGUI = new HomescreenGUI(this);
         welcomeGUI = new WelcomeGUI(this);
 
@@ -125,7 +125,7 @@ public class QuizClient extends MouseAdapter implements Runnable, ActionListener
                 }
 
                     if (fromServer instanceof Category) {
-                        card.show(cardPane, "Category Panel");
+                        currentResultGUI.round1Button.addActionListener(this);
                         switch (gameRules.getNumberOfCategories()) {
                             case 2:
                                 categoryGUI.category1Button.setText(((Category) fromServer).getCategory1());
@@ -161,6 +161,7 @@ public class QuizClient extends MouseAdapter implements Runnable, ActionListener
                         gameBoardGUI.timer.start();
 
                     } else if (fromServer instanceof Wait) {
+                        currentResultGUI.round1Button.removeActionListener(this);
                         card.show(cardPane, "Result Panel");
                     } else if (fromServer instanceof Result) {
                         List<Boolean> currentPlayer = ((Result) fromServer).getCurrentPlayerAnswers();
@@ -173,7 +174,6 @@ public class QuizClient extends MouseAdapter implements Runnable, ActionListener
                         gameBoardGUI.currentPointsPlayer2Label.setText(String.valueOf(otherPlayerResult));
                         currentResultGUI.currentPointsPlayer2Label.setText(String.valueOf(otherPlayerResult));
                         SwingUtilities.invokeLater(() -> currentResultGUI.showResult(currentPlayer, otherPlayer, round));
-
                         card.show(cardPane, "Result Panel");
                     } else if (fromServer instanceof EndGame) {
                         resetGame(((EndGame) fromServer).getEndGameState().message);
@@ -304,8 +304,7 @@ public class QuizClient extends MouseAdapter implements Runnable, ActionListener
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        }
-        else if (ae.getSource() == gameBoardGUI.timer){
+        } else if (ae.getSource() == gameBoardGUI.timer){
 
             gameBoardGUI.seconds--;
             gameBoardGUI.timerLabel.setText(gameBoardGUI.seconds + " sekunder kvar...");
@@ -325,11 +324,8 @@ public class QuizClient extends MouseAdapter implements Runnable, ActionListener
                     gameBoardGUI.alternative4.setBackground(babyBlue);
                 }
             }
-
-
-
-
-
+        } else if (ae.getSource() == currentResultGUI.round1Button) {
+            card.show(cardPane, "Category Panel");
         }
     }
 

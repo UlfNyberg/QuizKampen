@@ -4,6 +4,7 @@ import Util.GameRules;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,11 +43,11 @@ public class CurrentResultGUI extends JPanel {
 
     List<JPanel> spaceFillerList = new ArrayList<>();
 
-    JLabel round1Label = new JLabel("Runda 1");
-    JLabel round2Label = new JLabel("Runda 2");
-    JLabel round3Label = new JLabel("Runda 3");
-    JLabel round4Label = new JLabel("Runda 4");
-    JLabel round5Label = new JLabel("Runda 5");
+    public JButton round1Button = new JButton("Runda 1");
+    public JButton round2Label = new JButton("Runda 2");
+    public JButton round3Label = new JButton("Runda 3");
+    public JButton round4Label = new JButton("Runda 4");
+    public JButton round5Label = new JButton("Runda 5");
 
     Font font1 = new Font("SansSerif", Font.BOLD, 20);
     Font font2 = new Font("Monospace", Font.BOLD, 30);
@@ -68,7 +69,7 @@ public class CurrentResultGUI extends JPanel {
     Color correctAnswerColor = new Color(125, 255, 0);
     Color incorrectAnswerColor = new Color(255, 45, 33);
 
-    public CurrentResultGUI() {
+    public CurrentResultGUI(ActionListener al) {
         for (int i = 0; i < 16; i++) {
             spaceFillerList.add(new JPanel());
         }
@@ -78,7 +79,7 @@ public class CurrentResultGUI extends JPanel {
         questionMark1Label.setFont(font1);
         questionMark2Label.setFont(font1);
         questionMark3Label.setFont(font1);
-        round1Label.setFont(font3);
+        round1Button.setFont(font3);
         round2Label.setFont(font3);
         round3Label.setFont(font3);
         round4Label.setFont(font3);
@@ -177,7 +178,7 @@ public class CurrentResultGUI extends JPanel {
                 firstRoundLongPanel.add(panel);
             }
             firstRoundLongPanel.add(spaceFillerList.get(6));
-            firstRoundLongPanel.add(round1Label);
+            firstRoundLongPanel.add(round1Button);
             firstRoundLongPanel.add(spaceFillerList.get(7));
             firstRound = copyList(otherPlayerQuestions);
             for (JPanel panel : firstRound) {
