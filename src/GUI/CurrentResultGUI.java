@@ -119,8 +119,6 @@ public class CurrentResultGUI extends JPanel {
         playerScorePanel.add(currentPointsPlayer2Label);
         playerScorePanel.add(spaceFillerList.get(5));
 
-        //TODO: ändra storlek beroende på antal frågor och rundor
-        setSize(400, 600);
         panel3.setBackground(Color.PINK);
         panel4.setBackground(Color.PINK);
         spaceFillerList.get(0).setBackground(Color.PINK);

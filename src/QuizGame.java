@@ -54,21 +54,24 @@ public class QuizGame extends Thread {
                 round++;
             }
             if (playerOneScore > playerTwoScore) {
-                playerList.get(0).sendObject(new Winner(round - 1));
-                playerList.get(1).sendObject(new Loser(round - 1));
+                playerList.get(0).sendObject(new EndGame(EndGame.EndGameStates.winner));
+                playerList.get(1).sendObject(new EndGame(EndGame.EndGameStates.loser));
             } else if (playerOneScore < playerTwoScore) {
-                playerList.get(0).sendObject(new Loser(round - 1));
-                playerList.get(1).sendObject(new Winner(round - 1));
+                playerList.get(0).sendObject(new EndGame(EndGame.EndGameStates.loser));
+                playerList.get(1).sendObject(new EndGame(EndGame.EndGameStates.winner));
+            } else {
+                playerList.get(0).sendObject(new EndGame(EndGame.EndGameStates.draw));
+                playerList.get(1).sendObject(new EndGame(EndGame.EndGameStates.draw));
             }
         }catch (IOException | ClassNotFoundException e){
             System.out.println("Avslutar matchen");
             try {
-                playerList.get(0).sendObject(new Winner(0));
+                playerList.get(0).sendObject(new EndGame(EndGame.EndGameStates.disconnected));
             } catch (IOException ioException) {
                 System.out.println("Kunde inte skicka meddelande till spelare 1");
             }
             try {
-                playerList.get(1).sendObject(new Winner(0));
+                playerList.get(1).sendObject(new EndGame(EndGame.EndGameStates.disconnected));
             } catch (IOException ioException) {
                 System.out.println("Kunde inte skicka meddelande till spelare 2");
             }

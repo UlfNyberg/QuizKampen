@@ -175,14 +175,10 @@ public class QuizClient extends MouseAdapter implements Runnable, ActionListener
                         SwingUtilities.invokeLater(() -> currentResultGUI.showResult(currentPlayer, otherPlayer, round));
 
                         card.show(cardPane, "Result Panel");
-                    } else if (fromServer instanceof Winner) {
-                        resetGame("Du vann!");
-                        break;
-                    } else if (fromServer instanceof Loser) {
-                        resetGame("Du förlorade");
+                    } else if (fromServer instanceof EndGame) {
+                        resetGame(((EndGame) fromServer).getEndGameState().message);
                         break;
                     }
-
                 }
 
             } catch (UnknownHostException e) {
@@ -203,7 +199,7 @@ public class QuizClient extends MouseAdapter implements Runnable, ActionListener
     }
 
     public void resetGame(String message) {
-        JOptionPane.showMessageDialog(currentResultGUI, message);
+        JOptionPane.showMessageDialog(frame, message);
         gameStarted = false;
         SwingUtilities.invokeLater(() -> currentResultGUI.resetUI(gameRules.getNumberOfRounds()));
         height = 640;
