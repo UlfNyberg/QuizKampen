@@ -98,31 +98,31 @@ public class QuizClient extends MouseAdapter implements Runnable, ActionListener
 
                 while ((fromServer = in.readObject()) != null) {
 
-                if (fromServer instanceof Init) {
-                    String initName = ((Init) fromServer).getPlayerName();
-                    GameRules gameRules = ((Init) fromServer).getGameRules();
-                    if(initName == null){
-                        out.writeObject(new Init(homeScreenGUI.nameOfPlayerTextField.getText(),null));
-                        this.gameRules = gameRules;
-                        SwingUtilities.invokeLater(()-> currentResultGUI.setupUI(gameRules));
-                        SwingUtilities.invokeLater(()-> categoryGUI.setupUI(gameRules));
-                        if (gameRules.getNumberOfQuestions() == 4) {
-                            width = 470;
-                        } else if (gameRules.getNumberOfQuestions() == 5) {
-                            width = 560;
+                    if (fromServer instanceof Init) {
+                        String initName = ((Init) fromServer).getPlayerName();
+                        GameRules gameRules = ((Init) fromServer).getGameRules();
+                        if (initName == null) {
+                            out.writeObject(new Init(homeScreenGUI.nameOfPlayerTextField.getText(), null));
+                            this.gameRules = gameRules;
+                            SwingUtilities.invokeLater(() -> currentResultGUI.setupUI(gameRules));
+                            SwingUtilities.invokeLater(() -> categoryGUI.setupUI(gameRules));
+                            if (gameRules.getNumberOfQuestions() == 4) {
+                                width = 470;
+                            } else if (gameRules.getNumberOfQuestions() == 5) {
+                                width = 560;
+                            }
+                            if (gameRules.getNumberOfRounds() == 5) {
+                                height = 700;
+                            }
+                            frame.setSize(width, height);
+                        } else {
+                            String currentPlayerName = homeScreenGUI.nameOfPlayerTextField.getText();
+                            currentResultGUI.player1NameLabel.setText(currentPlayerName);
+                            currentResultGUI.player2NameLabel.setText(initName);
+                            gameBoardGUI.user1Label.setText(currentPlayerName);
+                            gameBoardGUI.user2Label.setText(initName);
                         }
-                        if (gameRules.getNumberOfRounds() == 5) {
-                            height = 700;
-                        }
-                        frame.setSize(width, height);
-                    }else{
-                        String currentPlayerName = homeScreenGUI.nameOfPlayerTextField.getText();
-                        currentResultGUI.player1NameLabel.setText(currentPlayerName);
-                        currentResultGUI.player2NameLabel.setText(initName);
-                        gameBoardGUI.user1Label.setText(currentPlayerName);
-                        gameBoardGUI.user2Label.setText(initName);
                     }
-                }
 
                     if (fromServer instanceof Category) {
                         card.show(cardPane, "Category Panel");
@@ -304,13 +304,12 @@ public class QuizClient extends MouseAdapter implements Runnable, ActionListener
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        }
-        else if (ae.getSource() == gameBoardGUI.timer){
+        } else if (ae.getSource() == gameBoardGUI.timer) {
 
             gameBoardGUI.seconds--;
             gameBoardGUI.timerLabel.setText(gameBoardGUI.seconds + " sekunder kvar...");
 
-            if (gameBoardGUI.seconds <= 0){
+            if (gameBoardGUI.seconds <= 0) {
                 disableButtonsOnClick();
                 timedReset();
                 timedSendAnswer(new Answer(""));
@@ -320,14 +319,10 @@ public class QuizClient extends MouseAdapter implements Runnable, ActionListener
                     gameBoardGUI.alternative2.setBackground(babyBlue);
                 } else if (answer3.isCorrect()) {
                     gameBoardGUI.alternative3.setBackground(babyBlue);
-                }
-                else if (answer4.isCorrect()) {
+                } else if (answer4.isCorrect()) {
                     gameBoardGUI.alternative4.setBackground(babyBlue);
                 }
             }
-
-
-
 
 
         }

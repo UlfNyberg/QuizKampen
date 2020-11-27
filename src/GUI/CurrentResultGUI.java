@@ -33,7 +33,7 @@ public class CurrentResultGUI extends JPanel {
     JPanel fourthRoundLongPanel = new JPanel();
     JPanel fifthRoundLongPanel = new JPanel();
     public JPanel[] roundLongPanelArray = {firstRoundLongPanel, secondRoundLongPanel, thirdRoundLongPanel,
-    fourthRoundLongPanel, fifthRoundLongPanel};
+            fourthRoundLongPanel, fifthRoundLongPanel};
 
     List<JPanel> currentPlayerQuestions = new ArrayList<>();
     List<JPanel> otherPlayerQuestions = new ArrayList<>();
