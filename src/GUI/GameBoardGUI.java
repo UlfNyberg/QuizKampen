@@ -58,15 +58,12 @@ public class GameBoardGUI extends JPanel {
 
     JLabel pointsForUserLabel1 = new JLabel("Poäng: ");
     JLabel pointsForUserLabel2 = new JLabel("Poäng: ");
-
     JLabel categoryHeaderLabel = new JLabel("Kategori:");
     public JLabel categoryLabel = new JLabel("TV-spel");
 
     public JTextPane questionTextArea = new JTextPane();
     StyledDocument doc = questionTextArea.getStyledDocument();
     SimpleAttributeSet center = new SimpleAttributeSet();
-
-    JLabel gameNameLabel = new JLabel("Quiz Game");
 
     public JLabel currentPointsPlayer1Label = new JLabel("0");
     public JLabel currentPointsPlayer2Label = new JLabel("0");
@@ -100,7 +97,6 @@ public class GameBoardGUI extends JPanel {
         pointsPanel.add(spacePanel2);
         pointsPanel.add(pointsForUserLabel2);
         pointsPanel.add(currentPointsPlayer2Label);
-        //pointsPanel.add(spacePanel3);
 
         alternative1.setOpaque(true);
         alternative2.setOpaque(true);
@@ -131,8 +127,7 @@ public class GameBoardGUI extends JPanel {
         answerAlternativesPanel.add(alternative4);
         southPanel.add(bottomButtonPanel, BorderLayout.SOUTH);
         bottomButtonPanel.setLayout(new FlowLayout());
-        continueButton.add(timerLabel);
-        bottomButtonPanel.add(continueButton);
+        bottomButtonPanel.add(timerLabel);
         continueButton.setPreferredSize(new Dimension(360, 40));
         alternative1.setPreferredSize(new Dimension(180, 100));
         alternative3.setPreferredSize(new Dimension(180, 100));
@@ -171,8 +166,6 @@ public class GameBoardGUI extends JPanel {
         continueButton.setBackground(Color.WHITE);
         questionPanel.setBorder(BorderFactory.createLineBorder(Color.black));
         questionTextArea.setEditable(false);
-        //questionTextArea.setLineWrap(true);
-        //questionTextArea.setWrapStyleWord(true);
         setVisible(true);
 
     }
