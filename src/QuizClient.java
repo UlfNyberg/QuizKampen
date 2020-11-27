@@ -43,6 +43,8 @@ public class QuizClient extends MouseAdapter implements Runnable, ActionListener
     Answer answer2;
     Answer answer3;
     Answer answer4;
+    int height = 600;
+    int width = 400;
 
     public QuizClient() {
         gameBoardGUI = new GameBoardGUI(this);
@@ -68,12 +70,6 @@ public class QuizClient extends MouseAdapter implements Runnable, ActionListener
         frame.add(cardPane);
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-        try {
-            UIManager.setLookAndFeel( UIManager.getCrossPlatformLookAndFeelClassName() );
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
 
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
             try {
@@ -109,7 +105,16 @@ public class QuizClient extends MouseAdapter implements Runnable, ActionListener
                         out.writeObject(new Init(homeScreenGUI.nameOfPlayerTextField.getText(),null));
                         this.gameRules = gameRules;
                         SwingUtilities.invokeLater(()-> currentResultGUI.setupUI(gameRules));
-
+                        SwingUtilities.invokeLater(()-> categoryGUI.setupUI(gameRules));
+                        if (gameRules.getNumberOfQuestions() == 4) {
+                            width = 470;
+                        } else if (gameRules.getNumberOfQuestions() == 5) {
+                            width = 560;
+                        }
+                        if (gameRules.getNumberOfRounds() == 5) {
+                            height = 700;
+                        }
+                        frame.setSize(width, height);
                     }else{
                         String currentPlayerName = homeScreenGUI.nameOfPlayerTextField.getText();
                         currentResultGUI.player1NameLabel.setText(currentPlayerName);
@@ -121,12 +126,27 @@ public class QuizClient extends MouseAdapter implements Runnable, ActionListener
 
                     if (fromServer instanceof Category) {
                         card.show(cardPane, "Category Panel");
-                        categoryGUI.category1Button.setText(((Category) fromServer).getCategory1());
-                        categoryGUI.category2Button.setText(((Category) fromServer).getCategory2());
+                        switch (gameRules.getNumberOfCategories()) {
+                            case 2:
+                                categoryGUI.category1Button.setText(((Category) fromServer).getCategory1());
+                                categoryGUI.category2Button.setText(((Category) fromServer).getCategory2());
+                                break;
+                            case 3:
+                                categoryGUI.category1Button.setText(((Category) fromServer).getCategory1());
+                                categoryGUI.category2Button.setText(((Category) fromServer).getCategory2());
+                                categoryGUI.category3Button.setText(((Category) fromServer).getCategory3());
+                                break;
+                            case 4:
+                                categoryGUI.category1Button.setText(((Category) fromServer).getCategory1());
+                                categoryGUI.category2Button.setText(((Category) fromServer).getCategory2());
+                                categoryGUI.category3Button.setText(((Category) fromServer).getCategory3());
+                                categoryGUI.category4Button.setText(((Category) fromServer).getCategory4());
+                                break;
+                        }
                     }
                     if (fromServer instanceof Question) {
                         card.show(cardPane, "Gameboard Panel");
-                        gameBoardGUI.questionTextArea.setText(((Question) fromServer).getQuestion());
+                        gameBoardGUI.questionTextArea.setText("\n\n\n " + ((Question) fromServer).getQuestion());
                         gameBoardGUI.alternative1.setText(((Question) fromServer).getAnswers().get(0).getText());
                         gameBoardGUI.alternative2.setText(((Question) fromServer).getAnswers().get(1).getText());
                         gameBoardGUI.alternative3.setText(((Question) fromServer).getAnswers().get(2).getText());
@@ -136,6 +156,9 @@ public class QuizClient extends MouseAdapter implements Runnable, ActionListener
                         answer2 = ((Question) fromServer).getAnswers().get(1);
                         answer3 = ((Question) fromServer).getAnswers().get(2);
                         answer4 = ((Question) fromServer).getAnswers().get(3);
+                        gameBoardGUI.seconds = gameRules.getQuestionTimer();
+                        gameBoardGUI.timerLabel.setText(gameBoardGUI.seconds + " sekunder kvar...");
+                        gameBoardGUI.timer.start();
 
                     } else if (fromServer instanceof Wait) {
                         card.show(cardPane, "Result Panel");
@@ -153,12 +176,10 @@ public class QuizClient extends MouseAdapter implements Runnable, ActionListener
 
                         card.show(cardPane, "Result Panel");
                     } else if (fromServer instanceof Winner) {
-                        int round = ((Winner) fromServer).getRound();
-                        resetGame(round, "Du vann!");
+                        resetGame("Du vann!");
                         break;
                     } else if (fromServer instanceof Loser) {
-                        int round = ((Loser) fromServer).getRound();
-                        resetGame(round, "Du förlorade");
+                        resetGame("Du förlorade");
                         break;
                     }
 
@@ -169,7 +190,7 @@ public class QuizClient extends MouseAdapter implements Runnable, ActionListener
                 System.exit(1);
             } catch (SocketException e) {
                 System.out.println("Socket Closed");
-                resetGame(0,"Tappade kontakten till servern");
+                resetGame("Tappade kontakten till servern");
                 gameStarted = false;
             } catch (IOException e) {
                 System.err.println("Couldn't get I/O for the connection to ");
@@ -181,10 +202,13 @@ public class QuizClient extends MouseAdapter implements Runnable, ActionListener
         }
     }
 
-    public void resetGame(int round, String message) {
+    public void resetGame(String message) {
         JOptionPane.showMessageDialog(currentResultGUI, message);
         gameStarted = false;
         SwingUtilities.invokeLater(() -> currentResultGUI.resetUI(gameRules.getNumberOfRounds()));
+        height = 640;
+        width = 400;
+        frame.setSize(width, height);
         currentResultGUI.currentPointsPlayer1Label.setText("0");
         currentResultGUI.currentPointsPlayer2Label.setText("0");
         gameBoardGUI.currentPointsPlayer1Label.setText("0");
@@ -276,13 +300,40 @@ public class QuizClient extends MouseAdapter implements Runnable, ActionListener
 
             timedReset();
             timedSendAnswer(answer4);
-        } else if (ae.getSource() == categoryGUI.category1Button || ae.getSource() == categoryGUI.category2Button) {
+        } else if (ae.getSource() == categoryGUI.category1Button || ae.getSource() == categoryGUI.category2Button
+                || ae.getSource() == categoryGUI.category3Button || ae.getSource() == categoryGUI.category4Button) {
             try {
                 System.out.println("skickar category svar");
                 out.writeObject(new Category(((JButton) ae.getSource()).getText()));
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        }
+        else if (ae.getSource() == gameBoardGUI.timer){
+
+            gameBoardGUI.seconds--;
+            gameBoardGUI.timerLabel.setText(gameBoardGUI.seconds + " sekunder kvar...");
+
+            if (gameBoardGUI.seconds <= 0){
+                disableButtonsOnClick();
+                timedReset();
+                timedSendAnswer(new Answer(""));
+                if (answer1.isCorrect()) {
+                    gameBoardGUI.alternative1.setBackground(babyBlue);
+                } else if (answer2.isCorrect()) {
+                    gameBoardGUI.alternative2.setBackground(babyBlue);
+                } else if (answer3.isCorrect()) {
+                    gameBoardGUI.alternative3.setBackground(babyBlue);
+                }
+                else if (answer4.isCorrect()) {
+                    gameBoardGUI.alternative4.setBackground(babyBlue);
+                }
+            }
+
+
+
+
+
         }
     }
 
@@ -325,6 +376,7 @@ public class QuizClient extends MouseAdapter implements Runnable, ActionListener
         t.setInitialDelay(1000);
         t.setRepeats(false);
         t.restart();
+        gameBoardGUI.timer.stop();
     }
 
     public static void main(String[] args) {

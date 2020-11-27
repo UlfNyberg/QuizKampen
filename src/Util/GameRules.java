@@ -17,6 +17,7 @@ public class GameRules implements Serializable {
     protected final int numberOfQuestions;
     protected final int numberOfRounds;
     protected final int numberOfCategories;
+    protected final int questionTimer;
 
     public GameRules() {
         try {
@@ -24,9 +25,18 @@ public class GameRules implements Serializable {
         } catch (IOException e) {
             System.out.println("Filen kunde inte hittas");
         }
+
         numberOfQuestions = Math.min(Integer.parseInt(properties.getProperty("numberOfQuestions", "2")), 5);
         numberOfRounds = Math.min(Integer.parseInt(properties.getProperty("numberOfRounds", "3")),5);
-        numberOfCategories = Math.min(Integer.parseInt(properties.getProperty("numberOfCategories", "2")), 4);
+        questionTimer = Math.max(Integer.parseInt(properties.getProperty("questionTimer", "10")), 5);
+        int categories = Integer.parseInt(properties.getProperty("numberOfCategories", "2"));
+        if (categories >= 2 && categories <= 4) {
+            numberOfCategories = categories;
+        } else if (categories < 2) {
+            numberOfCategories = 2;
+        } else {
+            numberOfCategories = 4;
+        }
     }
 
     public int getNumberOfQuestions() {
@@ -40,4 +50,11 @@ public class GameRules implements Serializable {
     public int getNumberOfCategories() {
         return numberOfCategories;
     }
+
+    public int getQuestionTimer() {
+        return questionTimer;
+    }
+
+
+
 }

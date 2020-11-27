@@ -1,8 +1,13 @@
 package GUI;
 
 import javax.swing.*;
+import javax.swing.text.SimpleAttributeSet;
+import javax.swing.text.StyleConstants;
+import javax.swing.text.StyledDocument;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by: Ulf Nyberg
@@ -30,32 +35,35 @@ public class GameBoardGUI extends JPanel {
 
     Font font1 = new Font("SansSerif", Font.BOLD, 20);
     Font font2 = new Font("Monospace", Font.BOLD, 30);
-    Font font3 = new Font("SansSerif", Font.BOLD, 14);
+    public Font font3 = new Font("SansSerif", Font.BOLD, 14);
+
+    public int seconds = 1000;
+    public Timer timer;
 
 
     public JButton alternative1 = new JButton("Alternativ 1");
     public JButton alternative2 = new JButton("Alternativ 2");
     public JButton alternative3 = new JButton("Alternativ 3");
     public JButton alternative4 = new JButton("Alternativ 4");
-    public JButton continueButton = new JButton("Fortsätt");
+    public JButton continueButton = new JButton("");
 
     JLabel quizGameLabel = new JLabel("QUIZ GAME", SwingConstants.CENTER);
 
+    public JLabel timerLabel = new JLabel();
+
     public JLabel user1Label = new JLabel("Användare1");
     public JLabel user2Label = new JLabel("Användare2");
-    JLabel spaceLabel = new JLabel("- - - - - -");
+    JLabel spaceLabel = new JLabel("vs.");
+    JLabel betweenLabel = new JLabel("-");
 
     JLabel pointsForUserLabel1 = new JLabel("Poäng: ");
     JLabel pointsForUserLabel2 = new JLabel("Poäng: ");
-
     JLabel categoryHeaderLabel = new JLabel("Kategori:");
     public JLabel categoryLabel = new JLabel("TV-spel");
 
-    JLabel questionStaticLabel = new JLabel("Fråga:");
-    JLabel questionTestLabel = new JLabel("Vilken relation har Mario och Luigi...egentligen?");
-    public JTextArea questionTextArea = new JTextArea(4, 5);
-
-    JLabel gameNameLabel = new JLabel("Quiz Game");
+    public JTextPane questionTextArea = new JTextPane();
+    StyledDocument doc = questionTextArea.getStyledDocument();
+    SimpleAttributeSet center = new SimpleAttributeSet();
 
     public JLabel currentPointsPlayer1Label = new JLabel("0");
     public JLabel currentPointsPlayer2Label = new JLabel("0");
@@ -66,10 +74,11 @@ public class GameBoardGUI extends JPanel {
         user1Label.setFont(font1);
         user2Label.setFont(font1);
         quizGameLabel.setFont(font2);
-        questionTestLabel.setFont(font3);
         pointsForUserLabel1.setFont(font3);
         pointsForUserLabel2.setFont(font3);
-        questionStaticLabel.setFont(font1);
+        questionTextArea.setFont(font1);
+        StyleConstants.setAlignment(center, StyleConstants.ALIGN_CENTER);
+        doc.setParagraphAttributes(0,doc.getLength(), center, false);
         backgroundPanel.setLayout(new BorderLayout());
         this.add(backgroundPanel);
         backgroundPanel.add(northPanel, BorderLayout.NORTH, SwingConstants.CENTER);
@@ -81,14 +90,22 @@ public class GameBoardGUI extends JPanel {
         usernamePanel.add(user1Label); //SwingConstants.LEFT
         usernamePanel.add(spaceLabel);
         usernamePanel.add(user2Label);  //SwingConstants.RIGHT
-        pointsPanel.setLayout(new GridLayout(1, 7));
-        pointsPanel.add(spacePanel);
         pointsPanel.add((pointsForUserLabel1));
         pointsPanel.add(currentPointsPlayer1Label);
+        pointsPanel.add(spacePanel);
+        pointsPanel.add(betweenLabel);
         pointsPanel.add(spacePanel2);
         pointsPanel.add(pointsForUserLabel2);
         pointsPanel.add(currentPointsPlayer2Label);
-        pointsPanel.add(spacePanel3);
+
+        alternative1.setOpaque(true);
+        alternative2.setOpaque(true);
+        alternative3.setOpaque(true);
+        alternative4.setOpaque(true);
+
+        timer = new Timer(1000, al);
+        timerLabel.setFont(font3);
+        timerLabel.setHorizontalAlignment(SwingConstants.CENTER);
 
         backgroundPanel.add(centerPanel, BorderLayout.CENTER);
 
@@ -97,8 +114,7 @@ public class GameBoardGUI extends JPanel {
         categoryPanel.add(categoryHeaderLabel);
         categoryPanel.add(categoryLabel);
         centerPanel.add(questionPanel, BorderLayout.CENTER, SwingConstants.CENTER);
-        questionPanel.setLayout(new GridLayout(2, 1));
-        questionPanel.add(questionStaticLabel, BorderLayout.NORTH);
+        questionPanel.setLayout(new BorderLayout());
         questionPanel.add(questionTextArea, BorderLayout.CENTER);
 
         backgroundPanel.add(southPanel, BorderLayout.SOUTH);
@@ -111,8 +127,7 @@ public class GameBoardGUI extends JPanel {
         answerAlternativesPanel.add(alternative4);
         southPanel.add(bottomButtonPanel, BorderLayout.SOUTH);
         bottomButtonPanel.setLayout(new FlowLayout());
-
-        bottomButtonPanel.add(continueButton);
+        bottomButtonPanel.add(timerLabel);
         continueButton.setPreferredSize(new Dimension(360, 40));
         alternative1.setPreferredSize(new Dimension(180, 100));
         alternative3.setPreferredSize(new Dimension(180, 100));
@@ -123,7 +138,7 @@ public class GameBoardGUI extends JPanel {
         alternative2.addActionListener(al);
         alternative3.addActionListener(al);
         alternative4.addActionListener(al);
-        questionPanel.setPreferredSize(new Dimension(320, 100)); ////
+        questionPanel.setPreferredSize(new Dimension(320, 100));
         categoryPanel.setSize(1000, 1000);
 
         this.setSize(400, 600);
@@ -151,9 +166,8 @@ public class GameBoardGUI extends JPanel {
         continueButton.setBackground(Color.WHITE);
         questionPanel.setBorder(BorderFactory.createLineBorder(Color.black));
         questionTextArea.setEditable(false);
-        questionTextArea.setLineWrap(true);
-        questionTextArea.setWrapStyleWord(true);
         setVisible(true);
+
     }
 }
 
