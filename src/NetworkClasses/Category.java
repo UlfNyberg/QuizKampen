@@ -14,12 +14,11 @@ public class Category implements Serializable {
         this.selectedCategory = selectedCategory;
     }
 
-    public Category(String category1, String category2, String category3, String category4, int round) {
+    public Category(String category1, String category2, String category3, String category4) {
         this.category1 = category1;
         this.category2 = category2;
         this.category3 = category3;
         this.category4 = category4;
-        this.round = round;
     }
 
     public String getCategory1() {
