@@ -13,15 +13,11 @@ import java.awt.event.*;
  */
 public class WelcomeGUI extends JPanel{
 
-
     public JPanel panel = new JPanel();
     public JPanel panel2 = new JPanel();
 
     ImageIcon welcomeImage = new ImageIcon(new ImageIcon ("src/GUI/Images/welcomePicture.jpg").getImage().getScaledInstance(407,600, Image.SCALE_DEFAULT));
     ImageIcon welcome2Image = new ImageIcon(new ImageIcon ("src/GUI/Images/welcome2Picture.jpg").getImage().getScaledInstance(407,600, Image.SCALE_DEFAULT));
-
-
-    JButton imageButton1 = new JButton(welcomeImage);
 
     JLabel image = new JLabel(welcomeImage);
     public JLabel image2 = new JLabel(welcome2Image);
@@ -35,19 +31,5 @@ public class WelcomeGUI extends JPanel{
         this.addMouseListener(ma);
         setSize(400, 620);
         setVisible(true);
-
-        /*this.addMouseListener(new MouseAdapter() {
-            public void mouseEntered(MouseEvent evt) {
-                add(panel2);
-                panel.setVisible(false);
-            }
-
-            public void mouseExited(MouseEvent evt) {
-                panel.setVisible(true);
-            }
-        });*/
     }
-
-
-
 }

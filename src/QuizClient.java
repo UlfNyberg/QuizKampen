@@ -381,9 +381,7 @@ public class QuizClient extends MouseAdapter implements Runnable, ActionListener
     }
 
     private void timedSendAnswer(Answer answer) {
-        Timer answerTimer = new Timer(1000, e -> {
-            sendObject(answer);
-        });
+        Timer answerTimer = new Timer(1000, e -> sendObject(answer));
         answerTimer.setInitialDelay(1000);
         answerTimer.setRepeats(false);
         answerTimer.restart();

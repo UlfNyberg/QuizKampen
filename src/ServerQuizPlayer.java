@@ -11,10 +11,7 @@ import java.net.Socket;
 public class ServerQuizPlayer extends Thread {
 
     private Socket socket;
-    private PrintWriter out;
-    private BufferedReader in;
     private QuizGame quizGame;
-    private ServerQuizPlayer opponent;
     private Object inputObject;
     private ObjectOutputStream objectOutputStream;
     private ObjectInputStream objectInputStream;
@@ -50,10 +47,6 @@ public class ServerQuizPlayer extends Thread {
         inputObject = objectInputStream.readObject();
         return inputObject;
 
-    }
-
-    public void addOpponent(ServerQuizPlayer opponent) {
-        this.opponent = opponent;
     }
 
     public void setUserName(String userName) {

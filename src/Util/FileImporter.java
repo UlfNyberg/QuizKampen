@@ -64,22 +64,4 @@ public class FileImporter {
         }
         return categories;
     }
-
-    //For testing
-    //Prints the entire map, including the values inside of the lists
-    public void printMap() {
-        for (Map.Entry<String, List<Question>> entry : categories.entrySet()) {
-            System.out.println("Kategori: " + entry.getKey() + ". Frågor: ");
-            for (Question question : entry.getValue()) {
-                System.out.println(question + " Svar: ");
-                for (Answer answer : question.getAnswers()) {
-                    if (answer.isCorrect()) {
-                        System.out.println(answer + "(Rätt)");
-                    } else {
-                        System.out.println(answer);
-                    }
-                }
-            }
-        }
-    }
 }

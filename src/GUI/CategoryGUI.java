@@ -4,7 +4,6 @@ import Util.GameRules;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /**
@@ -79,8 +78,6 @@ public class CategoryGUI extends JPanel {
         this.add(firstPanel);
         firstPanel.add(gameNamePanel);
         firstPanel.add(timeToChoosePanel);
-//        FlowLayout layout = (FlowLayout) firstPanel.getLayout();
-//        layout.setVgap(0);
 
         gameNamePanel.setLayout(new GridLayout(1, 1));
         timeToChoosePanel.setLayout(new FlowLayout(FlowLayout.CENTER, 8, 32));
@@ -153,7 +150,6 @@ public class CategoryGUI extends JPanel {
         if (gameRules.getNumberOfCategories() == 4) {
             firstPanel.add(category4Panel);
         }
-        //firstPanel.add(bottomOfScreenPanel);
     }
 
 }

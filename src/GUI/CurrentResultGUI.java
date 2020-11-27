@@ -54,7 +54,6 @@ public class CurrentResultGUI extends JPanel {
     Font font3 = new Font("SansSerif", Font.BOLD, 15);
 
     JLabel gameNameLabel = new JLabel("QUIZ GAME", SwingConstants.CENTER);
-    JLabel currentlyPlayingLabel = new JLabel("SPELAR");
     public JLabel player1NameLabel = new JLabel("Spelare1");
     public JLabel player2NameLabel = new JLabel("Spelare2");
     public JLabel currentPointsPlayer1Label = new JLabel("0");
@@ -341,15 +340,6 @@ public class CurrentResultGUI extends JPanel {
                     }
                 }
                 break;
-        }
-    }
-
-    public void resetResult(int round) {
-        for (int i = 0; i < round; i++) {
-            for (int j = 0; j < gameRules.getNumberOfQuestions(); j++) {
-                roundLongPanelArray[i].getComponent(j).setBackground(lighterGray);
-                roundLongPanelArray[i].getComponent(gameRules.getNumberOfQuestions() + j + 3).setBackground(lighterGray);
-            }
         }
     }
 

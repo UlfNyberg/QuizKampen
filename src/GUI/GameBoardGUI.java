@@ -5,9 +5,7 @@ import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.concurrent.TimeUnit;
 
 /**
  * Created by: Ulf Nyberg
@@ -87,9 +85,9 @@ public class GameBoardGUI extends JPanel {
         northPanel.add(usernamePanel, BorderLayout.CENTER, SwingConstants.CENTER);
         northPanel.add(pointsPanel, BorderLayout.SOUTH, SwingConstants.CENTER);
         titlePanel.add(quizGameLabel);
-        usernamePanel.add(user1Label); //SwingConstants.LEFT
+        usernamePanel.add(user1Label);
         usernamePanel.add(spaceLabel);
-        usernamePanel.add(user2Label);  //SwingConstants.RIGHT
+        usernamePanel.add(user2Label);
         pointsPanel.add((pointsForUserLabel1));
         pointsPanel.add(currentPointsPlayer1Label);
         pointsPanel.add(spacePanel);
@@ -110,7 +108,7 @@ public class GameBoardGUI extends JPanel {
         backgroundPanel.add(centerPanel, BorderLayout.CENTER);
 
         centerPanel.setLayout(new BorderLayout());
-        centerPanel.add(categoryPanel, BorderLayout.NORTH, SwingConstants.CENTER);   //
+        centerPanel.add(categoryPanel, BorderLayout.NORTH, SwingConstants.CENTER);
         categoryPanel.add(categoryHeaderLabel);
         categoryPanel.add(categoryLabel);
         centerPanel.add(questionPanel, BorderLayout.CENTER, SwingConstants.CENTER);
