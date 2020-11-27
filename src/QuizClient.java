@@ -49,7 +49,7 @@ public class QuizClient extends MouseAdapter implements Runnable, ActionListener
     public QuizClient() {
         gameBoardGUI = new GameBoardGUI(this);
         categoryGUI = new CategoryGUI(this);
-        currentResultGUI = new CurrentResultGUI();
+        currentResultGUI = new CurrentResultGUI(this);
         homeScreenGUI = new HomescreenGUI(this);
         welcomeGUI = new WelcomeGUI(this);
 
@@ -122,9 +122,7 @@ public class QuizClient extends MouseAdapter implements Runnable, ActionListener
                             gameBoardGUI.user1Label.setText(currentPlayerName);
                             gameBoardGUI.user2Label.setText(initName);
                         }
-                    }
-
-                    if (fromServer instanceof Category) {
+                    } else if (fromServer instanceof Category) {
                         card.show(cardPane, "Category Panel");
                         switch (gameRules.getNumberOfCategories()) {
                             case 2:
@@ -143,8 +141,7 @@ public class QuizClient extends MouseAdapter implements Runnable, ActionListener
                                 categoryGUI.category4Button.setText(((Category) fromServer).getCategory4());
                                 break;
                         }
-                    }
-                    if (fromServer instanceof Question) {
+                    } else if (fromServer instanceof Question) {
                         card.show(cardPane, "Gameboard Panel");
                         gameBoardGUI.questionTextArea.setText("\n\n\n " + ((Question) fromServer).getQuestion());
                         gameBoardGUI.alternative1.setText(((Question) fromServer).getAnswers().get(0).getText());
@@ -178,6 +175,26 @@ public class QuizClient extends MouseAdapter implements Runnable, ActionListener
                     } else if (fromServer instanceof EndGame) {
                         resetGame(((EndGame) fromServer).getEndGameState().message);
                         break;
+                    } else if (fromServer instanceof RoundReady) {
+                        int round = ((RoundReady) fromServer).getRound();
+                        card.show(cardPane, "Result Panel");
+                        switch (round) {
+                            case 1:
+                                currentResultGUI.round1Button.setEnabled(true);
+                                break;
+                            case 2:
+                                currentResultGUI.round2Button.setEnabled(true);
+                                break;
+                            case 3:
+                                currentResultGUI.round3Button.setEnabled(true);
+                                break;
+                            case 4:
+                                currentResultGUI.round4Button.setEnabled(true);
+                                break;
+                            case 5:
+                                currentResultGUI.round5Button.setEnabled(true);
+                                break;
+                        }
                     }
                 }
 
@@ -218,6 +235,7 @@ public class QuizClient extends MouseAdapter implements Runnable, ActionListener
         Color babyBlue = new Color(137, 207, 240);
         Color correctAnswerColor = new Color(125, 255, 0);
         Color incorrectAnswerColor = new Color(255, 45, 33);
+
         if (ae.getSource() == homeScreenGUI.initiateNewGameButton) {
             socket = null;
             try {
@@ -323,8 +341,30 @@ public class QuizClient extends MouseAdapter implements Runnable, ActionListener
                     gameBoardGUI.alternative4.setBackground(babyBlue);
                 }
             }
+        } else if (ae.getSource() == currentResultGUI.round1Button) {
+            currentResultGUI.round1Button.setEnabled(false);
+            sendObject(new RoundReady(0));
+        } else if (ae.getSource() == currentResultGUI.round2Button) {
+            currentResultGUI.round2Button.setEnabled(false);
+            sendObject(new RoundReady(0));
+        } else if (ae.getSource() == currentResultGUI.round3Button) {
+            currentResultGUI.round3Button.setEnabled(false);
+            sendObject(new RoundReady(0));
+        } else if (ae.getSource() == currentResultGUI.round4Button) {
+            currentResultGUI.round4Button.setEnabled(false);
+            sendObject(new RoundReady(0));
+        } else if (ae.getSource() == currentResultGUI.round5Button) {
+            currentResultGUI.round5Button.setEnabled(false);
+            sendObject(new RoundReady(0));
+        }
 
+    }
 
+    private void sendObject(Object object) {
+        try {
+            out.writeObject(object);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
@@ -342,11 +382,7 @@ public class QuizClient extends MouseAdapter implements Runnable, ActionListener
 
     private void timedSendAnswer(Answer answer) {
         Timer answerTimer = new Timer(1000, e -> {
-            try {
-                out.writeObject(answer);
-            } catch (IOException ioException) {
-                ioException.printStackTrace();
-            }
+            sendObject(answer);
         });
         answerTimer.setInitialDelay(1000);
         answerTimer.setRepeats(false);

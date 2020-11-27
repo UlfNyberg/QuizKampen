@@ -100,6 +100,7 @@ public class QuizGame extends Thread {
         playerList.get(0).sendObject(fromPlayerTwo);
         playerList.get(1).sendObject(fromPlayerOne);
 
+        playerList.get(1).sendObject(new Wait());
 
     }
 
