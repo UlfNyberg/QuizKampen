@@ -128,6 +128,9 @@ public class QuizClient extends MouseAdapter implements Runnable, ActionListener
                         answer2 = ((Question) fromServer).getAnswers().get(1);
                         answer3 = ((Question) fromServer).getAnswers().get(2);
                         answer4 = ((Question) fromServer).getAnswers().get(3);
+                        gameBoardGUI.seconds = 5;
+                        gameBoardGUI.timerLabel.setText(gameBoardGUI.seconds + " sekunder kvar...");
+                        gameBoardGUI.timer.start();
 
                     } else if (fromServer instanceof Wait) {
                         card.show(cardPane, "Result Panel");
@@ -275,6 +278,33 @@ public class QuizClient extends MouseAdapter implements Runnable, ActionListener
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        }
+        else if (ae.getSource() == gameBoardGUI.timer){
+
+            gameBoardGUI.seconds--;
+            gameBoardGUI.timerLabel.setText(gameBoardGUI.seconds + " sekunder kvar...");
+
+            if (gameBoardGUI.seconds <= 0){
+                gameBoardGUI.timer.stop();
+                disableButtonsOnClick();
+                timedReset();
+                timedSendAnswer(new Answer(""));
+                if (answer1.isCorrect()) {
+                    gameBoardGUI.alternative1.setBackground(babyBlue);
+                } else if (answer2.isCorrect()) {
+                    gameBoardGUI.alternative2.setBackground(babyBlue);
+                } else if (answer3.isCorrect()) {
+                    gameBoardGUI.alternative3.setBackground(babyBlue);
+                }
+                else if (answer4.isCorrect()) {
+                    gameBoardGUI.alternative4.setBackground(babyBlue);
+                }
+            }
+
+
+
+
+
         }
     }
 

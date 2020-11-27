@@ -2,7 +2,9 @@ package GUI;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by: Ulf Nyberg
@@ -30,16 +32,21 @@ public class GameBoardGUI extends JPanel {
 
     Font font1 = new Font("SansSerif", Font.BOLD, 20);
     Font font2 = new Font("Monospace", Font.BOLD, 30);
-    Font font3 = new Font("SansSerif", Font.BOLD, 14);
+    public Font font3 = new Font("SansSerif", Font.BOLD, 14);
+
+    public int seconds = 1000;
+    public Timer timer;
 
 
     public JButton alternative1 = new JButton("Alternativ 1");
     public JButton alternative2 = new JButton("Alternativ 2");
     public JButton alternative3 = new JButton("Alternativ 3");
     public JButton alternative4 = new JButton("Alternativ 4");
-    public JButton continueButton = new JButton("Fortsätt");
+    public JButton continueButton = new JButton("");
 
     JLabel quizGameLabel = new JLabel("QUIZ GAME", SwingConstants.CENTER);
+
+    public JLabel timerLabel = new JLabel();
 
     public JLabel user1Label = new JLabel("Användare1");
     public JLabel user2Label = new JLabel("Användare2");
@@ -96,6 +103,10 @@ public class GameBoardGUI extends JPanel {
         alternative3.setOpaque(true);
         alternative4.setOpaque(true);
 
+        timer = new Timer(1000, al);
+        timerLabel.setFont(font3);
+        timerLabel.setHorizontalAlignment(SwingConstants.CENTER);
+
         backgroundPanel.add(centerPanel, BorderLayout.CENTER);
 
         centerPanel.setLayout(new BorderLayout());
@@ -117,7 +128,7 @@ public class GameBoardGUI extends JPanel {
         answerAlternativesPanel.add(alternative4);
         southPanel.add(bottomButtonPanel, BorderLayout.SOUTH);
         bottomButtonPanel.setLayout(new FlowLayout());
-
+        continueButton.add(timerLabel);
         bottomButtonPanel.add(continueButton);
         continueButton.setPreferredSize(new Dimension(360, 40));
         alternative1.setPreferredSize(new Dimension(180, 100));
