@@ -35,14 +35,14 @@ Q På 1200-talet utvecklades många redskap som förenklade jordbruket. Vilket a
 A Traktor, Slåttermaskin, Plog, Skördetröska
 S Plog
 Q Vilket är världens största djur?
-A Blåval, Elefant, Gråval, vithaj
+A Blåval, Elefant, Gråval, Vithaj
 S Blåval
 Q Vilken av följande raser kan inte skälla?
 A Pinscher, Basenji, Siberian husky, Amstaff
 S Basenji
 K Vetenskap
 Q 2019 godkändes ett nytt antidepressivt läkemedel. Vad har det använts vid tidigare?
-A Narkos, Kejsarsnitt, Benbrott, förmaksflimmer
+A Narkos, Kejsarsnitt, Benbrott, Förmaksflimmer
 S Narkos
 Q Det periodiska systemet fyllde 150 år. Vem skapade det?
 A Albert Einstein, Sigmund Freud, Dmitrij Mendelejev, James Clerk Maxwell
