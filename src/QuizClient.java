@@ -315,7 +315,6 @@ public class QuizClient extends MouseAdapter implements Runnable, ActionListener
             gameBoardGUI.timerLabel.setText(gameBoardGUI.seconds + " sekunder kvar...");
 
             if (gameBoardGUI.seconds <= 0){
-                gameBoardGUI.timer.stop();
                 disableButtonsOnClick();
                 timedReset();
                 timedSendAnswer(new Answer(""));
@@ -377,6 +376,7 @@ public class QuizClient extends MouseAdapter implements Runnable, ActionListener
         t.setInitialDelay(1000);
         t.setRepeats(false);
         t.restart();
+        gameBoardGUI.timer.stop();
     }
 
     public static void main(String[] args) {
