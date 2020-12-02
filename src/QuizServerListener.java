@@ -20,6 +20,13 @@ public class QuizServerListener {
         Scanner scanner = new Scanner(System.in);
         ServerSocket serverSocket = new ServerSocket(scanner.nextInt());
         System.out.println("Server startad");
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+            try {
+                serverSocket.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }));
         while (true) {
             QuizGame quizGame = new QuizGame(gameRules);
 
